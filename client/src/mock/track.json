@@ -1,0 +1,11 @@
+{
+    "tracks": [
+      {
+        "id": "abc123",
+        "title": "Mock Song",
+        "artist": "Mock Artist",
+        "album_cover_url": "https://via.placeholder.com/150"
+      }
+    ]
+  }
+  

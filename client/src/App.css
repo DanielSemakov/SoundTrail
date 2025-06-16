@@ -1,0 +1,46 @@
+/* Import a clean, modern font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+/* Brand palette & spacing */
+:root {
+  --bg-page: #fafafa;
+  --nav-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-primary: #212121;
+  --text-secondary: #666666;
+  --accent: #009688;
+  --accent-dark: #00796b;
+  --rail-start: #009688;
+  --rail-end: #4db6ac;
+  --radius: 12px;
+  --gap: 1rem;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--nav-bg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.brand {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+main {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
