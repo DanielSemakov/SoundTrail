@@ -31,10 +31,10 @@ export default function ShowPlaylist(){
 function TrackEmbed(track){
     return (
         <iframe 
-            // style="border-radius":"12px" 
+            style={{"border-radius":"12px"}} 
             src= {GenerateEmbedURL(track)}
-            width="100%"
-            height="352" 
+            width="25%"
+            height="152" 
             // frameBorder="0" 
             // allowfullscreen="" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
@@ -51,7 +51,32 @@ function Playlist({tracks}){
     }
 
     console.log("playlist loaded");
-    return <div>{playlist}</div>;
+    return <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>{playlist}</div>;
+}
+
+function GenerateEmbedURL(track){
+    const link = track.href;
+
+    // if index for embed hasn't already been calculated
+    if (embedIndex === 0){
+        let dash = 0;
+
+        for (let x = 0; x < link.length; x++){
+            if (link[x] === "/"){
+                dash++;
+            }
+
+            if (dash === 3){
+                embedIndex = x+1;
+                break;
+            }
+        }
+    }
+
+    //sample link: https://open.spotify.com/embed/track/6wbt5QD31GiRa28x5vPJty?utm_source=generator
+    const embedLink = link.slice(0, embedIndex) + 'embed/' + link.slice(embedIndex) + '?utm_source=generator'; 
+
+    return embedLink;
 }
 
 // TODO: Add the below functions to backend later on
@@ -87,31 +112,6 @@ function SeedsToString(seeds){
     }   
 
     return output;
-}
-
-function GenerateEmbedURL(track){
-    const link = track.href;
-
-    // if index for embed hasn't already been calculated
-    if (embedIndex === 0){
-        let dash = 0;
-
-        for (let x = 0; x < link.length; x++){
-            if (link[x] === "/"){
-                dash++;
-            }
-
-            if (dash === 3){
-                embedIndex = x+1;
-                break;
-            }
-        }
-    }
-
-    //sample link: https://open.spotify.com/embed/track/6wbt5QD31GiRa28x5vPJty?utm_source=generator
-    const embedLink = link.slice(0, embedIndex) + 'embed/' + link.slice(embedIndex) + '?utm_source=generator'; 
-
-    return embedLink;
 }
 
 
