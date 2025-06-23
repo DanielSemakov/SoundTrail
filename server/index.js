@@ -12,6 +12,8 @@ app.get('/api/song', (req, res) => {
   res.json({ title: 'Sample Song', artist: 'Artist Name' });
 });
 
+// API Route for getting al recomendations
+
 // For any other request, serve React's index.html (enables client-side routing)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
