@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+//backend function variables
 const apiURL = "https://api.reccobeats.com/v1"
+const audioFeatures = ["energy", "valence", "test-shouldbeundefined"];
+
+// index for embedding link. made global so that a loop only runs once
 let embedIndex = 0;
+
 
 export default function ShowPlaylist(){
     const [loading, setLoading] = useState(true);
@@ -81,14 +86,15 @@ function GenerateEmbedURL(track){
 
 // TODO: Add the below functions to backend later on
 // FUTURE BACKEND FUNCTIONS
-async function FetchRecommendations(seeds = ['d58affe1-3e80-4318-b33f-9f85bbecf693'], size = 5, energy = "", valence = ""){
+async function FetchRecommendations(seeds = ['d58affe1-3e80-4318-b33f-9f85bbecf693'], size = 5, features = {energy:"", valence:""}){
     //test url: https://api.reccobeats.com/v1/track/recommendation?size=3&seeds=83dc71c7-b9da-466b-a198-bb3c29ee8f00
     const seedsString = SeedsToString(seeds);
 
     let recsURL = `/track/recommendation?size=${size}&seeds=${seedsString}`;
-
+    let featuresString = FeaturesToString(features);
+    
     try{
-        const response = await fetch(apiURL+recsURL);
+        const response = await fetch(apiURL+recsURL+featuresString);
 
         if (!response.ok){
             throw new Error("Error: could not fetch recommendations");
@@ -112,6 +118,22 @@ function SeedsToString(seeds){
     }   
 
     return output;
+}
+
+function FeaturesToString(obj){;
+    let featuresString = "";
+
+    for (x in audioFeatures){
+        const feature = audioFeatures[x]
+        const value = obj[feature];
+
+        // if value exists
+        if (value){
+            string+= `&${feature}=${value}`;
+        }
+    }
+
+    return featuresString;
 }
 
 
