@@ -1,3 +1,5 @@
+import FetchRecommendation from './controllers'
+
 const express = require('express');
 const path = require('path');
 
@@ -13,6 +15,14 @@ app.get('/api/song', (req, res) => {
 });
 
 // API Route for getting al recomendations
+app.get ('/playlist:/{seeds}.{:/size}.{:/energy}.:{/valence}"', async (req,res) => {
+  const seeds = req.params.seeds;
+  const size = req.params.size;
+  const energy = req.params.energy;
+  const valence = req.params.valence;
+  console.log (await FetchRecommendation(seeds, size, energy, valence));
+
+});
 
 // For any other request, serve React's index.html (enables client-side routing)
 app.get('*', (req, res) => {
