@@ -1,6 +1,6 @@
-import "./MoodEnergyChart.module.css";
+import "./MoodEnergyChart.module.css"
 import React, { useRef, useState } from "react";
-import MoodEnergyChartWrapper from "./MoodEnergyChartWrapper";
+import MoodEnergyChartWrapper from './MoodEnergyChartWrapper';
 
 import {
   ScatterChart,
