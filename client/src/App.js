@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import MoodGrid from './components/MoodGrid';
+
 import GenreSelector from './components/GenreSelector';
 import TrackDisplay from './components/TrackDisplay';
 import './App.css';
@@ -41,7 +41,7 @@ function App() {
           <GenreSelector selectedGenre={genre} onGenreChange={setGenre} />
           <button onClick={fetchRecommendation}>🎵 Get Song</button>
         </div>
-        <MoodGrid onMoodChange={setMood} />
+       
         {track && <TrackDisplay track={track} />}
       </main>
     </div>
