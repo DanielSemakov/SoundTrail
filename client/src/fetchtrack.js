@@ -123,10 +123,11 @@ function SeedsToString(seeds){
 function FeaturesToString(obj){;
     let featuresString = "";
 
-    for (x in audioFeatures){
+    for (let x = 0; x < audioFeatures.length; x++){
         const feature = audioFeatures[x]
         const value = obj[feature];
 
+        let string = '';
         // if value exists
         if (value){
             string+= `&${feature}=${value}`;
