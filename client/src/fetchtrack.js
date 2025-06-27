@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import FetchRecommendations from 'server/controllers'
 
-//backend function variables
-const apiURL = "https://api.reccobeats.com/v1"
-const audioFeatures = ["energy", "valence", "test-shouldbeundefined"];
+const hostURL = "http://localhost:4000/";
+// test variable
+const sampleRequest = {seeds: ["d58affe1-3e80-4318-b33f-9f85bbecf693"], size: 3, energy: 1, valence: 1};
 
 // index for embedding link. made global so that a loop only runs once
 let embedIndex = 0;
@@ -14,14 +13,20 @@ export default function ShowPlaylist(){
     const [tracks, setTracks] = useState(null);
 
     // TODO: rewrite this to send request to api endpoint, which is in server side
+    
+    useEffect(() => {
+        GetRecommendations(sampleRequest).then(fetchedTracks =>{
+            setTracks(fetchedTracks.content);
+            setLoading(false);
+        })
+    }, []);
+
     // useEffect(() => {
     //     FetchRecommendations().then(fetchedTracks =>{
     //         setTracks(fetchedTracks.content);
     //         setLoading(false);
     //     })
     // }, []);
-
-    
 
     if (loading){
         // placeholder loader
@@ -58,7 +63,6 @@ function Playlist({tracks}){
         playlist.push(TrackEmbed(tracks[x]));
     }
 
-    console.log("playlist loaded");
     return <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>{playlist}</div>;
 }
 
@@ -85,6 +89,28 @@ function GenerateEmbedURL(track){
     const embedLink = link.slice(0, embedIndex) + 'embed/' + link.slice(embedIndex) + '?utm_source=generator'; 
 
     return embedLink;
+}
+
+async function GetRecommendations(request){
+    const seeds = sampleRequest.seeds.toString();
+    const size = sampleRequest.size;
+    const energy = sampleRequest.energy;
+    const valence = sampleRequest.valence;
+    
+    try{
+        // TODO: rewrite for audio create request url
+        const requestURL = `${hostURL}playlist?seeds=${seeds}&size=${size}&energy=${energy}&valence=${valence}`;
+
+        const response = await fetch(requestURL);
+
+        if (!response.ok){
+            throw new Error("Error: could not fetch recommendations");
+        }
+
+        return await response.json();
+    }
+
+    catch (error){console.log(error)}
 }
 
 // TODO: Add the below functions to backend later on
