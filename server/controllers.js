@@ -10,8 +10,6 @@ async function FetchRecommendations(seeds = ['d58affe1-3e80-4318-b33f-9f85bbecf6
 
     const finalURL = apiURL+recsURL+featuresString;
 
-    console.log(features);
-    console.log(featuresString);
     try{
         const response = await fetch(finalURL);
 
