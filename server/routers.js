@@ -2,9 +2,10 @@
 
 const express = require('express');
 const path = require('path');
-const controllers = require('./controllers.js');
+const controllers = require('./controllers/fetch-recs.js');
 
 const cors = require('cors');
+const { json } = require('stream/consumers');
 
 const app = express();
 
@@ -22,13 +23,9 @@ app.get('/api/song', (req, res) => {
 
 // API Route for getting al recomendations
 app.get ('/playlist/', async (req,res) => {
-  const seeds = req.query.seeds.split(',');
-  const size = req.query.size;
-  const energy = req.query.energy;
-  const valence = req.query.valence;
-  const features = {energy: energy, valence: valence};
-
-  const response = await controllers.FetchRecommendations(seeds, size, features);
+  const url = req._parsedUrl.query;
+  
+  const response = await controllers.FetchRecommendations(url);
   
   res.send(response);
 });

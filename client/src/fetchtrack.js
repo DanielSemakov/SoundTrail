@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
-const hostURL = "http://localhost:4000/";
-// test variable
-const sampleRequest = {seeds: ["d58affe1-3e80-4318-b33f-9f85bbecf693"], size: 3, energy: 1, valence: 1};
+import { GetRecommendations } from './fetch/get-recs';
 
 // index for embedding link. made global so that a loop only runs once
 let embedIndex = 0;
-
 
 export default function ShowPlaylist(){
     const [loading, setLoading] = useState(true);
@@ -15,18 +11,11 @@ export default function ShowPlaylist(){
     // TODO: rewrite this to send request to api endpoint, which is in server side
     
     useEffect(() => {
-        GetRecommendations(sampleRequest).then(fetchedTracks =>{
+        GetRecommendations(10,"d58affe1-3e80-4318-b33f-9f85bbecf693", 1, 1).then(fetchedTracks =>{
             setTracks(fetchedTracks.content);
             setLoading(false);
         })
     }, []);
-
-    // useEffect(() => {
-    //     FetchRecommendations().then(fetchedTracks =>{
-    //         setTracks(fetchedTracks.content);
-    //         setLoading(false);
-    //     })
-    // }, []);
 
     if (loading){
         // placeholder loader
@@ -91,27 +80,3 @@ function GenerateEmbedURL(track){
     return embedLink;
 }
 
-async function GetRecommendations(request){
-    const seeds = sampleRequest.seeds.toString();
-    const size = sampleRequest.size;
-    const energy = sampleRequest.energy;
-    const valence = sampleRequest.valence;
-    
-    try{
-        // TODO: rewrite for audio create request url
-        const requestURL = `${hostURL}playlist?seeds=${seeds}&size=${size}&energy=${energy}&valence=${valence}`;
-
-        const response = await fetch(requestURL);
-
-        if (!response.ok){
-            throw new Error("Error: could not fetch recommendations");
-        }
-
-        return await response.json();
-    }
-
-    catch (error){console.log(error)}
-}
-
-// TODO: Add the below functions to backend later on
-// FUTURE BACKEND FUNCTIONS
