@@ -1,9 +1,10 @@
 // client/src/components/TrackDisplay.jsx
 import React from 'react';
 import './TrackDisplay.css';
+import { GenerateEmbedURL } from '../fetch/get-url';
 
 export default function TrackDisplay({ track }) {
-  const embedUrl = `https://open.spotify.com/embed/track/${track.id}?utm_source=generator`;
+  const embedUrl = GenerateEmbedURL(track);
 
   return (
     <div className="track-display embed">

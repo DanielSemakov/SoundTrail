@@ -4,14 +4,14 @@ import { GetRecommendations } from './fetch/get-recs';
 // index for embedding link. made global so that a loop only runs once
 let embedIndex = 0;
 
-export default function ShowPlaylist(){
+export default function ShowPlaylist(size, seeds, mood, features = {}){
     const [loading, setLoading] = useState(true);
     const [tracks, setTracks] = useState(null);
 
     // TODO: rewrite this to send request to api endpoint, which is in server side
     
     useEffect(() => {
-        GetRecommendations(10,"d58affe1-3e80-4318-b33f-9f85bbecf693", 1, 1).then(fetchedTracks =>{
+        GetRecommendations(size, seeds, mood, features).then(fetchedTracks =>{
             setTracks(fetchedTracks.content);
             setLoading(false);
         })
@@ -79,4 +79,5 @@ function GenerateEmbedURL(track){
 
     return embedLink;
 }
+
 

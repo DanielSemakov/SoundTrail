@@ -3,25 +3,32 @@
 import React, { useState } from 'react';
 import TrackDisplay    from './components/TrackDisplay';
 import MoodEnergyChart from './components/MoodEnergyChart/MoodEnergyChart';
-import songs           from './data/songs.json';
+import { GetRecommendations } from './fetch/get-recs';
 import './App.css';
 
 export default function App() {
+  // constants/potential future params controllable by user? 
+  const PLAYLIST_SIZE = 10;
+  const features = {}; //optional audio feature params if we want to make recommendations more accurate. 
+  // For info on audio features, look on https://reccobeats.com/docs/apis/get-track-audio-features
+
   const [mood,  setMood]   = useState(null);
   const [genre, setGenre]  = useState('');
   const [track, setTrack]  = useState(null);
+  let playlist = {};
 
   const handleGenerate = () => {
-    if (!mood) return;
-    const { valence, energy } = mood;
-    const candidate = songs
-      .filter(s => !genre || s.genre === genre)
-      .map(s => ({ 
-        ...s, 
-        dist: Math.hypot(s.valence - valence, s.energy - energy) 
-      }))
-      .sort((a,b) => a.dist - b.dist)[0];
-    setTrack(candidate || songs[0]);
+    // TODO: Maybe add popup if no mood or genre has been selected?
+    if (!mood || !genre) return;
+    
+    GetRecommendations(PLAYLIST_SIZE, genre, mood, features).then(fetchedTracks =>{
+            playlist = fetchedTracks.content;
+
+            //TODO: Change. This is placeholder that sets the track that appears to first in playlist.
+            setTrack(playlist[0]);
+
+            // TODO: add buttons/add functionality that allow for the playlist to be navigated. 
+        }) 
   };
 
   return (
@@ -50,8 +57,10 @@ export default function App() {
               id="genre" 
               value={genre} 
               onChange={e => setGenre(e.target.value)}
+
+              // put music seeds below
             >
-              <option value="">All</option>
+              <option value="83dc71c7-b9da-466b-a198-bb3c29ee8f00">All</option>
               <option value="rock">Rock</option>
               <option value="pop">Pop</option>
               <option value="hiphop">Hip-Hop</option>
