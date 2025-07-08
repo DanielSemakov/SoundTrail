@@ -9,11 +9,15 @@ async function GetRecommendations(size, seeds, mood, features = {}){
     
     try{
         const requestURL = `${hostURL}playlist?size=${size}&seeds=${seedsString}&energy=${mood.energy}&valence=${mood.valence}${FeaturesToString(features)}`;
-        console.log(requestURL);
+
+        if (!seeds){
+            throw new Error("Error: No genre selected/empty seeds array");
+        }
+
         const response = await fetch(requestURL);
 
         if (!response.ok){
-            throw new Error("Error: could not fetch recommendations");
+            throw new Error("Error: could not fetch recommendations. ");
         }
 
         return await response.json();

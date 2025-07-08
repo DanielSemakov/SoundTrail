@@ -9,7 +9,8 @@ import './App.css';
 export default function App() {
   // constants/potential future params controllable by user? 
   const PLAYLIST_SIZE = 10;
-  const features = {}; //optional audio feature params if we want to make recommendations more accurate
+  const features = {}; //optional audio feature params if we want to make recommendations more accurate. 
+  // For info on audio features, look on https://reccobeats.com/docs/apis/get-track-audio-features
 
   const [mood,  setMood]   = useState(null);
   const [genre, setGenre]  = useState('');
@@ -17,14 +18,16 @@ export default function App() {
   let playlist = {};
 
   const handleGenerate = () => {
-    if (!mood) return;
-
-    const { valence, energy } = mood;
+    // TODO: Maybe add popup if no mood or genre has been selected?
+    if (!mood || !genre) return;
+    
     GetRecommendations(PLAYLIST_SIZE, genre, mood, features).then(fetchedTracks =>{
             playlist = fetchedTracks.content;
-            // TODO: add buttons that allow for the playlist to be navigated. 
-            // just sets track to the first of the playlist for now.
+
+            //TODO: Change. This is placeholder that sets the track that appears to first in playlist.
             setTrack(playlist[0]);
+
+            // TODO: add buttons/add functionality that allow for the playlist to be navigated. 
         }) 
   };
 
