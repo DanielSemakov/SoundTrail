@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
-
-//backend function variables
-const apiURL = "https://api.reccobeats.com/v1"
-const audioFeatures = ["energy", "valence", "test-shouldbeundefined"];
+import { GetRecommendations } from './fetch/get-recs';
 
 // index for embedding link. made global so that a loop only runs once
 let embedIndex = 0;
-
 
 export default function ShowPlaylist(){
     const [loading, setLoading] = useState(true);
     const [tracks, setTracks] = useState(null);
 
     // TODO: rewrite this to send request to api endpoint, which is in server side
+    
     useEffect(() => {
-        FetchRecommendations().then(fetchedTracks =>{
+        GetRecommendations(10,"d58affe1-3e80-4318-b33f-9f85bbecf693", 1, 1).then(fetchedTracks =>{
             setTracks(fetchedTracks.content);
             setLoading(false);
         })
@@ -55,7 +52,6 @@ function Playlist({tracks}){
         playlist.push(TrackEmbed(tracks[x]));
     }
 
-    console.log("playlist loaded");
     return <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>{playlist}</div>;
 }
 
@@ -83,58 +79,4 @@ function GenerateEmbedURL(track){
 
     return embedLink;
 }
-
-// TODO: Add the below functions to backend later on
-// FUTURE BACKEND FUNCTIONS
-async function FetchRecommendations(seeds = ['d58affe1-3e80-4318-b33f-9f85bbecf693'], size = 5, features = {energy:"", valence:""}){
-    //test url: https://api.reccobeats.com/v1/track/recommendation?size=3&seeds=83dc71c7-b9da-466b-a198-bb3c29ee8f00
-    const seedsString = SeedsToString(seeds);
-
-    let recsURL = `/track/recommendation?size=${size}&seeds=${seedsString}`;
-    let featuresString = FeaturesToString(features);
-    
-    try{
-        const response = await fetch(apiURL+recsURL+featuresString);
-
-        if (!response.ok){
-            throw new Error("Error: could not fetch recommendations");
-        }
-
-        return await response.json();
-    }
-
-    catch (error){console.log(error)}
-}
-
-function SeedsToString(seeds){
-    let output = "";
-
-    for (let x = 0; x < seeds.length; x++){
-        if (x > 0){
-            output += ",";
-        }
-
-        output += seeds[x];
-    }   
-
-    return output;
-}
-
-function FeaturesToString(obj){;
-    let featuresString = "";
-
-    for (let x = 0; x < audioFeatures.length; x++){
-        const feature = audioFeatures[x]
-        const value = obj[feature];
-
-        let string = '';
-        // if value exists
-        if (value){
-            string+= `&${feature}=${value}`;
-        }
-    }
-
-    return featuresString;
-}
-
 

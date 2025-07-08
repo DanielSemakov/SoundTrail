@@ -1,0 +1,44 @@
+// import FetchRecommendation from './controllers'
+
+const express = require('express');
+const path = require('path');
+const controllers = require('./controllers/fetch-recs.js');
+
+const cors = require('cors');
+const { json } = require('stream/consumers');
+
+const app = express();
+
+app.use(cors());
+
+const PORT = process.env.PORT || 4000;
+
+// Serve React static files from the build folder
+// app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Define API routes here
+app.get('/api/song', (req, res) => {
+  res.json({ title: 'Sample Song', artist: 'Artist Name' });
+}); 
+
+// API Route for getting al recomendations
+app.get ('/playlist/', async (req,res) => {
+  const url = req._parsedUrl.query;
+  
+  const response = await controllers.FetchRecommendations(url);
+  
+  res.send(response);
+});
+
+app.get(`/test`, (req, res) => {
+  console.log('works!');
+});
+
+// For any other request, serve React's index.html (enables client-side routing)
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/public', 'index.html'));
+// });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
