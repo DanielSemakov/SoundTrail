@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## (Update 7/8/2025) How-To Test Run
+* Step 1: Open the terminal, then navigate to server folder and use command 'node routers.js'.
+* Step 2: Open a second terminal instance, then navigate to client folder and use command 'npm start'.
+
 ## Available Scripts
 
 In the client folder, you can run:
