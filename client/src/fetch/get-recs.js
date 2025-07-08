@@ -4,11 +4,12 @@ const hostURL = "http://localhost:4000/";
 // desired audio features wanted besides energy and valence
 const audioFeatures = [];
 
-async function GetRecommendations(size, seeds, energy, valence, features = {}){
+async function GetRecommendations(size, seeds, mood, features = {}){
     const seedsString = seeds.toString();
     
     try{
-        const requestURL = `${hostURL}playlist?size=${size}&seeds=${seedsString}&energy=${energy}&valence=${valence}${FeaturesToString(features)}`;
+        const requestURL = `${hostURL}playlist?size=${size}&seeds=${seedsString}&energy=${mood.energy}&valence=${mood.valence}${FeaturesToString(features)}`;
+        console.log(requestURL);
         const response = await fetch(requestURL);
 
         if (!response.ok){
