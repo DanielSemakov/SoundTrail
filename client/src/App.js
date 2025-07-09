@@ -12,8 +12,8 @@ export default function App() {
   const features = {}; //optional audio feature params if we want to make recommendations more accurate. 
   // For info on audio features, look on https://reccobeats.com/docs/apis/get-track-audio-features
 
-  const [mood,  setMood]   = useState(null);
-  const [genre, setGenre]  = useState('');
+  const [mood,  setMood]   = useState({valence: 0.5, energy: 0.5});
+  const [genre, setGenre]  = useState('83dc71c7-b9da-466b-a198-bb3c29ee8f00');
   const [track, setTrack]  = useState(null);
   let playlist = {};
 
