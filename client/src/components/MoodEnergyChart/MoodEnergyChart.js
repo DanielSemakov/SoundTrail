@@ -18,13 +18,18 @@ import {
 /*In the graph, x-coords and y-coords range from -5 to 5. These values
 are converted into valence and energy values between 0 and 1. */
 
-export function valenceToX(valence) {
-  return valence * 10 - 5;
-}
+// export function valenceToX(valence) {
+//   return valence * 10 - 5;
+// }
 
-export function energyToY(energy) {
-  return energy * 10 - 5;
-}
+// export function energyToY(energy) {
+//   return energy * 10 - 5;
+// }
+
+
+// export function valenceToX(valence) {
+//   return valence * 10 - 5;
+// }
 
 const convertCoordsToMood = (x, y) => {
   const valence = (x + 5) / 10;
@@ -32,10 +37,20 @@ const convertCoordsToMood = (x, y) => {
   return { valence, energy };
 };
 
-export default function MoodEnergyChart({ updateMood }) {
+export default function MoodEnergyChart({ updateMood, mood }) {
   const ticks = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
   const [hoverPoint, setHoverPoint] = useState(null);
   const chartRef = useRef(null);
+
+  const getSelectedXCoord = () => {
+    return mood.valence * 10 - 5;
+  }
+
+  const getSelectedYCoord = () => {
+    return mood.energy * 10 - 5;
+  }
+
+
 
   const handleClick = (e) => {
     const chart = chartRef.current;
@@ -80,7 +95,7 @@ export default function MoodEnergyChart({ updateMood }) {
       <div
         ref={chartRef}
         onClick={handleClick}
-        onMouseMove={handleMouseMove}
+        //onMouseMove={handleMouseMove}
         style={{
           width: "100%",
           height: "100%"
@@ -107,10 +122,20 @@ export default function MoodEnergyChart({ updateMood }) {
             <ReferenceLine y={0} stroke="black" strokeWidth={2} />
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
             <Scatter data={data} fill="#eee" />
-            {hoverPoint && (
+            {/* {hoverPoint && (
               <ReferenceDot
                 x={hoverPoint.x}
                 y={hoverPoint.y}
+                r={6}
+                fill="black"
+                stroke="black"
+                strokeWidth={2}
+              />
+            )} */}
+            {mood.valence != null && mood.energy != null && (
+              <ReferenceDot
+                x={getSelectedXCoord()}
+                y={getSelectedYCoord()}
                 r={6}
                 fill="black"
                 stroke="black"

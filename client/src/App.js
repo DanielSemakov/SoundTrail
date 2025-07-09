@@ -47,7 +47,7 @@ export default function App() {
         <h2 className="card-title">Your Mood Grid</h2>
 
         <div className="chart-wrapper">
-          <MoodEnergyChart updateMood={setMood}/>
+          <MoodEnergyChart updateMood={setMood} mood={mood}/>
         </div>
 
         <div className="controls">
