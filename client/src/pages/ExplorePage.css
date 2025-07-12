@@ -1,0 +1,131 @@
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+:root {
+  --bg-page:        #f2f5f7;
+  --text-primary:   #333;
+  --text-secondary: #666;
+  --accent:         #009688;
+  --accent-dark:    #00796b;
+  --card-radius:    8px;
+  --card-shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Reset & globals */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* Wrapper for entire app */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Card container */
+.card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 25vw;
+  height: 25vw;
+}
+
+/* Card titles */
+.card-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Placeholder text */
+.placeholder {
+  color: var(--text-secondary);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* Chart wrapper: fixed square */
+.chart-wrapper {
+  width: 400px;
+  height: 400px;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Fill the wrapper with the Recharts component */
+.chart-wrapper > * {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Controls below the chart */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem; /* ensure space above */
+}
+
+/* Genre dropdown styling */
+.genre-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.genre-container label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.genre-container select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.genre-container select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Generate button styling */
+.btn-generate {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-generate:hover {
+  background: var(--accent-dark);
+}
