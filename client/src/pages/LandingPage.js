@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import TrackDisplay    from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
+import GenreSelector from '../components/GenreSelector';
 import { GetRecommendations } from '../fetch/get-recs';
 import './LandingPage.css';
 import { useNavigate } from "react-router-dom";
+
+
 
 export default function LandingPage() {
   // constants/potential future params controllable by user? 
@@ -55,22 +58,7 @@ export default function LandingPage() {
         </div>
 
         <div className="controls">
-          <div className="genre-container">
-            <label htmlFor="genre">Genre</label>
-            <select 
-              id="genre" 
-              value={genre} 
-              onChange={e => setGenre(e.target.value)}
-
-              // put music seeds below
-            >
-              <option value="83dc71c7-b9da-466b-a198-bb3c29ee8f00">All</option>
-              <option value="rock">Rock</option>
-              <option value="pop">Pop</option>
-              <option value="hiphop">Hip-Hop</option>
-              <option value="jazz">Jazz</option>
-            </select>
-          </div>
+          <GenreSelector genre={genre} setGenre={setGenre} />
 
           <button className="btn-generate" onClick={handleGenerate}>
             🎵 Generate Song
