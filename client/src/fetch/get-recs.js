@@ -26,6 +26,9 @@ async function GetRecommendations(size, seeds, mood, features = {}){
     catch (error){console.log(error)}
 }
 
+
+
+
 function FeaturesToString(obj){;
     let featuresString = "";
 
