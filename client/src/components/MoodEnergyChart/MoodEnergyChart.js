@@ -1,6 +1,7 @@
 import "./MoodEnergyChart.module.css"
 import React, { useRef, useState } from "react";
 import MoodEnergyChartWrapper from './MoodEnergyChartWrapper';
+import ChartLabel from './ChartLabel.js'
 
 import {
   ScatterChart,
@@ -101,8 +102,17 @@ export default function MoodEnergyChart({ updateMood, mood }) {
           height: "100%"
         }}
       >
+
+        <ChartLabel position="top">Energetic</ChartLabel>
+        <ChartLabel position="bottom">Calm</ChartLabel>
+        <ChartLabel position="left">Sad</ChartLabel>
+        <ChartLabel position="right">Happy</ChartLabel>
+
+
         <ResponsiveContainer>
-          <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+          <ScatterChart 
+            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+          >
             <CartesianGrid />
             <XAxis
               type="number"
@@ -121,7 +131,8 @@ export default function MoodEnergyChart({ updateMood, mood }) {
             <ReferenceLine x={0} stroke="black" strokeWidth={2} />
             <ReferenceLine y={0} stroke="black" strokeWidth={2} />
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-            <Scatter data={data} fill="#eee" />
+            <Scatter data={data} fill="transparent"
+            stroke="transparent" />
             {/* {hoverPoint && (
               <ReferenceDot
                 x={hoverPoint.x}
@@ -145,7 +156,7 @@ export default function MoodEnergyChart({ updateMood, mood }) {
           </ScatterChart>
         </ResponsiveContainer>
       </div>
-      <div style={{ marginTop: 20, fontSize: 18 }}>
+      <div style={{ marginTop: 60, fontSize: 18, textAlign: 'center' }}>
         {hoverPoint
           ? `Hovered Point: x = ${hoverPoint.x}, y = ${hoverPoint.y}`
           : "Hover over a point to see its coordinates"}
