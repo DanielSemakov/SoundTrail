@@ -156,11 +156,11 @@ export default function MoodEnergyChart({ updateMood, mood }) {
           </ScatterChart>
         </ResponsiveContainer>
       </div>
-      <div style={{ marginTop: 60, fontSize: 18, textAlign: 'center' }}>
+      {/* <div style={{ marginTop: 60, fontSize: 18, textAlign: 'center' }}>
         {hoverPoint
           ? `Hovered Point: x = ${hoverPoint.x}, y = ${hoverPoint.y}`
           : "Hover over a point to see its coordinates"}
-      </div>
+      </div> */}
     </MoodEnergyChartWrapper>
   );
 }
