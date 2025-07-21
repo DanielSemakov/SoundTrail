@@ -43,18 +43,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre }) {
                     }
                 });
                 break;
-
-                // let valence = mood.valence;
-                // valence += 0.1;
-                
-                // if (valence > 1) {
-                //     valence = 1;
-                // }
-
-                // valence = Math.round(valence * 10) / 10;
-
-                // setMood({valence: valence, energy: mood.energy});
-                // break;
             }
             case 'ArrowUp': {
                 console.log('Up arrow pressed');
@@ -83,16 +71,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre }) {
                     }
                 });
                 break;
-
-                // let energy = mood.energy;
-                // energy -= 0.1;
-                
-                // if (energy < 0) {
-                //     energy = 0;
-                // }
-
-                // setMood({valence: mood.valence, energy: energy});
-                // break;
             }
             default:
                 return; //ignore other keys
