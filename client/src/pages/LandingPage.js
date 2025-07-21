@@ -8,13 +8,10 @@ import { getSeedSongsByGenre } from '../data/seedSongs';
 import './LandingPage.css';
 import { useNavigate } from "react-router-dom";
 
-export default function LandingPage() {
+export default function LandingPage({ mood, setMood, genre, setGenre }) {
   const PLAYLIST_SIZE = 10;
   const features = {};
 
-  const [mood, setMood] = useState({valence: 0.5, energy: 0.5});
-  
-  const [genre, setGenre] = useState('83dc71c7-b9da-466b-a198-bb3c29ee8f00'); 
   const [track, setTrack] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
