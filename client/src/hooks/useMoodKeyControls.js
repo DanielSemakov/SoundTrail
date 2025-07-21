@@ -73,5 +73,9 @@ export default function useMoodKeyControls(mood, setMood) {
         return () => {
         window.removeEventListener('keydown', handleKeyDown);
         };
+<<<<<<< HEAD
     }, [mood, setMood]); //empty array: run once on mount, cleanup on unmount
+=======
+    }, [mood]); //empty array: run once on mount, cleanup on unmount
+>>>>>>> 32936c6 (fix: move mood arrows hook to a separate file)
 }
