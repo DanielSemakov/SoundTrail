@@ -1,11 +1,13 @@
 .track-display.embed {
-  max-width: 400px;
-  margin: 2rem auto;
+  max-width: 500px;
+  width: 100%;
+  margin: 1.5rem auto;
   background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
+
 
 .track-meta {
   padding: 0.5rem 1rem;
