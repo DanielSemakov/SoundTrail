@@ -1,4 +1,4 @@
-import "./MoodEnergyChart.module.css"
+import styles from "./MoodEnergyChart.module.css";
 import React, { useRef, useState } from "react";
 import MoodEnergyChartWrapper from './MoodEnergyChartWrapper';
 import ChartLabel from './ChartLabel.js'
@@ -101,6 +101,8 @@ export default function MoodEnergyChart({ updateMood, mood }) {
           width: "100%",
           height: "100%"
         }}
+        className={styles["chart-background"]}
+
       >
 
         <ChartLabel position="top">Energetic</ChartLabel>
@@ -111,9 +113,8 @@ export default function MoodEnergyChart({ updateMood, mood }) {
 
         <ResponsiveContainer>
           <ScatterChart 
-            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-          >
-            <CartesianGrid />
+            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+            <CartesianGrid stroke="rgba(0, 0, 0, 0.2)"/>
             <XAxis
               type="number"
               dataKey="x"

@@ -12,3 +12,41 @@
     font-size: 0.9rem;
   }
   
+  .chart-background {
+    /*background: linear-gradient(
+    to top right,
+    #adc8ff 0%,
+    #a0c4ff 25%,
+    #fdffb6 50%,
+    #ffe4a8 75%,
+    #ffc8dd 100%
+  );
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden; */
+
+  background: linear-gradient(
+    to top right,
+    #5c8be0 0%,       
+    #6fd0a2 25%,     
+    #f2c94c 50%,      
+    #f97c7c 75%,      
+    #e056bd 100%     
+  );
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+  overflow: hidden; 
+
+
+  /* background: linear-gradient(to top right, #f4f4f4, #eaeaea); */
+
+  
+}
+
+/* Remove focus outline on SVG and chart container */
+.chart-background :focus,
+.chart-background svg:focus,
+.chart-background div:focus {
+  outline: none;
+}
