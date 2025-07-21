@@ -73,5 +73,5 @@ export default function useMoodKeyControls(mood, setMood) {
         return () => {
         window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [mood]); //empty array: run once on mount, cleanup on unmount
+    }, [mood, setMood]); //empty array: run once on mount, cleanup on unmount
 }
