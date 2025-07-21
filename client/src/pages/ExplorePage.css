@@ -1,0 +1,133 @@
+/* ExplorePage.css */
+
+.explore-page {
+    background: var(--bg-page);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Header styles */
+  .explore-header {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .explore-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .nav-button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .nav-button:hover {
+    background: var(--accent-dark);
+  }
+  
+  /* Body layout */
+  .explore-body {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 2rem;
+  }
+  
+  /* Mood chart in top left */
+  .mood-chart-wrapper {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: 400px;
+    height: 440px; /* chart + title */
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Center track display */
+  .track-display-wrapper {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .placeholder {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    box-shadow: var(--card-shadow);
+  }
+  .track-arrow-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px; /* give breathing room */
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  
+  .arrow-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .arrow-row.middle {
+    align-items: center;
+  }
+  
+  .arrow-button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .arrow-button:hover {
+    background: var(--accent-dark);
+  }
+  .arrow-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 0.2rem;
+  }
+  
+  .arrow-row.middle {
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .arrow-row.middle .arrow-label {
+    width: 60px;
+    text-align: center;
+  }
+  

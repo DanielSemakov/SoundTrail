@@ -1,0 +1,42 @@
+.track-display.embed {
+  width: 100%;
+  max-width: 480px; /* match full player width */
+  margin: 2rem auto;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+
+.track-meta {
+  padding: 0.5rem 1rem;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.loading,
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 160px;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #ccc;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

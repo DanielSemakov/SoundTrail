@@ -1,0 +1,29 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Force text files to use LF endings in repo and convert to native on checkout
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.json   text eol=lf
+*.css    text eol=lf
+*.html   text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+
+# Binary files - do not modify line endings
+*.png    binary
+*.jpg    binary
+*.gif    binary
+*.ico    binary
+*.woff   binary
+*.woff2  binary
+*.eot    binary
+*.ttf    binary
+
+# Shell scripts - always use LF
+*.sh     text eol=lf
+
+# Windows batch files - use CRLF
+*.bat    text eol=crlf

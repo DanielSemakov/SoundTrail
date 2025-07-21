@@ -1,0 +1,83 @@
+import React, { useEffect, useState } from 'react';
+import { GetRecommendations } from './fetch/get-recs';
+
+// index for embedding link. made global so that a loop only runs once
+let embedIndex = 0;
+
+export default function ShowPlaylist(size, seeds, mood, features = {}){
+    const [loading, setLoading] = useState(true);
+    const [tracks, setTracks] = useState(null);
+
+    // TODO: rewrite this to send request to api endpoint, which is in server side
+    
+    useEffect(() => {
+        GetRecommendations(size, seeds, mood, features).then(fetchedTracks =>{
+            setTracks(fetchedTracks.content);
+            setLoading(false);
+        })
+    }, []);
+
+    if (loading){
+        // placeholder loader
+        return <div>loading...</div>;
+    }
+
+    return (
+    <>
+        <Playlist tracks={tracks}/>
+    </>
+
+    );
+}
+
+function TrackEmbed(track){
+    return (
+        <iframe 
+            style={{"border-radius":"12px"}} 
+            src= {GenerateEmbedURL(track)}
+            width="25%"
+            height="152" 
+            // frameBorder="0" 
+            // allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+        </iframe>);
+}
+
+// sample playlist function that displays all embeds.
+function Playlist({tracks}){
+    const playlist = [];
+
+    for (let x = 0; x < tracks.length; x++){
+        playlist.push(TrackEmbed(tracks[x]));
+    }
+
+    return <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>{playlist}</div>;
+}
+
+function GenerateEmbedURL(track){
+    const link = track.href;
+
+    // if index for embed hasn't already been calculated
+    if (embedIndex === 0){
+        let dash = 0;
+
+        for (let x = 0; x < link.length; x++){
+            if (link[x] === "/"){
+                dash++;
+            }
+
+            if (dash === 3){
+                embedIndex = x+1;
+                break;
+            }
+        }
+    }
+
+    //sample link: https://open.spotify.com/embed/track/6wbt5QD31GiRa28x5vPJty?utm_source=generator
+    const embedLink = link.slice(0, embedIndex) + 'embed/' + link.slice(embedIndex) + '?utm_source=generator'; 
+
+    return embedLink;
+}
+
+
