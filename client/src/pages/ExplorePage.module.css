@@ -1,4 +1,4 @@
-/* Import font */
+/* Import font
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 :root {
@@ -12,22 +12,22 @@
 }
 
 /* Reset & globals */
-body {
+/* body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background: var(--bg-page);
   color: var(--text-primary);
-}
+} */
 
 /* Wrapper for entire app */
-.container {
+/* .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-}
+} */
 
 /* Card container */
-.card {
+/* .card {
   background: #fff;
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
@@ -45,49 +45,49 @@ body {
 
   width: 25vw;
   height: 25vw;
-}
+} */
 
 /* Card titles */
-.card-title {
+/* .card-title {
   margin: 0 0 1rem;
   font-size: 1.25rem;
   font-weight: 600;
-}
+} */
 
 /* Placeholder text */
-.placeholder {
+/* .placeholder {
   color: var(--text-secondary);
   padding: 2rem 0;
   text-align: center;
-}
+} */
 
 /* Chart wrapper: fixed square */
-.chart-wrapper {
+/* .chart-wrapper {
   width: 400px;
   height: 400px;
   margin-bottom: 1.5rem;
   position: relative;
-}
+} */
 
 /* Fill the wrapper with the Recharts component */
-.chart-wrapper > * {
+/* .chart-wrapper > * {
   position: absolute !important;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
+} */
 
 /* Controls below the chart */
-.controls {
+/* .controls {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-top: 1rem; /* ensure space above */
-}
+/*} */
 
 /* Genre dropdown styling */
-.genre-container {
+/* .genre-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -112,10 +112,10 @@ body {
 .genre-container select:focus {
   outline: none;
   border-color: var(--accent);
-}
+} */
 
 /* Generate button styling */
-.btn-generate {
+/* .btn-generate {
   background: var(--accent);
   color: #fff;
   border: none;
@@ -128,4 +128,81 @@ body {
 
 .btn-generate:hover {
   background: var(--accent-dark);
+} */ 
+
+
+.btn-generate:hover {
+  background: var(--accent-dark);
+}
+.explore-page {
+  background: var(--bg-page);
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.explore-header {
+  background: #fff;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.explore-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.mood-chart-wrapper {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  width: 400px;
+  height: 440px;
+}
+
+.track-arrow-wrapper {
+  max-width: 480px;
+  text-align: center;
+}
+
+.arrow-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.arrow-row.middle .arrow-label {
+  min-width: 60px;
+}
+
+.arrow-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.arrow-button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
 }
