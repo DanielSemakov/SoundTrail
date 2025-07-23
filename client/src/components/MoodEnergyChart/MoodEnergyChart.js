@@ -1,6 +1,6 @@
 import styles from "./MoodEnergyChart.module.css";
 import React, { useRef, useState } from "react";
-import MoodEnergyChartWrapper from './MoodEnergyChartWrapper';
+import MoodEnergyChartWrapper from './MoodEnergyChartWrapper.js';
 import ChartLabel from './ChartLabel.js'
 
 import {
