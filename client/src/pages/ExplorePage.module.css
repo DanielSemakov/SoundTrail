@@ -23,6 +23,7 @@ body {
 .explore-page {
   min-height: 100vh;
   background: var(--bg-page);
+  width: 100vw;
 }
 
 
@@ -48,11 +49,15 @@ body {
 
 .explore-body {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 2rem;
-  gap: 3rem;
+  /* gap: 8rem; */
   flex-wrap: wrap;
+  border: 2px solid black; 
+  width: 100%;
+  max-width: 1200px; /* example: give it room */
+  margin: 0 auto;
 }
 
 
@@ -126,8 +131,8 @@ body {
   left: 1rem;
 }
 .mood-chart-wrapper {
-  position: absolute;
-  top: 9rem;
+  position: relative;
+  top: 6rem;
   left: 3rem;
   width: 400px;
   height: 450px;

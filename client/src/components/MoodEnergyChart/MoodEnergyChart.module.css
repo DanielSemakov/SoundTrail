@@ -1,5 +1,5 @@
 /* give the chart a fixed square container */
-.wrapper {
+  .wrapper {
     width: 400px;
     height: 400px;
   }
