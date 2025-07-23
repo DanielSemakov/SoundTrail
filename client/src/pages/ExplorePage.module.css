@@ -54,7 +54,6 @@ body {
   padding: 2rem;
   /* gap: 8rem; */
   flex-wrap: wrap;
-  border: 2px solid black; 
   width: 100%;
   max-width: 1200px; /* example: give it room */
   margin: 0 auto;
