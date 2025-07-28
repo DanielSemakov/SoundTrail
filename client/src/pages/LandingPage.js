@@ -37,7 +37,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
     var seedsToSend = [];
 
 
-    if (genre == '83dc71c7-b9da-466b-a198-bb3c29ee8f00') {
+    if (genre === '83dc71c7-b9da-466b-a198-bb3c29ee8f00') {
       seedsToSend = [genre];
     } else {
       seedsToSend = getSeedSongsByGenre(genre);
@@ -45,7 +45,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
 
 
     try {
-      if (seedsToSend.length == 0) {
+      if (seedsToSend.length === 0) {
         setError(
           'No seed songs found for the genre: "' + genre + '". Please add more songs to songs.json or select a different genre.'
         );
