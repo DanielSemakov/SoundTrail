@@ -1,5 +1,5 @@
 // Change as needed for host
-const hostURL = "http://localhost:4000/";
+const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000/";
 
 // desired audio features wanted besides energy and valence
 const audioFeatures = [];
@@ -8,7 +8,7 @@ async function GetRecommendations(size, seeds, mood, features = {}){
     const seedsString = seeds.toString();
     
     try{
-        const requestURL = `${hostURL}playlist?size=${size}&seeds=${seedsString}&energy=${mood.energy}&valence=${mood.valence}${FeaturesToString(features)}`;
+        const requestURL = `${backend_url}playlist?size=${size}&seeds=${seedsString}&energy=${mood.energy}&valence=${mood.valence}${FeaturesToString(features)}`;
 
         if (!seeds){
             throw new Error("Error: No genre selected/empty seeds array");

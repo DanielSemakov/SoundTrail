@@ -9,7 +9,13 @@ const { json } = require('stream/consumers');
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+
+const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+app.use(cors({
+  origin: allowedOrigin
+}));
 
 const PORT = process.env.PORT || 4000;
 
