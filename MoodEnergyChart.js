@@ -1,6 +1,7 @@
-import "./MoodEnergyChart.module.css"
+import styles from "./MoodEnergyChart.module.css";
 import React, { useRef, useState } from "react";
-import MoodEnergyChartWrapper from './MoodEnergyChartWrapper';
+import MoodEnergyChartWrapper from './MoodEnergyChartWrapper.js';
+import ChartLabel from './ChartLabel.js'
 
 import {
   ScatterChart,
@@ -42,9 +43,6 @@ export default function MoodEnergyChart({ updateMood, mood }) {
   const [hoverPoint, setHoverPoint] = useState(null);
   const chartRef = useRef(null);
 
-  // Boolean to show trail or not. Show trail in ExplorePage, not in LandingPage
-  const trailEnabled = false;
-
   const getSelectedXCoord = () => {
     return mood.valence * 10 - 5;
   }
@@ -53,13 +51,7 @@ export default function MoodEnergyChart({ updateMood, mood }) {
     return mood.energy * 10 - 5;
   }
 
-  //Copied from ExplorePage to create the trail
-  const [trail, setTrail] = useState([]);
 
-  //Copied from ExplorePage for use in the chart
-  const addPoint = (x, y) => {
-    setTrail(prev => [...prev, {x, y}]);
-  }
 
   const handleClick = (e) => {
     const chart = chartRef.current;
@@ -73,10 +65,6 @@ export default function MoodEnergyChart({ updateMood, mood }) {
     if (x >= -5 && x <= 5 && y >= -5 && y <= 5) {
       const { valence, energy } = convertCoordsToMood(x, y);
       updateMood({ valence, energy });
-      //If mood is valid and trail is enabled, the trail will update accordingly
-      if (trailEnabled == true) {
-        addPoint(x, y);
-      }
     } else {
       updateMood({ valence: null, energy: null });
     }
@@ -113,10 +101,20 @@ export default function MoodEnergyChart({ updateMood, mood }) {
           width: "100%",
           height: "100%"
         }}
+        className={styles["chart-background"]}
+
       >
+
+        <ChartLabel position="top">Energetic</ChartLabel>
+        <ChartLabel position="bottom">Calm</ChartLabel>
+        <ChartLabel position="left">Sad</ChartLabel>
+        <ChartLabel position="right">Happy</ChartLabel>
+
+
         <ResponsiveContainer>
-          <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
-            <CartesianGrid />
+          <ScatterChart 
+            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+            <CartesianGrid stroke="rgba(0, 0, 0, 0.2)"/>
             <XAxis
               type="number"
               dataKey="x"
@@ -134,20 +132,8 @@ export default function MoodEnergyChart({ updateMood, mood }) {
             <ReferenceLine x={0} stroke="black" strokeWidth={2} />
             <ReferenceLine y={0} stroke="black" strokeWidth={2} />
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-            <Scatter data={data} fill="#eee" />
-
-            {/ Below is the scatter plot used for the history */}
-            {/ Data passed to it is the "trail" array state created earlier */}
-            <Scatter name="Points" data={trail} fill="#8884d8" />
-            {/ Below is the line connecting the history, using "trail" */}
-            <Line
-              type="monotone"
-              data={trail}
-              dataKey="y"
-              stroke="#ff7300"
-              dot={false}
-              isAnimationActive={false}
-            />
+            <Scatter data={data} fill="transparent"
+            stroke="transparent" />
             {/* {hoverPoint && (
               <ReferenceDot
                 x={hoverPoint.x}
@@ -171,11 +157,11 @@ export default function MoodEnergyChart({ updateMood, mood }) {
           </ScatterChart>
         </ResponsiveContainer>
       </div>
-      <div style={{ marginTop: 20, fontSize: 18 }}>
+      {/* <div style={{ marginTop: 60, fontSize: 18, textAlign: 'center' }}>
         {hoverPoint
           ? `Hovered Point: x = ${hoverPoint.x}, y = ${hoverPoint.y}`
           : "Hover over a point to see its coordinates"}
-      </div>
+      </div> */}
     </MoodEnergyChartWrapper>
   );
 }

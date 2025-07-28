@@ -1,84 +1,144 @@
 import React, { useState } from 'react';
-import TrackDisplay    from '../components/TrackDisplay';
+import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
+import GenreSelector from '../components/GenreSelector';
 import { GetRecommendations } from '../fetch/get-recs';
-import './LandingPage.css';
-import { useNavigate } from "react-router-dom";
+import { getSeedSongsByGenre } from '../data/seedSongs';
+import styles from './LandingPage.module.css';
+import { useNavigate } from 'react-router-dom';
 
-export default function LandingPage() {
-  // constants/potential future params controllable by user? 
+
+export default function LandingPage({ mood, setMood, genre, setGenre }) {
   const PLAYLIST_SIZE = 10;
-  const features = {}; //optional audio feature params if we want to make recommendations more accurate. 
-  // For info on audio features, look on https://reccobeats.com/docs/apis/get-track-audio-features
+  const features = {};
 
-  const [mood,  setMood]   = useState({valence: 0.5, energy: 0.5});
-  const [genre, setGenre]  = useState('83dc71c7-b9da-466b-a198-bb3c29ee8f00');
-  const [track, setTrack]  = useState(null);
+
+  const [track, setTrack] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
 
   const navigate = useNavigate();
+  const [playlist, setPlaylist] = useState([]);
 
-  let playlist = {};
 
-  const handleGenerate = () => {
-    // TODO: Maybe add popup if no mood or genre has been selected?
-    if (!mood || !genre) return;
-    
-    GetRecommendations(PLAYLIST_SIZE, genre, mood, features).then(fetchedTracks =>{
-            playlist = fetchedTracks.content;
+  const handleGenerate = async function() {
+    setLoading(true);
+    setError(null);
 
-            //TODO: Change. This is placeholder that sets the track that appears to first in playlist.
-            setTrack(playlist[0]);
 
-            // TODO: add buttons/add functionality that allow for the playlist to be navigated. 
-        }) 
+    if (!mood || !genre) {
+      setError('Please select both a mood and a genre.');
+      setLoading(false);
+      return;
+    }
+
+
+    var seedsToSend = [];
+
+
+    if (genre == '83dc71c7-b9da-466b-a198-bb3c29ee8f00') {
+      seedsToSend = [genre];
+    } else {
+      seedsToSend = getSeedSongsByGenre(genre);
+    }
+
+
+    try {
+      if (seedsToSend.length == 0) {
+        setError(
+          'No seed songs found for the genre: "' + genre + '". Please add more songs to songs.json or select a different genre.'
+        );
+        setTrack(null);
+        setPlaylist([]);
+        setLoading(false);
+        return;
+      }
+
+
+      var fetchedRecommendations = await GetRecommendations(
+        PLAYLIST_SIZE,
+        seedsToSend,
+        mood,
+        features
+      );
+
+
+      if (fetchedRecommendations && fetchedRecommendations.content) {
+        setPlaylist(fetchedRecommendations.content);
+        setTrack(fetchedRecommendations.content[0]);
+      } else {
+        setError('Received empty or invalid recommendations from the server.');
+        setTrack(null);
+        setPlaylist([]);
+      }
+    } catch (err) {
+      console.error('Error generating recommendations:', err);
+      setError('Failed to generate recommendations: ' + err.message);
+      setTrack(null);
+      setPlaylist([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
 
-    <div className="container">
-      <button onClick={() => navigate("/explore")}>Go to Explore Page</button>
-      {/* Track Card */}
-      <div className="card">
-        <h2 className="card-title">Current Track</h2>
-        {track 
-          ? <TrackDisplay track={track}/>
-          : <p className="placeholder">Click “Generate Song” below to start</p>
-        }
+  return (
+    <div className={styles.container}>
+      <button onClick={function() { navigate('/explore'); }}>
+        Go to Explore Page
+      </button>
+
+
+      <div className={styles.card}>
+        <h2 className={styles['card-title']}>Current Track</h2>
+        {loading && <p>Loading recommendations...</p>}
+        {error && (
+          <p className={styles['error-message']} style={{ color: 'red' }}>
+            {error}
+          </p>
+        )}
+        {track ? (
+          <TrackDisplay track={track} />
+        ) : (
+          !loading &&
+          !error && (
+            <p className={styles.placeholder}>
+              Click "Generate Song" below to start
+            </p>
+          )
+        )}
       </div>
 
-      {/* Mood Card */}
-      <div className="card">
-        <h2 className="card-title">Your Mood Grid</h2>
 
-        <div className="chart-wrapper">
-          {/ THIS IS THE ONLY CHANGE I MADE HERE*/}
-          {/ trailEnabled altered to false so history does not appear*/}
+      <div className={styles.card}>
+        <h2 className={styles['card-title']}>Your Mood Grid</h2>
+        <div className={styles['chart-wrapper']}>
           <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={false}/>
         </div>
-
-        <div className="controls">
-          <div className="genre-container">
-            <label htmlFor="genre">Genre</label>
-            <select 
-              id="genre" 
-              value={genre} 
-              onChange={e => setGenre(e.target.value)}
-
-              // put music seeds below
-            >
-              <option value="83dc71c7-b9da-466b-a198-bb3c29ee8f00">All</option>
-              <option value="rock">Rock</option>
-              <option value="pop">Pop</option>
-              <option value="hiphop">Hip-Hop</option>
-              <option value="jazz">Jazz</option>
-            </select>
-          </div>
-
-          <button className="btn-generate" onClick={handleGenerate}>
-            🎵 Generate Song
+        <div className={styles.controls}>
+          <GenreSelector genre={genre} setGenre={setGenre} />
+          <button
+            className={styles['btn-generate']}
+            onClick={handleGenerate}
+            disabled={loading}
+          >
+            {loading ? 'Generating...' : '🎵 Generate Song'}
           </button>
         </div>
+        {playlist.length > 1 && (
+          <div className={styles['playlist-navigation']}>
+            <button onClick={function() { console.log('Previous song'); }}>
+              Previous
+            </button>
+            <button onClick={function() { console.log('Next song'); }}>
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+
