@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/soundtrail/static/css/main.ba39fe46.css",
+    "main.js": "/soundtrail/static/js/main.363f7720.js",
+    "index.html": "/soundtrail/index.html",
+    "main.ba39fe46.css.map": "/soundtrail/static/css/main.ba39fe46.css.map",
+    "main.363f7720.js.map": "/soundtrail/static/js/main.363f7720.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ba39fe46.css",
+    "static/js/main.363f7720.js"
+  ]
+}
