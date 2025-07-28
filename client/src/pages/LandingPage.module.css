@@ -1,6 +1,7 @@
 /* Import font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
+
 :root {
   --bg-page:        #f2f5f7;
   --text-primary:   #333;
@@ -11,6 +12,7 @@
   --card-shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+
 /* Reset & globals */
 body {
   margin: 0;
@@ -19,12 +21,14 @@ body {
   color: var(--text-primary);
 }
 
+
 /* Wrapper for entire app */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
 }
+
 
 /* Card container */
 .card {
@@ -38,12 +42,14 @@ body {
   align-items: center;
 }
 
+
 /* Card titles */
 .card-title {
-  margin: 0 0 1rem;
+  margin: 0 0 4rem;
   font-size: 1.25rem;
   font-weight: 600;
 }
+
 
 /* Placeholder text */
 .placeholder {
@@ -52,6 +58,7 @@ body {
   text-align: center;
 }
 
+
 /* Chart wrapper: fixed square */
 .chart-wrapper {
   width: 400px;
@@ -59,6 +66,7 @@ body {
   margin-bottom: 1.5rem;
   position: relative;
 }
+
 
 /* Fill the wrapper with the Recharts component */
 .chart-wrapper > * {
@@ -69,6 +77,7 @@ body {
   height: 100%;
 }
 
+
 /* Controls below the chart */
 .controls {
   display: flex;
@@ -77,6 +86,7 @@ body {
   margin-top: 1rem; /* ensure space above */
 }
 
+
 /* Genre dropdown styling */
 .genre-container {
   display: flex;
@@ -84,11 +94,13 @@ body {
   align-items: flex-start;
 }
 
+
 .genre-container label {
   margin-bottom: 0.25rem;
   font-size: 0.9rem;
   color: var(--text-primary);
 }
+
 
 .genre-container select {
   padding: 0.5rem;
@@ -100,10 +112,12 @@ body {
   transition: border-color 0.2s;
 }
 
+
 .genre-container select:focus {
   outline: none;
   border-color: var(--accent);
 }
+
 
 /* Generate button styling */
 .btn-generate {
@@ -117,6 +131,9 @@ body {
   transition: background 0.2s;
 }
 
+
 .btn-generate:hover {
   background: var(--accent-dark);
 }
+
+
