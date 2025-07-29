@@ -137,3 +137,36 @@ body {
 }
 
 
+
+
+.btn-reset-mood {
+  background: #f44336; /* A reddish color for reset/danger action */
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-reset-mood:hover {
+  background: #d32f2f;
+}
+
+.btn-reset-mood:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; 
+    margin-top: 1rem;
+    width: 100%;
+}
