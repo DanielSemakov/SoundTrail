@@ -71,7 +71,7 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
       const { valence, energy } = convertCoordsToMood(x, y);
       updateMood({ valence, energy });
       //If mood is valid and trail is enabled, the trail will update accordingly
-      if (trailEnabled == true) {
+      if (trailEnabled === true) {
         addPoint(x, y);
       }
     } else {
@@ -106,6 +106,7 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
         ref={chartRef}
         onClick={handleClick}
         //onMouseMove={handleMouseMove}
+        data-testid="chart-background"
         style={{
           width: "100%",
           height: "100%"
@@ -133,18 +134,28 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
             <Scatter data={data} fill="#eee" />
 
-            {/ Below is the scatter plot used for the history */}
-            {/ Data passed to it is the "trail" array state created earlier */}
-            <Scatter name="Points" data={trail} fill="#8884d8" />
-            {/ Below is the line connecting the history, using "trail" */}
-            <Line
-              type="monotone"
-              data={trail}
-              dataKey="y"
-              stroke="#ff7300"
-              dot={false}
-              isAnimationActive={false}
-            />
+            {/* Below is the scatter plot used for the history */}
+            {/* Data passed to it is the "trail" array state created earlier */}
+            {/* If trailEnabled is true and trail has points, render the scatter plot and line */  }
+            {trailEnabled && trail.length > 0 && (
+              <>
+                <Scatter
+                  name="Points"
+                  data={trail}
+                  fill="#8884d8"
+                  data-testid="trail-scatter"
+                />
+                <Line
+                  type="monotone"
+                  data={trail}
+                  dataKey="y"
+                  stroke="#ff7300"
+                  dot={false}
+                  isAnimationActive={false}
+                  // data-testid does not propagate to DOM for Line, so test with class
+                />
+              </>
+            )}
             {/* {hoverPoint && (
               <ReferenceDot
                 x={hoverPoint.x}
@@ -165,6 +176,7 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
                 strokeWidth={2}
               />
             )}
+
           </ScatterChart>
         </ResponsiveContainer>
       </div>
