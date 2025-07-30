@@ -4,5 +4,6 @@ This app allows users to get curated song recommendations based on their desired
 Users can press the arrow keys or use their mouse to easily update their mood, which is displayed
 on a chart.
 
-[https://danielsemakov.github.io/SoundTrail/](https://danielsemakov.github.io/SoundTrail/)
+Website: [https://danielsemakov.github.io/SoundTrail/](https://danielsemakov.github.io/SoundTrail/)
 
+Backend: [https://soundtrail-backend.onrender.com/](https://soundtrail-backend.onrender.com/)
