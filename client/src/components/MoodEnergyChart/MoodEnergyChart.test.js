@@ -18,12 +18,12 @@ function TestWrapper() {
 
 describe("addPoint", () => {
   it("adds points to the trail state", () => {
-    const { getViaText, getViaTestId } = render(<TestWrapper />);
+    const { getByText, getByTestId } = render(<TestWrapper />);
     act(() => {
-      getViaText("Add (1,2)").click();
-      getViaText("Add (3,4)").click();
+      getByText("Add (1,2)").click();
+      getByText("Add (3,4)").click();
     });
-    const trail = JSON.parse(getViaTestId("trail").textContent);
+    const trail = JSON.parse(getByTestId("trail").textContent);
     expect(trail).toEqual([{ x: 1, y: 2 }, { x: 3, y: 4 }]);
   });
 });
