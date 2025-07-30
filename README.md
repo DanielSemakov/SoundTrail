@@ -7,3 +7,4 @@ on a chart.
 Website: [https://danielsemakov.github.io/SoundTrail/](https://danielsemakov.github.io/SoundTrail/)
 
 Backend: [https://soundtrail-backend.onrender.com/](https://soundtrail-backend.onrender.com/)
+

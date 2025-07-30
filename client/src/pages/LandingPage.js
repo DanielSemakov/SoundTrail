@@ -21,6 +21,15 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
   const navigate = useNavigate();
   const [playlist, setPlaylist] = useState([]);
 
+  const handleResetMood = () => {
+  // Assuming initial mood for reset is 0.5 for valence and energy
+  setMood({ valence: 0.5, energy: 0.5 });
+  setTrack(null);        // Clear the currently displayed track
+  setError(null);       // Clear any active error messages
+  setLoading(false);    // Ensure loading state is off
+  setPlaylist([]);      // Also clear the playlist if you want a complete reset
+};
+
 
   const handleGenerate = async function() {
     setLoading(true);
@@ -124,6 +133,13 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
             disabled={loading}
           >
             {loading ? 'Generating...' : '🎵 Generate Song'}
+          </button>
+          <button
+            className={styles['btn-reset-mood']}
+            onClick={handleResetMood}
+            disabled={loading}>
+              Reset Mood
+            
           </button>
         </div>
         {playlist.length > 1 && (
