@@ -51,8 +51,8 @@ export default function LandingPage() {
         <h2 className="card-title">Your Mood Grid</h2>
 
         <div className="chart-wrapper">
-          {/ THIS IS THE ONLY CHANGE I MADE HERE*/}
-          {/ trailEnabled altered to false so history does not appear*/}
+          {/* THIS IS THE ONLY CHANGE I MADE HERE*/}
+          {/* trailEnabled altered to false so history does not appear*/}
           <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={false}/>
         </div>
 
