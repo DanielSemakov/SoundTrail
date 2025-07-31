@@ -13,7 +13,8 @@ import {
   ResponsiveContainer,
   ReferenceLine,
   Label,
-  ReferenceDot
+  ReferenceDot,
+  Line
 } from "recharts";
 
 /*In the graph, x-coords and y-coords range from -5 to 5. These values
