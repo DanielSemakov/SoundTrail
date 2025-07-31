@@ -38,7 +38,7 @@ const convertCoordsToMood = (x, y) => {
   return { valence, energy };
 };
 
-export default function MoodEnergyChart({ updateMood, mood }) {
+export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
   const ticks = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
   const [hoverPoint, setHoverPoint] = useState(null);
   const chartRef = useRef(null);
@@ -51,7 +51,11 @@ export default function MoodEnergyChart({ updateMood, mood }) {
     return mood.energy * 10 - 5;
   }
 
+  const [trail, setTrail] = useState([]);
 
+  const addPoint = (x, y) => {
+    setTrail(prev => [...prev, {x, y}]);
+  }
 
   const handleClick = (e) => {
     const chart = chartRef.current;
@@ -65,6 +69,10 @@ export default function MoodEnergyChart({ updateMood, mood }) {
     if (x >= -5 && x <= 5 && y >= -5 && y <= 5) {
       const { valence, energy } = convertCoordsToMood(x, y);
       updateMood({ valence, energy });
+      //If mood is valid and trail is enabled, the trail will update accordingly
+      if (trailEnabled === true) {
+        addPoint(x, y);
+      }
     } else {
       updateMood({ valence: null, energy: null });
     }
@@ -134,6 +142,27 @@ export default function MoodEnergyChart({ updateMood, mood }) {
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
             <Scatter data={data} fill="transparent"
             stroke="transparent" />
+            {/* Below is the scatter plot used for the history */}
+            {/* Data passed to it is the "trail" array state created earlier */}
+            {/* If trailEnabled is true and trail has points, render the scatter plot and line */  }
+            {trailEnabled && trail.length > 0 && (
+              <>
+                <Scatter
+                  name="Points"
+                  data={trail}
+                  fill="#8884d8"
+                  data-testid="trail-scatter"
+                />
+                <Line
+                  type="monotone"
+                  data={trail}
+                  dataKey="y"
+                  stroke="#ff7300"
+                  dot={false}
+                  isAnimationActive={false}
+                />
+              </>
+            )}
             {/* {hoverPoint && (
               <ReferenceDot
                 x={hoverPoint.x}
