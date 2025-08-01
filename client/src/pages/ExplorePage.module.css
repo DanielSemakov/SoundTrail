@@ -63,13 +63,13 @@ body {
 .mood-chart-wrapper {
   width: 250px;
   height: 250px;
-  position: relative;
+  position: relative; 
 }
 
 
 .section-title {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 3.5rem;
   font-size: 1.25rem;
   font-weight: 600;
 }

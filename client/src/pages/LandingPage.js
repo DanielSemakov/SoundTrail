@@ -98,7 +98,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
         Go to Explore Page
       </button>
 
-
+{/* 
       <div className={styles.card}>
         <h2 className={styles['card-title']}>Current Track</h2>
         {loading && <p>Loading recommendations...</p>}
@@ -117,7 +117,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
             </p>
           )
         )}
-      </div>
+      </div> */}
 
 
       <div className={styles.card}>
