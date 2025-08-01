@@ -57,19 +57,28 @@ body {
   width: 100%;
   max-width: 1200px; /* example: give it room */
   margin: 0 auto;
+  border: 2px solid red;
 }
 
 
 .mood-chart-wrapper {
-  width: 250px;
-  height: 250px;
+  width: 40vw;
+  height: 100vh;
   position: relative; 
+  border: 2px solid black;
+  margin-top: 0;
+  padding-top: 0;
+  align-self: flex-start;
+  display: flex; 
+  flex-direction: column;      
+  align-items: center;
 }
 
 
 .section-title {
   text-align: center;
   margin-bottom: 3.5rem;
+  margin-top: 0;
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -79,6 +88,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 2px solid black;
 }
 
 
@@ -123,19 +133,19 @@ body {
   color: var(--text-secondary);
   font-style: italic;
 }
-.mood-chart-wrapper.small-corner {
+/* .mood-chart-wrapper.small-corner {
   width: 280px;
   height: 280px;
   top: 1rem;
   left: 1rem;
-}
-.mood-chart-wrapper {
+} */
+/* .mood-chart-wrapper {
   position: relative;
   top: 6rem;
   left: 3rem;
   width: 400px;
   height: 450px;
-}
+} */
 
 
 .track-container {
