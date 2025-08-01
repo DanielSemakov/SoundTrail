@@ -7,11 +7,15 @@ import { GetRecommendations } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import styles from './ExplorePage.module.css';
 
+let seeds = [];
+let currentSeed;
+const MAX_SEEDS_LENGTH = 6;
 
 export default function ExplorePage({ mood, setMood, genre, setGenre }) {
   const navigate = useNavigate();
   const location = useLocation();
-
+  let features = {loudness: 0, mode: 1};
+  
 
   useMoodKeyControls(mood, setMood);
 
@@ -48,9 +52,25 @@ export default function ExplorePage({ mood, setMood, genre, setGenre }) {
 
   useEffect(() => {
     console.log(mood);
-    GetRecommendations(1, genre, mood).then((res) => {
+
+    features.loudness = (mood.energy * 8) - 8;
+    features.mode = mood.valence;
+
+    if (seeds.length === 0){
+      seeds.push(genre);
+    }
+    else if (currentSeed) {
+      seeds.push(currentSeed);
+    }
+
+    if (seeds.length >= MAX_SEEDS_LENGTH){
+      seeds.shift();
+    }
+
+    GetRecommendations(1, seeds, mood, features).then((res) => {
       if (res?.content?.length) {
         setTrack(res.content[0]);
+        currentSeed = res.content[0].id;
       }
     });
   }, [mood, genre]);
