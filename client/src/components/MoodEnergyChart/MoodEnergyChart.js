@@ -116,70 +116,67 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
           {/* Chart */}
           <ResponsiveContainer>
             <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
-              <CartesianGrid stroke="rgba(0, 0, 0, 0.2)"/>
-                <XAxis
-                  type="number"
-                  dataKey="x"
-                  domain={[-5, 5]}
-                  ticks={ticks}
-                  hide
-                >
-                </XAxis>
-                <YAxis
-                  type="number"
-                  dataKey="y"
-                  domain={[-5, 5]}
-                  ticks={ticks}
-                  hide
+              <defs>
+                <linearGradient id="blackToWhite" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="black" />
+                  <stop offset="100%" stopColor="white" />
+                </linearGradient>
+              </defs>
+
+              <CartesianGrid stroke="rgba(0, 0, 0, 0.2)" />
+              <XAxis
+                type="number"
+                dataKey="x"
+                domain={[-5, 5]}
+                ticks={ticks}
+                hide
+              />
+              <YAxis
+                type="number"
+                dataKey="y"
+                domain={[-5, 5]}
+                ticks={ticks}
+                hide
+              />
+              <ReferenceLine x={0} stroke="black" strokeWidth={2} />
+              <ReferenceLine y={0} stroke="black" strokeWidth={2} />
+              <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+              <Scatter data={data} fill="transparent" stroke="transparent" />
+
+              {trailEnabled && trail.length > 0 && (
+                <>
+                  <Scatter
+                    name="Points"
+                    data={trail}
+                    hide
+                    data-testid="trail-scatter"
+                  />
+                  <Line
+                    type="monotone"
+                    data={trail}
+                    dataKey="y"
+                    stroke="white"
+                    dot={false}
+                    isAnimationActive={false}
+                    strokeWidth={3}
+                    strokeOpacity={0.4}
+                  />
+                </>
+              )}
+
+              {mood.valence != null && mood.energy != null && (
+                <ReferenceDot
+                  x={getSelectedXCoord()}
+                  y={getSelectedYCoord()}
+                  r={6}
+                  fill="black"
+                  stroke="black"
+                  strokeWidth={2}
                 />
-                <ReferenceLine x={0} stroke="black" strokeWidth={2} />
-                <ReferenceLine y={0} stroke="black" strokeWidth={2} />
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                <Scatter data={data} fill="transparent"
-                stroke="transparent" />
-                {/* Below is the scatter plot used for the history */}
-                {/* Data passed to it is the "trail" array state created earlier */}
-                {/* If trailEnabled is true and trail has points, render the scatter plot and line */  }
-                {trailEnabled && trail.length > 0 && (
-                  <>
-                    <Scatter
-                      name="Points"
-                      data={trail}
-                      fill="#8884d8"
-                      data-testid="trail-scatter"
-                    />
-                    <Line
-                      type="monotone"
-                      data={trail}
-                      dataKey="y"
-                      stroke="#ff7300"
-                      dot={false}
-                      isAnimationActive={false}
-                    />
-                  </>
-                )}
-                {/* {hoverPoint && (
-                  <ReferenceDot
-                    x={hoverPoint.x}
-                    y={hoverPoint.y}
-                    r={6}
-                    fill="black"
-                    stroke="black"
-                    strokeWidth={2}
-                  />
-                )} */}
-                {mood.valence != null && mood.energy != null && (
-                  <ReferenceDot
-                    x={getSelectedXCoord()}
-                    y={getSelectedYCoord()}
-                    r={6}
-                    fill="black"
-                    stroke="black"
-                    strokeWidth={2}
-                  />
-                )}
+              )}
             </ScatterChart>
           </ResponsiveContainer>
+
 
           {/* Top Label */}
           <div
