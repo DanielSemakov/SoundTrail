@@ -1,7 +1,6 @@
 /* Import font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-
 :root {
   --bg-page:        #f2f5f7;
   --text-primary:   #333;
@@ -12,7 +11,6 @@
   --card-shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-
 /* Reset & globals */
 body {
   margin: 0;
@@ -21,7 +19,6 @@ body {
   color: var(--text-primary);
 }
 
-
 /* Wrapper for entire app */
 .container {
   max-width: 800px;
@@ -29,6 +26,36 @@ body {
   padding: 2rem;
 }
 
+/* Header styles */
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+/* Navigation buttons container */
+.navigationButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Navigation button styles */
+.btnGenerate {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnGenerate:hover {
+  background: var(--accent-dark);
+}
 
 /* Card container */
 .card {
@@ -42,14 +69,12 @@ body {
   align-items: center;
 }
 
-
 /* Card titles */
 .card-title {
   margin: 0 0 4rem;
   font-size: 1.25rem;
   font-weight: 600;
 }
-
 
 /* Placeholder text */
 .placeholder {
@@ -58,7 +83,6 @@ body {
   text-align: center;
 }
 
-
 /* Chart wrapper: fixed square */
 .chart-wrapper {
   width: 400px;
@@ -66,7 +90,6 @@ body {
   margin-bottom: 1.5rem;
   position: relative;
 }
-
 
 /* Fill the wrapper with the Recharts component */
 .chart-wrapper > * {
@@ -77,15 +100,16 @@ body {
   height: 100%;
 }
 
-
 /* Controls below the chart */
 .controls {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem; /* ensure space above */
+  gap: 1.5rem;
+  margin-top: 1rem;
+  width: 100%;
 }
-
 
 /* Genre dropdown styling */
 .genre-container {
@@ -94,13 +118,11 @@ body {
   align-items: flex-start;
 }
 
-
 .genre-container label {
   margin-bottom: 0.25rem;
   font-size: 0.9rem;
   color: var(--text-primary);
 }
-
 
 .genre-container select {
   padding: 0.5rem;
@@ -112,12 +134,10 @@ body {
   transition: border-color 0.2s;
 }
 
-
 .genre-container select:focus {
   outline: none;
   border-color: var(--accent);
 }
-
 
 /* Generate button styling */
 .btn-generate {
@@ -131,14 +151,11 @@ body {
   transition: background 0.2s;
 }
 
-
 .btn-generate:hover {
   background: var(--accent-dark);
 }
 
-
-
-
+/* Reset mood button styling */
 .btn-reset-mood {
   background: #f44336; /* A reddish color for reset/danger action */
   color: #fff;
@@ -160,13 +177,10 @@ body {
   cursor: not-allowed;
 }
 
-
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem; 
-    margin-top: 1rem;
-    width: 100%;
+/* Playlist navigation */
+.playlist-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }

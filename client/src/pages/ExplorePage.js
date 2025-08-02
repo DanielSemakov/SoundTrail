@@ -1,73 +1,65 @@
-// ExplorePage.js
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
 import { GetRecommendations } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import styles from './ExplorePage.module.css';
 
-
-export default function ExplorePage({ mood, setMood, genre, setGenre }) {
+export default function ExplorePage({ mood, setMood, genre, setGenre, track, setTrack }) {
   const navigate = useNavigate();
-  const location = useLocation();
 
-
+  // Hook for keyboard arrow controls
   useMoodKeyControls(mood, setMood);
 
-
-  const [track, setTrack] = useState(location.state?.track || null);
-
+  useEffect(() => {
+    GetRecommendations(1, genre, mood).then((res) => {
+      if (res?.content?.length) {
+        const newTrack = res.content[0];
+        if (newTrack?.id) {
+          setTrack(newTrack);
+        }
+      }
+    });
+  }, [mood, genre, setTrack]);
 
   const adjustMood = (direction) => {
     setMood((prev) => {
       let { valence, energy } = prev;
+      const step = 0.1;
+
       switch (direction) {
         case 'up':
-          energy = Math.min(1, energy + 0.1);
+          energy = Math.min(1, energy + step);
           break;
         case 'down':
-          energy = Math.max(0, energy - 0.1);
+          energy = Math.max(0, energy - step);
           break;
         case 'left':
-          valence = Math.max(0, valence - 0.1);
+          valence = Math.max(0, valence - step);
           break;
         case 'right':
-          valence = Math.min(1, valence + 0.1);
+          valence = Math.min(1, valence + step);
           break;
         default:
           break;
       }
+
       return {
-        valence: Math.round(valence * 10) / 10,
-        energy: Math.round(energy * 10) / 10,
+        valence: parseFloat(valence.toFixed(2)),
+        energy: parseFloat(energy.toFixed(2)),
       };
     });
   };
-
-
-  useEffect(() => {
-    console.log(mood);
-    GetRecommendations(1, genre, mood).then((res) => {
-      if (res?.content?.length) {
-        setTrack(res.content[0]);
-      }
-    });
-  }, [mood, genre]);
-
 
   return (
     <div className={styles['explore-page']}>
       <header className={styles['explore-header']}>
         <h1>Explore Songs by Mood</h1>
-        <button
-          className={styles['nav-button']}
-          onClick={() => navigate('/')}
-        >
+        <button className={styles['nav-button']} onClick={() => navigate('/')}>
           ← Back to Home
         </button>
       </header>
-
 
       <div className={styles['explore-body']}>
         <div className={styles['mood-chart-wrapper']}>
@@ -75,31 +67,21 @@ export default function ExplorePage({ mood, setMood, genre, setGenre }) {
             <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
         </div>
 
-
         <div className={styles['track-arrow-wrapper']}>
           <h2 className={styles['track-section-title']}>Now Playing</h2>
 
-
           <div className={styles['arrow-label']}>↑ More Energetic</div>
           <div className={styles['arrow-row']}>
-            <button
-              className={styles['arrow-button']}
-              onClick={() => adjustMood('up')}
-            >
+            <button className={styles['arrow-button']} onClick={() => adjustMood('up')}>
               ↑
             </button>
           </div>
 
-
           <div className={`${styles['arrow-row']} ${styles.middle}`}>
             <div className={styles['arrow-label']}>← Sad</div>
-            <button
-              className={styles['arrow-button']}
-              onClick={() => adjustMood('left')}
-            >
+            <button className={styles['arrow-button']} onClick={() => adjustMood('left')}>
               ←
             </button>
-
 
             {track ? (
               <TrackDisplay track={track} className={styles['track-display']}/>
@@ -107,22 +89,14 @@ export default function ExplorePage({ mood, setMood, genre, setGenre }) {
               <div className={styles['placeholder']}>No track loaded</div>
             )}
 
-
-            <button
-              className={styles['arrow-button']}
-              onClick={() => adjustMood('right')}
-            >
+            <button className={styles['arrow-button']} onClick={() => adjustMood('right')}>
               →
             </button>
             <div className={styles['arrow-label']}>Happy →</div>
           </div>
 
-
           <div className={styles['arrow-row']}>
-            <button
-              className={styles['arrow-button']}
-              onClick={() => adjustMood('down')}
-            >
+            <button className={styles['arrow-button']} onClick={() => adjustMood('down')}>
               ↓
             </button>
           </div>

@@ -8,12 +8,10 @@ import styles from './LandingPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function LandingPage({ mood, setMood, genre, setGenre }) {
+export default function LandingPage({ mood, setMood, genre, setGenre, track, setTrack }) {
   const PLAYLIST_SIZE = 10;
   const features = {};
 
-
-  const [track, setTrack] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -93,33 +91,12 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
 
 
   return (
+    
     <div className={styles.container}>
-      <button onClick={function() { navigate('/explore'); }}>
-        Go to Explore Page
-      </button>
-
-{/* 
-      <div className={styles.card}>
-        <h2 className={styles['card-title']}>Current Track</h2>
-        {loading && <p>Loading recommendations...</p>}
-        {error && (
-          <p className={styles['error-message']} style={{ color: 'red' }}>
-            {error}
-          </p>
-        )}
-        {track ? (
-          <TrackDisplay track={track} />
-        ) : (
-          !loading &&
-          !error && (
-            <p className={styles.placeholder}>
-              Click "Generate Song" below to start
-            </p>
-          )
-        )}
-      </div> */}
-
-
+      <header className={styles.header}>
+        <h1>Welcome to SoundTrail</h1>
+        <p>Discover songs by mood and genre</p>
+      </header>
       <div className={styles.card}>
         <h2 className={styles['card-title']}>Your Mood Grid</h2>
         <div className={styles['chart-wrapper']}>
@@ -129,7 +106,10 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
           <GenreSelector genre={genre} setGenre={setGenre} />
           <button
             className={styles['btn-generate']}
-            onClick={handleGenerate}
+            onClick={() => {
+              handleGenerate();
+              navigate('/explore');
+            }}
             disabled={loading}
           >
             {loading ? 'Generating...' : '🎵 Generate Song'}
@@ -139,7 +119,6 @@ export default function LandingPage({ mood, setMood, genre, setGenre }) {
             onClick={handleResetMood}
             disabled={loading}>
               Reset Mood
-            
           </button>
         </div>
         {playlist.length > 1 && (
