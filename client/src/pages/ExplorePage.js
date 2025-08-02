@@ -17,11 +17,27 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
   useMoodKeyControls(mood, setMood);
 
   useEffect(() => {
-    GetRecommendations(1, genre, mood).then((res) => {
+    features.loudness = (mood.energy * 8) - 8;
+    features.mode = mood.valence;
+
+    if (seeds.length === 0){
+      seeds.push(genre);
+    }
+    else if (currentSeed) {
+      seeds.push(currentSeed);
+    }
+
+    if (seeds.length >= MAX_SEEDS_LENGTH){
+      seeds.shift();
+    }
+
+    GetRecommendations(1, seeds, mood, features).then((res) => {
       if (res?.content?.length) {
         const newTrack = res.content[0];
+        console.log(newTrack);
         if (newTrack?.id) {
           setTrack(newTrack);
+          currentSeed = newTrack.id;
         }
       }
     });
@@ -55,32 +71,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
       };
     });
   };
-
-
-  useEffect(() => {
-
-    features.loudness = (mood.energy * 8) - 8;
-    features.mode = mood.valence;
-
-    if (seeds.length === 0){
-      seeds.push(genre);
-    }
-    else if (currentSeed) {
-      seeds.push(currentSeed);
-    }
-
-    if (seeds.length >= MAX_SEEDS_LENGTH){
-      seeds.shift();
-    }
-
-    GetRecommendations(1, seeds, mood, features).then((res) => {
-      if (res?.content?.length) {
-        setTrack(res.content[0]);
-        currentSeed = res.content[0].id;
-      }
-    });
-  }, [mood, genre]);
-
 
   return (
     <div className={styles['explore-page']}>
