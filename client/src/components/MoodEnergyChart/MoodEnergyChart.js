@@ -14,7 +14,8 @@ import {
   ReferenceLine,
   Label,
   ReferenceDot,
-  Line
+  Line,
+  Customized
 } from "recharts";
 
 /*In the graph, x-coords and y-coords range from -5 to 5. These values
@@ -101,97 +102,244 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
   }
 
   return (
-    <MoodEnergyChartWrapper>
-      <div
-        ref={chartRef}
-        onClick={handleClick}
-        //onMouseMove={handleMouseMove}
-        style={{
-          width: "100%",
-          height: "100%"
-        }}
-        className={styles["chart-background"]}
-
-      >
-
-        <ChartLabel position="top">Energetic</ChartLabel>
-        <ChartLabel position="bottom">Calm</ChartLabel>
-        <ChartLabel position="left">Sad</ChartLabel>
-        <ChartLabel position="right">Happy</ChartLabel>
-
-
-        <ResponsiveContainer>
-          <ScatterChart 
-            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
-            <CartesianGrid stroke="rgba(0, 0, 0, 0.2)"/>
-            <XAxis
-              type="number"
-              dataKey="x"
-              domain={[-5, 5]}
-              ticks={ticks}
-              hide
-            />
-            <YAxis
-              type="number"
-              dataKey="y"
-              domain={[-5, 5]}
-              ticks={ticks}
-              hide
-            />
-            <ReferenceLine x={0} stroke="black" strokeWidth={2} />
-            <ReferenceLine y={0} stroke="black" strokeWidth={2} />
-            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-            <Scatter data={data} fill="transparent"
-            stroke="transparent" />
-            {/* Below is the scatter plot used for the history */}
-            {/* Data passed to it is the "trail" array state created earlier */}
-            {/* If trailEnabled is true and trail has points, render the scatter plot and line */  }
-            {trailEnabled && trail.length > 0 && (
-              <>
-                <Scatter
-                  name="Points"
-                  data={trail}
-                  fill="#8884d8"
-                  data-testid="trail-scatter"
-                />
-                <Line
-                  type="monotone"
-                  data={trail}
+      <MoodEnergyChartWrapper>
+        <div
+          ref={chartRef}
+          onClick={handleClick}
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "relative", // ensure relative positioning
+          }}
+          className={styles["chart-background"]}
+        >
+          {/* Chart */}
+          <ResponsiveContainer>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+              <CartesianGrid stroke="rgba(0, 0, 0, 0.2)"/>
+                <XAxis
+                  type="number"
+                  dataKey="x"
+                  domain={[-5, 5]}
+                  ticks={ticks}
+                  hide
+                >
+                </XAxis>
+                <YAxis
+                  type="number"
                   dataKey="y"
-                  stroke="#ff7300"
-                  dot={false}
-                  isAnimationActive={false}
+                  domain={[-5, 5]}
+                  ticks={ticks}
+                  hide
                 />
-              </>
-            )}
-            {/* {hoverPoint && (
-              <ReferenceDot
-                x={hoverPoint.x}
-                y={hoverPoint.y}
-                r={6}
-                fill="black"
-                stroke="black"
-                strokeWidth={2}
-              />
-            )} */}
-            {mood.valence != null && mood.energy != null && (
-              <ReferenceDot
-                x={getSelectedXCoord()}
-                y={getSelectedYCoord()}
-                r={6}
-                fill="black"
-                stroke="black"
-                strokeWidth={2}
-              />
-            )}
-          </ScatterChart>
-        </ResponsiveContainer>
-      </div>
-      {/* <div style={{ marginTop: 60, fontSize: 18, textAlign: 'center' }}>
-        {hoverPoint
-          ? `Hovered Point: x = ${hoverPoint.x}, y = ${hoverPoint.y}`
-          : "Hover over a point to see its coordinates"}
-      </div> */}
-    </MoodEnergyChartWrapper>
+                <ReferenceLine x={0} stroke="black" strokeWidth={2} />
+                <ReferenceLine y={0} stroke="black" strokeWidth={2} />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                <Scatter data={data} fill="transparent"
+                stroke="transparent" />
+                {/* Below is the scatter plot used for the history */}
+                {/* Data passed to it is the "trail" array state created earlier */}
+                {/* If trailEnabled is true and trail has points, render the scatter plot and line */  }
+                {trailEnabled && trail.length > 0 && (
+                  <>
+                    <Scatter
+                      name="Points"
+                      data={trail}
+                      fill="#8884d8"
+                      data-testid="trail-scatter"
+                    />
+                    <Line
+                      type="monotone"
+                      data={trail}
+                      dataKey="y"
+                      stroke="#ff7300"
+                      dot={false}
+                      isAnimationActive={false}
+                    />
+                  </>
+                )}
+                {/* {hoverPoint && (
+                  <ReferenceDot
+                    x={hoverPoint.x}
+                    y={hoverPoint.y}
+                    r={6}
+                    fill="black"
+                    stroke="black"
+                    strokeWidth={2}
+                  />
+                )} */}
+                {mood.valence != null && mood.energy != null && (
+                  <ReferenceDot
+                    x={getSelectedXCoord()}
+                    y={getSelectedYCoord()}
+                    r={6}
+                    fill="black"
+                    stroke="black"
+                    strokeWidth={2}
+                  />
+                )}
+            </ScatterChart>
+          </ResponsiveContainer>
+
+          {/* Top Label */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-30px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontWeight: "bold",
+            }}
+          >
+            Energetic
+          </div>
+
+          {/* Bottom Label */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-30px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontWeight: "bold",
+            }}
+          >
+            Calm
+          </div>
+
+          {/* Left Label */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "-43px",
+              transform: "translateY(-50%)",
+              fontWeight: "bold",
+            }}
+          >
+            Sad
+          </div>
+
+          {/* Right Label */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "-63px",
+              transform: "translateY(-50%)",
+              fontWeight: "bold",
+            }}
+          >
+            Happy
+          </div>
+        </div>
+      </MoodEnergyChartWrapper>
   );
+
+
+
+
+  //   <MoodEnergyChartWrapper>
+  //     <div
+  //       ref={chartRef}
+  //       onClick={handleClick}
+  //       //onMouseMove={handleMouseMove}
+  //       style={{
+  //         width: "100%",
+  //         height: "100%"
+  //       }}
+  //       className={styles["chart-background"]}
+
+  //     >
+
+  //       {/* <ChartLabel position="top">Energetic</ChartLabel>
+  //       <ChartLabel position="bottom">Calm</ChartLabel>
+  //       <ChartLabel position="left">Sad</ChartLabel>
+  //       <ChartLabel position="right">Happy</ChartLabel> */}
+
+  //       <ResponsiveContainer>
+  //         <ScatterChart 
+  //           margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+  //           <CartesianGrid stroke="rgba(0, 0, 0, 0.2)"/>
+  //           <XAxis
+  //             type="number"
+  //             dataKey="x"
+  //             domain={[-5, 5]}
+  //             ticks={ticks}
+  //             hide
+  //           >
+  //           </XAxis>
+  //           <YAxis
+  //             type="number"
+  //             dataKey="y"
+  //             domain={[-5, 5]}
+  //             ticks={ticks}
+  //             hide
+  //           />
+  //           <ReferenceLine x={0} stroke="black" strokeWidth={2} />
+  //           <ReferenceLine y={0} stroke="black" strokeWidth={2} />
+  //           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+  //           <Scatter data={data} fill="transparent"
+  //           stroke="transparent" />
+  //           {/* Below is the scatter plot used for the history */}
+  //           {/* Data passed to it is the "trail" array state created earlier */}
+  //           {/* If trailEnabled is true and trail has points, render the scatter plot and line */  }
+  //           {trailEnabled && trail.length > 0 && (
+  //             <>
+  //               <Scatter
+  //                 name="Points"
+  //                 data={trail}
+  //                 fill="#8884d8"
+  //                 data-testid="trail-scatter"
+  //               />
+  //               <Line
+  //                 type="monotone"
+  //                 data={trail}
+  //                 dataKey="y"
+  //                 stroke="#ff7300"
+  //                 dot={false}
+  //                 isAnimationActive={false}
+  //               />
+  //             </>
+  //           )}
+  //           {/* {hoverPoint && (
+  //             <ReferenceDot
+  //               x={hoverPoint.x}
+  //               y={hoverPoint.y}
+  //               r={6}
+  //               fill="black"
+  //               stroke="black"
+  //               strokeWidth={2}
+  //             />
+  //           )} */}
+  //           {mood.valence != null && mood.energy != null && (
+  //             <ReferenceDot
+  //               x={getSelectedXCoord()}
+  //               y={getSelectedYCoord()}
+  //               r={6}
+  //               fill="black"
+  //               stroke="black"
+  //               strokeWidth={2}
+  //             />
+  //           )}
+  //         </ScatterChart>
+  //       </ResponsiveContainer>
+  //       <div style={{
+  //         position: 'absolute',
+  //         top: '-8%',
+  //         left: '50%',
+  //         transform: 'translateX(-50%)',
+  //         fontWeight: 'bold',
+  //         paddingBottom: '8px'
+  //       }}>
+  //         Top Label
+  //       </div>
+  //     </div>
+  //     {/* <div style={{ marginTop: 60, fontSize: 18, textAlign: 'center' }}>
+  //       {hoverPoint
+  //         ? `Hovered Point: x = ${hoverPoint.x}, y = ${hoverPoint.y}`
+  //         : "Hover over a point to see its coordinates"}
+  //     </div> */}
+  //   </MoodEnergyChartWrapper>
+  // );
 }
