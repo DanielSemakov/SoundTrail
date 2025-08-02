@@ -1,6 +1,6 @@
-.track-display.embed {
-  max-width: 500px;
-  width: 100%;
+.track-display-embed {
+  /* max-width: 300px;
+  width: 100%;  */
   margin: 1.5rem auto;
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -8,6 +8,12 @@
   overflow: hidden;
 }
 
+.responsive-iframe {
+  width: 22vw;
+  height: 19vw;
+  aspect-ratio: 1 / 1; /* width = height */
+  border: none;
+}
 
 .track-meta {
   padding: 0.5rem 1rem;
