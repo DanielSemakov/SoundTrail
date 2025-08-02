@@ -34,6 +34,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
     GetRecommendations(1, seeds, mood, features).then((res) => {
       if (res?.content?.length) {
         const newTrack = res.content[0];
+        // just to show that a track is being generated. temporary because the spotify 503 errors on their end. 
         console.log(newTrack);
         if (newTrack?.id) {
           setTrack(newTrack);
