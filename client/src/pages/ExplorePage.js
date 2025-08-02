@@ -12,32 +12,15 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
   // Hook for keyboard arrow controls
   useMoodKeyControls(mood, setMood);
 
-  const hasMounted = useRef(false);
-  const lastMood = useRef(mood);
-
   useEffect(() => {
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      lastMood.current = mood;
-      return; // Skip fetch on mount
-    }
-
-    // Fetch only if mood actually changed
-    if (
-      mood.valence !== lastMood.current.valence ||
-      mood.energy !== lastMood.current.energy
-    ) {
-      lastMood.current = mood;
-
-      GetRecommendations(1, genre, mood).then((res) => {
-        if (res?.content?.length) {
-          const newTrack = res.content[0];
-          if (newTrack?.id) {
-            setTrack(newTrack);
-          }
+    GetRecommendations(1, genre, mood).then((res) => {
+      if (res?.content?.length) {
+        const newTrack = res.content[0];
+        if (newTrack?.id) {
+          setTrack(newTrack);
         }
-      });
-    }
+      }
+    });
   }, [mood, genre, setTrack]);
 
   const adjustMood = (direction) => {
