@@ -6,6 +6,7 @@ export default function useMoodKeyControls(mood, setMood) {
         const handleKeyDown = (event) => {
         switch (event.key) {
             case 'ArrowLeft': {
+                event.preventDefault();
                 console.log('Left arrow pressed');
 
                 setMood(prev => {
@@ -20,6 +21,7 @@ export default function useMoodKeyControls(mood, setMood) {
                 break;
             }
             case 'ArrowRight': {
+                event.preventDefault();
                 console.log('Right arrow pressed');
 
                 setMood(prev => {
@@ -34,6 +36,7 @@ export default function useMoodKeyControls(mood, setMood) {
                 break;
             }
             case 'ArrowUp': {
+                event.preventDefault();
                 console.log('Up arrow pressed');
 
                 setMood(prev => {
@@ -48,6 +51,7 @@ export default function useMoodKeyControls(mood, setMood) {
                 break;
             }
             case 'ArrowDown': {
+                event.preventDefault();
                 console.log('Down arrow pressed');
 
                 setMood(prev => {
