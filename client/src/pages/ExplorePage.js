@@ -6,18 +6,38 @@ import { GetRecommendations } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import styles from './ExplorePage.module.css';
 
+let seeds = [];
+let currentSeed;
+const MAX_SEEDS_LENGTH = 6;
 export default function ExplorePage({ mood, setMood, genre, setGenre, track, setTrack }) {
   const navigate = useNavigate();
-
+  let features = {loudness: 0, mode: 1};
+  
   // Hook for keyboard arrow controls
   useMoodKeyControls(mood, setMood);
 
   useEffect(() => {
-    GetRecommendations(1, genre, mood).then((res) => {
+    features.loudness = (mood.energy * 8) - 8;
+    features.mode = mood.valence;
+
+    if (seeds.length === 0){
+      seeds.push(genre);
+    }
+    else if (currentSeed) {
+      seeds.push(currentSeed);
+    }
+
+    if (seeds.length >= MAX_SEEDS_LENGTH){
+      seeds.shift();
+    }
+
+    GetRecommendations(1, seeds, mood, features).then((res) => {
       if (res?.content?.length) {
         const newTrack = res.content[0];
+        console.log(newTrack);
         if (newTrack?.id) {
           setTrack(newTrack);
+          currentSeed = newTrack.id;
         }
       }
     });
