@@ -14,7 +14,6 @@ async function GetRecommendations(size, seeds, mood, features = {}){
     
     try{
         const requestURL = `${BACKEND_URL}/playlist?size=${size}&seeds=${seedsString}&energy=${mood.energy}&valence=${mood.valence}${FeaturesToString(features)}`;
-        console.log(requestURL);
         if (!seeds){
             throw new Error("Error: No genre selected/empty seeds array");
         }
