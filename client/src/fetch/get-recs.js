@@ -6,6 +6,42 @@ const BACKEND_URL = isProd
   : 'http://localhost:4000';
 
 
+
+
+/*
+
+//NEW VERSION OF THE FUNCTION FOR THE spotify_songs.csv file
+ * async function GetRecommendations(mood, genre) {
+    try{
+        if (!mood.valence){
+            throw new Error("Error: No valence selected");
+        }
+
+        if (!mood.energy){
+            throw new Error("Error: No energy selected");
+        }
+
+        if (!genre){
+            throw new Error("Error: No genre selected");
+        }
+
+        const requestURL = `${BACKEND_URL}/song?valence=${mood.valence}&energy=${mood.energy}&genre=${genre}`;
+ 
+        const response = await fetch(requestURL);
+
+        if (!response.ok){
+            throw new Error("Error: could not fetch song recommendation.");
+        }
+
+        return await response;
+    }
+
+    catch (error){console.log(error)}
+}
+
+}
+ */
+
 // desired audio features wanted besides energy and valence
 const audioFeatures = ['loudness'];
 
