@@ -4,13 +4,16 @@ import styles from './TrackDisplay.module.css';
 import { GenerateEmbedURL } from '../fetch/get-url';
 
 export default function TrackDisplay({ track }) {
-  const embedUrl = GenerateEmbedURL(track);
+  // const embedUrl = GenerateEmbedURL(track);
+  const embedUrl = `https://open.spotify.com/embed/track/${track}`;
+  console.log("Spotify embed URL: " + embedUrl);
 
   return (
     <div className={styles["track-display-embed"]}>
       {/* Only the iframe remains */}
       <iframe
-        title={track.title}
+        // title={track.title}
+        title="Spotify Player"
         src={embedUrl}
         // width="100%"
         // height="352" // Full embed height

@@ -43,21 +43,9 @@ async function getRecommendedSong(valence, energy, genre) {
   const fs = require('fs');
   const csv = require('csv-parser');
 
-  // const all_songs = [];
-  // fs.createReadStream('songs.csv') // Open the file as a stream
-  //   .pipe(csv())                   // Pipe it into the parser
-  //   .on('data', (row) => {
-  //     all_songs.push(row);            // Push each parsed row into the array
-  //   })
-  //   .on('end', () => {
-  //     console.log(all_songs);         // Log the full array once parsing is done
-  //   });
-
-
-
   const all_songs = await new Promise((resolve, reject) => {
     const results = [];
-    fs.createReadStream('songs.csv')
+    fs.createReadStream('./songs.csv')
       //Cast values in the csv file for the specified headers into floats before storing them 
       //in all_songs
       .pipe(csv({ mapValues: ({ header, value }) => {
@@ -75,49 +63,6 @@ async function getRecommendedSong(valence, energy, genre) {
       .on('end', () => resolve(results))
       .on('error', reject);
   });
-
-
-  //All songs in recommended_songs match inputted genre, valence, and energy
-
-  // let recommended_songs;
-
-  // if (genre === 'all') {
-  //   recommended_songs = all_songs;
-  // } else {
-  //   const rounded_valence = Math.round(valence * 10) / 10;
-  //   const rounded_energy = Math.round(energy * 10) / 10;
-
-  //   recommended_songs = all_songs.filter(item => {
-  //     // return (
-  //     //   item.playlist_genre.toLowerCase() === genre.toLowerCase() &&
-  //     //   item.valence === rounded_valence &&
-  //     //   item.energy === rounded_energy
-  //     // );
-
-  //     if (item.valence !== rounded_valence) return false;
-
-
-  //   });
-  // }
-
-  
-  //Stores array of songs that matches the valence, energy, and genre passed into the function
-  // recommended_songs = all_songs.filter(song => {
-  //     const song_rounded_valence = Math.round(song.valence * 10) / 10;
-  //     if (valence !== song_rounded_valence) return false;
-
-  //     const song_rounded_energy = Math.round(song.energy * 10) / 10;
-  //     if (energy !== song_rounded_energy) return false;
-
-  //     if (genre.toLowerCase !== "all" 
-  //       && song.playlist_genre.toLowerCase() !== genre.toLowerCase()) {
-  //         return false;
-  //     }
-  
-  //     return true;
-  //   });
-
-
 
   let recommended_songs = [];
 
@@ -150,15 +95,15 @@ async function getRecommendedSong(valence, energy, genre) {
   const rand_song = recommended_songs[Math.floor(Math.random() * recommended_songs.length)];
 
   //Temporarily used to verify song info for testing purposes
-  return {
-    id: rand_song.track_id,
-    valence: rand_song.valence,
-    energy: rand_song.energy,
-    genre: rand_song.playlist_genre
-  }
+  // return {
+  //   id: rand_song.track_id,
+  //   valence: rand_song.valence,
+  //   energy: rand_song.energy,
+  //   genre: rand_song.playlist_genre
+  // }
 
   //Return spotify id for rand_song
-  //rand_song.track_id
+  return rand_song.track_id;
 }
 
 module.exports = {getRecommendedSong};

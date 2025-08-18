@@ -61,4 +61,6 @@ app.get('/song', async (req, res) => {
   const response = await controllers.getRecommendedSong(valence, energy, genre);
   
   res.send(response);
+
+  // res.send("Spotify ID HERE");
 }); 
