@@ -43,9 +43,12 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
     //   }
     // });
 
-    const newTrackSpotifyId = GetRecommendations(mood, genre);
-    console.log(newTrackSpotifyId);
-    setTrack(newTrackSpotifyId);
+
+    GetRecommendations(mood, genre).then(new_track_spotify_id => {
+      console.log("Spotify ID in explore page: " + new_track_spotify_id);
+      setTrack(new_track_spotify_id);
+    });
+
 
   }, [mood, genre, setTrack]);
 

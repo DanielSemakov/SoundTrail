@@ -28,7 +28,11 @@ async function GetRecommendations(mood, genre) {
             throw new Error("Error: could not fetch song recommendation.");
         }
 
-        return await response;
+        const response_json = await response.json();
+        const result = await response_json.spotify_id;
+        console.log("Fetched spotify ID: " + result);
+
+        return result;
     }
 
     catch (error){console.log(error)}

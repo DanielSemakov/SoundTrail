@@ -54,13 +54,14 @@ app.listen(PORT, () => {
 
 // Route to get song recommendation from CSV file
 app.get('/song', async (req, res) => {
-  valence = req.params.valence;
-  energy = req.params.energy;
-  genre = req.params.genre;
+  const valence = req.query.valence;  
+  const energy = req.query.energy;    
+  const genre = req.query.genre;
 
   const response = await controllers.getRecommendedSong(valence, energy, genre);
   
-  res.send(response);
+  res.json({ spotify_id: response });
 
+  //Test: this works properly
   // res.send("Spotify ID HERE");
 }); 

@@ -36,16 +36,18 @@
 
 
 /**Returns the spotify id of 1 random song in the spotify_songs.csv file whose valence,
- * energy, and genre match the input. The valence and energy in the csv file are rounded
- * to the nearest tenth.
-//  */
-async function getRecommendedSong(valence, energy, genre) {
-  const fs = require('fs');
-  const csv = require('csv-parser');
+ * energy, and genre match the input. 
+ */
 
+const fs = require('fs');
+const csv = require('csv-parser');
+const path = require('path'); 
+
+
+async function getRecommendedSong(valence, energy, genre) {
   const all_songs = await new Promise((resolve, reject) => {
     const results = [];
-    fs.createReadStream('./songs.csv')
+    fs.createReadStream(path.join(__dirname, 'songs.csv'))
       //Cast values in the csv file for the specified headers into floats before storing them 
       //in all_songs
       .pipe(csv({ mapValues: ({ header, value }) => {
