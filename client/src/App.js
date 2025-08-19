@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export default function App() {
   const [mood, setMood] = useState({ valence: 0.5, energy: 0.5 });
-  const [genre, setGenre] = useState('pop');
+  const [genre, setGenre] = useState('all');
   const [track, setTrack] = useState(null); 
 
   return (
