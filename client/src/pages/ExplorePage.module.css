@@ -57,7 +57,7 @@ body {
   align-items: flex-start;
   padding: 2rem;
   /* gap: 8rem; */
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
   max-width: 1200px; /* example: give it room */
   margin: 0 auto;
