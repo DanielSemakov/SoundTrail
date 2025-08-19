@@ -107,7 +107,6 @@ export default function LandingPage({ mood, setMood, genre, setGenre, track, set
           <button
             className={styles['btn-generate']}
             onClick={() => {
-              handleGenerate();
               navigate('/explore');
             }}
             disabled={loading}

@@ -8,11 +8,11 @@ const BACKEND_URL = isProd
 //NEW VERSION OF THE FUNCTION FOR THE spotify_songs.csv file
 async function GetRecommendations(mood, genre) {
     try{
-        if (!mood.valence){
+        if (mood.valence == null){
             throw new Error("Error: No valence value inputted");
         }
 
-        if (!mood.energy){
+        if (mood.energy == null){
             throw new Error("Error: No energy value inputted");
         }
 
