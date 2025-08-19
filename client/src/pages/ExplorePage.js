@@ -17,33 +17,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
   useMoodKeyControls(mood, setMood);
 
   useEffect(() => {
-    features.loudness = (mood.energy * 8) - 8;
-    features.mode = mood.valence;
-
-    if (seeds.length === 0){
-      seeds.push(genre);
-    }
-    else if (currentSeed) {
-      seeds.push(currentSeed);
-    }
-
-    if (seeds.length >= MAX_SEEDS_LENGTH){
-      seeds.shift();
-    }
-
-    // GetRecommendations(1, seeds, mood, features).then((res) => {
-    //   if (res?.content?.length) {
-    //     const newTrack = res.content[0];
-    //     // just to show that a track is being generated. temporary because the spotify 503 errors on their end. 
-    //     console.log(newTrack);
-    //     if (newTrack?.id) {
-    //       setTrack(newTrack);
-    //       currentSeed = newTrack.id;
-    //     }
-    //   }
-    // });
-
-
     GetRecommendations(mood, genre).then(new_track_spotify_id => {
       console.log("Spotify ID in explore page: " + new_track_spotify_id);
       setTrack(new_track_spotify_id);

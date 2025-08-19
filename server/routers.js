@@ -61,7 +61,4 @@ app.get('/song', async (req, res) => {
   const response = await controllers.getRecommendedSong(valence, energy, genre);
   
   res.json({ spotify_id: response });
-
-  //Test: this works properly
-  // res.send("Spotify ID HERE");
 }); 
