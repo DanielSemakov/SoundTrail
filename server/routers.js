@@ -23,6 +23,7 @@ const PORT = process.env.PORT || 4000;
 // Serve React static files from the build folder
 // app.use(express.static(path.join(__dirname, '../client/build')));
 
+
 // Define API routes here
 app.get('/api/song', (req, res) => {
   res.json({ title: 'Sample Song', artist: 'Artist Name' });
@@ -49,3 +50,15 @@ app.get(`/test`, (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+// Route to get song recommendation from CSV file
+app.get('/song', async (req, res) => {
+  const valence = req.query.valence;  
+  const energy = req.query.energy;    
+  const genre = req.query.genre;
+
+  const response = await controllers.getRecommendedSong(valence, energy, genre);
+  
+  res.json({ spotify_id: response });
+}); 

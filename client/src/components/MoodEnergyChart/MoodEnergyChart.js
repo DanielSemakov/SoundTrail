@@ -47,24 +47,27 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
   }
 
   const handleClick = (e) => {
+    console.log("Raw click payload:", e);
+
     const chart = chartRef.current;
     if (!chart) return;
     const { left, top, width, height } = chart.getBoundingClientRect();
     const mouseX = e.clientX - left;
     const mouseY = e.clientY - top;
-    const x = Math.round((mouseX / width) * 10 - 5);
-    const y = Math.round(5 - (mouseY / height) * 10);
+    const xVal = Math.round((mouseX / width) * 10 - 5);
+    const yVal = Math.round(5 - (mouseY / height) * 10);
 
-    if (x >= -5 && x <= 5 && y >= -5 && y <= 5) {
-      const { valence, energy } = convertCoordsToMood(x, y);
+    console.log("Selected x and y values: (" + xVal + ", " + yVal + ")");
+
+    if (xVal >= -5 && xVal <= 5 && yVal >= -5 && yVal <= 5) {
+      const { valence, energy } = convertCoordsToMood(xVal, yVal);
+      console.log("MoodEnergyChart.js: Updated mood. New valence: " + valence + ". New energy: " + energy);
       updateMood({ valence, energy });
       //If mood is valid and trail is enabled, the trail will update accordingly
       if (trailEnabled === true) {
-        addPoint(x, y);
+        addPoint(xVal, yVal);
       }
-    } else {
-      updateMood({ valence: null, energy: null });
-    }
+    } 
   };
 
   const handleMouseMove = (e) => {
