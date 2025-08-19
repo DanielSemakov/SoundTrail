@@ -20,7 +20,10 @@ async function GetRecommendations(mood, genre) {
             throw new Error("Error: No genre value inputted");
         }
 
-        const requestURL = `${BACKEND_URL}/song?valence=${mood.valence}&energy=${mood.energy}&genre=${genre}`;
+        //Ensure genre is encoded in case it contains special characters
+        //E.g. the "&" in "r&b"
+        const requestURL = `${BACKEND_URL}/song?valence=${mood.valence}&energy=${mood.energy}
+        &genre=${encodeURIComponent(genre)}`;
  
         const response = await fetch(requestURL);
 

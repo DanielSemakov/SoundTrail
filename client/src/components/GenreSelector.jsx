@@ -15,6 +15,7 @@ export default function GenreSelector({ genre, setGenre }) {
         <option value="edm">EDM</option>
         <option value="latin">Latin</option>
         <option value="pop">Pop</option>
+        <option value="r&b">R&B</option>
         <option value="rap">Rap</option>
         <option value="rock">Rock</option>
       </select>
