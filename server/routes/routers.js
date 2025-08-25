@@ -2,10 +2,12 @@
 
 const express = require('express');
 const path = require('path');
-const controllers = require('./controllers/fetch-recs.js');
+const controllers = require('../song-recommendations/fetch-recs.js');
 
 const cors = require('cors');
 const { json } = require('stream/consumers');
+const getRecommendedSongs = require('../song-recommendations/fetch-playlist.js');
+const playlist_generator = require("../spotify/playlist-generator.js");
 
 const app = express();
 
@@ -62,3 +64,30 @@ app.get('/song', async (req, res) => {
   
   res.json({ spotify_id: response });
 }); 
+
+// // Main endpoint for generating playlist based on musical parameters
+app.post('/api/generate-playlist', async (req, res) => {
+  try {
+    const valence = req.query.valence;  
+    const energy = req.query.energy;    
+    const genre = req.query.genre;
+    
+    if (valence === undefined || energy === undefined || !genre) {
+      return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
+    }
+    
+    // const name = playlistName || `${genre} Mix (V:${valence}, E:${energy})`;
+    // const description = playlistDescription || `Auto-generated ${genre} playlist`;
+    
+    const trackIds = await getRecommendedSongs(valence, energy, genre);
+    const playlist = await playlist_generator.createPlaylist();
+    await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
+    
+    res.json({ success: true, playlist });
+    
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = { }
