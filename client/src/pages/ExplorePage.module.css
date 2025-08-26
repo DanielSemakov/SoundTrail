@@ -4,6 +4,10 @@
   box-sizing: border-box;
 } */
 
+* {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
 :root {
   --bg-page:        #f2f5f7;
   --text-primary:   #333;
@@ -27,6 +31,8 @@ body {
   min-height: 100vh;
   background: var(--bg-page);
   width: 93.5vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 
 
@@ -54,7 +60,7 @@ body {
 .explore-body {
   display: grid;
   grid-template-columns: 0.3fr 1fr 1fr;
-  column-gap: 5rem;
+  column-gap: 5vw; 
   /* gap: 3rem; */
   /* display: flex;
   justify-content: space-between;
@@ -70,22 +76,35 @@ body {
 }
 
 
-.mood-chart-wrapper {
-  /* width: 40vw;
-  height: 90vh; */
-  /* width: 100%; */
+/* .mood-chart-wrapper {
+  width: 40vw;
+  height: 90vh; 
   position: relative; 
   margin-top: 0;
   padding-top: 0;
-  /* align-self: flex-start; */
   display: flex; 
   flex-direction: column;      
   align-items: center;
   border: 2px solid red;
   border-radius: 8px;
   background-color: white;
-  /* padding: 1rem;  */
-  /* box-sizing: border-box; */
+
+} */
+
+.mood-chart-wrapper {
+  /* border: 2px solid red;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;      
+  align-items: center;
+  align-self: flex-start;
+  max-height: 600px; */
+  border: 2px solid red;
+  background-color: white;
+  border-radius: 8px;
+  display: block;
+  align-items: center;
 }
 
 /* .mood-energy-chart-explore-pg {
@@ -102,6 +121,7 @@ body {
   width: 100%; 
   height: 52vh;
   border-radius: 8px;
+  font-size: 0.75rem;
 }
 
 .genreDropdown {
@@ -117,6 +137,7 @@ body {
   border-radius: 8px;
   background-color: white;
   height: 90vh;
+  font-size: 0.8rem;
 }
 
 
@@ -124,12 +145,13 @@ body {
 .chart-section-title {
   text-align: center;
   /* Slightly shift title to the left so it aligns with shifted chart */
-  transform: translateX(-7%);
-
+  /* transform: translateX(-7%); */
+  /* margin: 0 auto; */
   margin-bottom: 3.5rem;
   /*margin-top: 0; */
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.17rem;
+  transform: translateX(-2%);
+
 }
 
 .track-section-title {

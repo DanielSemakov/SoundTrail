@@ -1,10 +1,12 @@
 /* give the chart a fixed square container */
   .wrapper {
     width: 72%;
-    height: 72%; 
+    aspect-ratio: 1 / 1;
     border: 2px solid green;
-    /* max-width: 500px;
-    max-height: 500px; */
+    align-self: flex-start; 
+    margin: 0 auto;
+    /* max-width: 800px;
+    max-height: 800px;  */
   }
   
   /* optional info text styling if you use it */
