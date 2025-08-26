@@ -2,7 +2,6 @@
   .wrapper {
     width: 72%;
     aspect-ratio: 1 / 1;
-    border: 2px solid green;
     align-self: flex-start; 
     margin: 0 auto;
     /* max-width: 800px;

@@ -103,6 +103,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
                   <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={false}/>
         </div>
         <div className={styles.controls}>
+          <label>Genre: </label>
           <GenreSelector genre={genre} setGenre={setGenre} />
           <button
             className={styles['btn-generate']}
