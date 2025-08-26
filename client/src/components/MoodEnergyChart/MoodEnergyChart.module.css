@@ -1,7 +1,11 @@
 /* give the chart a fixed square container */
   .wrapper {
-    width: 400px;
-    height: 400px;
+    width: 72%;
+    aspect-ratio: 1 / 1;
+    align-self: flex-start; 
+    margin: 0 auto;
+    /* max-width: 800px;
+    max-height: 800px;  */
   }
   
   /* optional info text styling if you use it */
@@ -13,7 +17,7 @@
   }
   
   .chart-background {
-    /*background: linear-gradient(
+    /*background: linear-gradient
     to top right,
     #adc8ff 0%,
     #a0c4ff 25%,

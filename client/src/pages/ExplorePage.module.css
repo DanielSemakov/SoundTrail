@@ -4,6 +4,13 @@
   box-sizing: border-box;
 } */
 
+* {
+  font-family: 'Montserrat', sans-serif !important;
+  /* padding: 0;
+  margin: 0; */
+
+}
+
 :root {
   --bg-page:        #f2f5f7;
   --text-primary:   #333;
@@ -20,13 +27,22 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: var(--bg-page);
   color: var(--text-primary);
-}
+  /* overflow-x: hidden; */
+  /* width: 93.5vw; */
+  /* overflow-x: hidden; */
+  max-width: 100%;
+} 
 
 
 .explore-page {
   min-height: 100vh;
   background: var(--bg-page);
   width: 93.5vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  width: 100%;
+  box-sizing: border-box;
+
 }
 
 
@@ -37,7 +53,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 
@@ -52,38 +69,73 @@ body {
 
 
 .explore-body {
-  display: flex;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 1fr;
+  column-gap: 5vw; 
+  /* gap: 3rem; */
+  /* display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-start; */
   padding: 2rem;
   /* gap: 8rem; */
   flex-wrap: nowrap;
-  width: 100%;
-  max-width: 1200px; /* example: give it room */
+  max-width: 100%;
+  /* max-width: 1200px; example: give it room */
   margin: 0 auto;
-  overflow: visible;
+  /* overflow: visible; */
+  box-sizing: border-box; 
 }
-
 
 .mood-chart-wrapper {
-  width: 40vw;
-  height: 100vh;
-  position: relative; 
-  margin-top: 0;
-  padding-top: 0;
-  align-self: flex-start;
-  display: flex; 
-  flex-direction: column;      
+  background-color: white;
+  border-radius: 8px;
+  display: block;
   align-items: center;
+  height: fit-content; 
+  padding-bottom: 10vh;
 }
+
+.genre-wrapper {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  width: 100%; 
+  height: 52vh;
+  border-radius: 8px;
+  font-size: 0.75rem;
+
+}
+
+.genreDropdown {
+  display: block;
+  width: 100%;
+}
+
+.playlist-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  background-color: white;
+  height: fit-content;
+  padding-bottom: 8vh;
+  font-size: 0.8rem;
+}
+
 
 
 .chart-section-title {
   text-align: center;
+  /* Slightly shift title to the left so it aligns with shifted chart */
+  /* transform: translateX(-7%); */
+  /* margin: 0 auto; */
   margin-bottom: 3.5rem;
-  margin-top: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  /*margin-top: 0; */
+  font-size: 1.17rem;
+  transform: translateX(-2%);
+
 }
 
 .track-section-title {

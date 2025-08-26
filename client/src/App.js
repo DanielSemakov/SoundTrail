@@ -6,7 +6,8 @@ import { useState } from 'react';
 export default function App() {
   const [mood, setMood] = useState({ valence: 0.5, energy: 0.5 });
   const [genre, setGenre] = useState('all');
-  const [track, setTrack] = useState(null); 
+  // const [track, setTrack] = useState(null); 
+  const [playlist, setPlaylist] = useState(null); 
 
   return (
     <Router>
@@ -19,8 +20,10 @@ export default function App() {
               setMood={setMood}
               genre={genre}
               setGenre={setGenre}
-              track={track}
-              setTrack={setTrack}
+              // track={track}
+              // setTrack={setTrack}
+              playlist={playlist}
+              setPlaylist={setPlaylist}
             />
           }
         />
@@ -32,8 +35,10 @@ export default function App() {
               setMood={setMood}
               genre={genre}
               setGenre={setGenre}
-              track={track}
-              setTrack={setTrack}
+              // track={track}
+              // setTrack={setTrack}
+              playlist={playlist}
+              setPlaylist={setPlaylist}
             />
           }
         />

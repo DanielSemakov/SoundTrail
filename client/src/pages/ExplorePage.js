@@ -2,14 +2,16 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
-import { GetRecommendations } from '../fetch/get-recs';
+import { getPlaylistRec } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
+import GenreSelector from '../components/GenreSelector';
 import styles from './ExplorePage.module.css';
+
 
 let seeds = [];
 let currentSeed;
 const MAX_SEEDS_LENGTH = 6;
-export default function ExplorePage({ mood, setMood, genre, setGenre, track, setTrack }) {
+export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, setPlaylist }) {
   const navigate = useNavigate();
   let features = {loudness: 0, mode: 1};
   
@@ -17,13 +19,18 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
   useMoodKeyControls(mood, setMood);
 
   useEffect(() => {
-    GetRecommendations(mood, genre).then(new_track_spotify_id => {
-      console.log("Spotify ID in explore page: " + new_track_spotify_id);
-      setTrack(new_track_spotify_id);
+    // GetRecommendations(mood, genre).then(new_track_spotify_id => {
+    //   console.log("Spotify ID in explore page: " + new_track_spotify_id);
+    //   setTrack(new_track_spotify_id);
+    // });
+
+    getPlaylistRec(mood, genre).then(new_playlist => {
+      console.log("\nReceived playlist in explore page: " + new_playlist);
+      setPlaylist(new_playlist);
     });
 
 
-  }, [mood, genre, setTrack]);
+  }, [mood, genre, setPlaylist]);
 
   const adjustMood = (direction) => {
     setMood((prev) => {
@@ -64,12 +71,26 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
       </header>
 
       <div className={styles['explore-body']}>
+        <div className={styles['genre-wrapper']}>
+          <h2>Genre</h2>
+          <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreDropdown}/>
+        </div>
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
             <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
         </div>
+        <div className={styles['playlist-wrapper']}>
+          <h2>Your Playlist</h2>
+          {playlist ? (
+              <TrackDisplay playlist={playlist} className={styles['track-display']}/>
+            ) : (
+              <div className={styles['placeholder']}>No playlist loaded</div>
+            )
+          }
+        </div>
 
-        <div className={styles['track-arrow-wrapper']}>
+
+        {/* <div className={styles['track-arrow-wrapper']}>
           <h2 className={styles['track-section-title']}>Now Playing</h2>
 
           <div className={styles['arrow-label']}>↑ More Energetic</div>
@@ -85,10 +106,10 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
               ←
             </button>
 
-            {track ? (
-              <TrackDisplay track={track} className={styles['track-display']}/>
+            {playlist ? (
+              <TrackDisplay playlist={playlist} className={styles['track-display']}/>
             ) : (
-              <div className={styles['placeholder']}>No track loaded</div>
+              <div className={styles['placeholder']}>No playlist loaded</div>
             )}
 
             <button className={styles['arrow-button']} onClick={() => adjustMood('right')}>
@@ -103,8 +124,8 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
             </button>
           </div>
           <div className={styles['arrow-label']}>↓ More Calm</div>
-        </div>
-      </div>
+        </div> */}
+      </div> 
     </div>
   );
 }
