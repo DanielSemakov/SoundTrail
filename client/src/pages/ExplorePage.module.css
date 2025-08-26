@@ -29,6 +29,9 @@ body {
   color: var(--text-primary);
   /* overflow-x: hidden; */
   border: 2px solid pink;
+  /* width: 93.5vw; */
+  /* overflow-x: hidden; */
+  max-width: 100%;
 } 
 
 
@@ -39,6 +42,9 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   border: 2px solid yellow;
+  width: 100%;
+  box-sizing: border-box;
+
 }
 
 
@@ -49,7 +55,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 
@@ -74,12 +81,12 @@ body {
   padding: 2rem;
   /* gap: 8rem; */
   flex-wrap: nowrap;
-  width: 100%;
+  max-width: 100%;
   /* max-width: 1200px; example: give it room */
   margin: 0 auto;
-  overflow: visible;
+  /* overflow: visible; */
   border: 2px solid blue;
-  /* box-sizing: border-box;  */
+  box-sizing: border-box; 
 }
 
 

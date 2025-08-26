@@ -23,6 +23,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
     //   console.log("Spotify ID in explore page: " + new_track_spotify_id);
     //   setTrack(new_track_spotify_id);
     // });
+
     getPlaylistRec(mood, genre).then(new_playlist => {
       console.log("\nReceived playlist in explore page: " + new_playlist);
       setPlaylist(new_playlist);
