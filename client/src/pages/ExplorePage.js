@@ -4,7 +4,9 @@ import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
 import { getPlaylistRec } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
+import GenreSelector from '../components/GenreSelector';
 import styles from './ExplorePage.module.css';
+
 
 let seeds = [];
 let currentSeed;
@@ -68,12 +70,26 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
       </header>
 
       <div className={styles['explore-body']}>
+        <div className={styles['genre-wrapper']}>
+          <h2>Genre</h2>
+          <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreDropdown}/>
+        </div>
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
             <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
         </div>
+        <div className={styles['playlist-wrapper']}>
+          <h2>Your Playlist</h2>
+          {playlist ? (
+              <TrackDisplay playlist={playlist} className={styles['track-display']}/>
+            ) : (
+              <div className={styles['placeholder']}>No playlist loaded</div>
+            )
+          }
+        </div>
 
-        <div className={styles['track-arrow-wrapper']}>
+
+        {/* <div className={styles['track-arrow-wrapper']}>
           <h2 className={styles['track-section-title']}>Now Playing</h2>
 
           <div className={styles['arrow-label']}>↑ More Energetic</div>
@@ -107,8 +123,8 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
             </button>
           </div>
           <div className={styles['arrow-label']}>↓ More Calm</div>
-        </div>
-      </div>
+        </div> */}
+      </div> 
     </div>
   );
 }

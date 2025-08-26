@@ -10,9 +10,7 @@ export default function TrackDisplay({ playlist }) {
   console.log("Spotify embed URL: " + embedUrl);
 
   return (
-    <div className={styles["track-display-embed"]}>
-      {/* Only the iframe remains */}
-      <iframe
+    <iframe
         // title={track.title}
         title={playlist.name}
         src={embedUrl}
@@ -23,7 +21,20 @@ export default function TrackDisplay({ playlist }) {
         allowFullScreen
         className={styles['responsive-iframe']}
       />
+    // <div className={styles["track-display-embed"]}>
+    //   {/* Only the iframe remains */}
+    //   <iframe
+    //     // title={track.title}
+    //     title={playlist.name}
+    //     src={embedUrl}
+    //     // width="100%"
+    //     // height="352" // Full embed height
+    //     frameBorder="0"
+    //     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    //     allowFullScreen
+    //     className={styles['responsive-iframe']}
+    //   />
 
-    </div>
+    // </div>
   );
 }

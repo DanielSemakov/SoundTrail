@@ -52,36 +52,82 @@ body {
 
 
 .explore-body {
-  display: flex;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 1fr;
+  column-gap: 5rem;
+  /* gap: 3rem; */
+  /* display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-start; */
   padding: 2rem;
   /* gap: 8rem; */
   flex-wrap: nowrap;
   width: 100%;
-  max-width: 1200px; /* example: give it room */
+  /* max-width: 1200px; example: give it room */
   margin: 0 auto;
   overflow: visible;
+  border: 2px solid blue;
 }
 
 
 .mood-chart-wrapper {
-  width: 40vw;
-  height: 100vh;
+  /* width: 40vw;
+  height: 90vh; */
+  /* width: 100%; */
   position: relative; 
   margin-top: 0;
   padding-top: 0;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   display: flex; 
   flex-direction: column;      
   align-items: center;
+  border: 2px solid red;
+  border-radius: 8px;
+  background-color: white;
+  /* padding: 1rem;  */
+  /* box-sizing: border-box; */
 }
+
+/* .mood-energy-chart-explore-pg {
+  margin-left: '-5%'
+} */
+
+.genre-wrapper {
+  border: 2px solid purple;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  width: 100%; 
+  height: 52vh;
+  border-radius: 8px;
+}
+
+.genreDropdown {
+  display: block;
+  width: 100%;
+}
+
+.playlist-wrapper {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  background-color: white;
+  height: 90vh;
+}
+
 
 
 .chart-section-title {
   text-align: center;
+  /* Slightly shift title to the left so it aligns with shifted chart */
+  transform: translateX(-7%);
+
   margin-bottom: 3.5rem;
-  margin-top: 0;
+  /*margin-top: 0; */
   font-size: 1.25rem;
   font-weight: 600;
 }
