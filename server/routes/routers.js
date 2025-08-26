@@ -88,11 +88,9 @@ app.post('/api/generate-playlist', async (req, res) => {
     console.log("Track IDs:\n\n" + trackIds)
 
     const playlist = await playlist_generator.createPlaylist();
-
     console.log("\n\nCreated playlist\n");
 
     await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
-
     console.log("Added tracks to playlist.\n")
     
     res.json({ success: true, playlist });

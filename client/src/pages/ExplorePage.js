@@ -2,14 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
-import { GetRecommendations } from '../fetch/get-recs';
+import { getPlaylistRec } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import styles from './ExplorePage.module.css';
 
 let seeds = [];
 let currentSeed;
 const MAX_SEEDS_LENGTH = 6;
-export default function ExplorePage({ mood, setMood, genre, setGenre, track, setTrack }) {
+export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, setPlaylist }) {
   const navigate = useNavigate();
   let features = {loudness: 0, mode: 1};
   
@@ -17,13 +17,17 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
   useMoodKeyControls(mood, setMood);
 
   useEffect(() => {
-    GetRecommendations(mood, genre).then(new_track_spotify_id => {
-      console.log("Spotify ID in explore page: " + new_track_spotify_id);
-      setTrack(new_track_spotify_id);
+    // GetRecommendations(mood, genre).then(new_track_spotify_id => {
+    //   console.log("Spotify ID in explore page: " + new_track_spotify_id);
+    //   setTrack(new_track_spotify_id);
+    // });
+    getPlaylistRec(mood, genre).then(new_playlist => {
+      console.log("\nReceived playlist in explore page: " + new_playlist);
+      setPlaylist(new_playlist);
     });
 
 
-  }, [mood, genre, setTrack]);
+  }, [mood, genre, setPlaylist]);
 
   const adjustMood = (direction) => {
     setMood((prev) => {
@@ -85,10 +89,10 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, track, set
               ←
             </button>
 
-            {track ? (
-              <TrackDisplay track={track} className={styles['track-display']}/>
+            {playlist ? (
+              <TrackDisplay playlist={playlist} className={styles['track-display']}/>
             ) : (
-              <div className={styles['placeholder']}>No track loaded</div>
+              <div className={styles['placeholder']}>No playlist loaded</div>
             )}
 
             <button className={styles['arrow-button']} onClick={() => adjustMood('right')}>

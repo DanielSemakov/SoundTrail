@@ -84,4 +84,4 @@ async function GetRecommendations(mood, genre) {
     catch (error){console.log(error)}
 }
 
-module.exports = {GetRecommendations};
+module.exports = {getPlaylistRec};
