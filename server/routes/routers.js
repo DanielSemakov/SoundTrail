@@ -20,6 +20,8 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(express.json())
+
 const PORT = process.env.PORT || 4000;
 
 // Serve React static files from the build folder
@@ -65,12 +67,15 @@ app.get('/song', async (req, res) => {
   res.json({ spotify_id: response });
 }); 
 
-// // Main endpoint for generating playlist based on musical parameters
+//Main endpoint for generating playlist based on song parameters
 app.post('/api/generate-playlist', async (req, res) => {
+  // const { valence, energy, genre } = req.body;
+
+  // const trackIds = await getRecommendedSongs(valence, energy, genre);
+  // console.log("Track IDs:\n\n" + trackIds)
+  // res.json({response: "response"} );
   try {
-    const valence = req.query.valence;  
-    const energy = req.query.energy;    
-    const genre = req.query.genre;
+    const { valence, energy, genre } = req.body;
     
     if (valence === undefined || energy === undefined || !genre) {
       return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
@@ -80,8 +85,15 @@ app.post('/api/generate-playlist', async (req, res) => {
     // const description = playlistDescription || `Auto-generated ${genre} playlist`;
     
     const trackIds = await getRecommendedSongs(valence, energy, genre);
+    console.log("Track IDs:\n\n" + trackIds)
+
     const playlist = await playlist_generator.createPlaylist();
+
+    console.log("\n\nCreated playlist\n");
+
     await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
+
+    console.log("Added tracks to playlist.\n")
     
     res.json({ success: true, playlist });
     
