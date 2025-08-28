@@ -17,13 +17,17 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: var(--bg-page);
   color: var(--text-primary);
+  overflow-x: hidden;
 }
 
 /* Wrapper for entire app */
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* max-width: 800px; */
+  width: 100%;
+  min-height: 100vh; 
+  /* padding: 0 auto; */
+  /* padding: 2rem; */
+  border: 2px solid red;
 }
 
 /* Header styles */
@@ -63,10 +67,14 @@ body {
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
+  max-width: 800px;
+  /* max-width: 1200px; */
+  margin: 0 auto 20vh;
 }
 
 /* Card titles */
@@ -183,4 +191,16 @@ body {
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.moodChill {
+  background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #d4fc79);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

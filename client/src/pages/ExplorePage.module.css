@@ -84,10 +84,12 @@ body {
   margin: 0 auto;
   /* overflow: visible; */
   box-sizing: border-box; 
+  min-height: 100vh;
 }
 
 .mood-chart-wrapper {
-  background-color: white;
+  /* background-color: white; */
+  background-color: rgba(255, 255, 255, 1);
   border-radius: 8px;
   display: block;
   align-items: center;
@@ -96,16 +98,18 @@ body {
 }
 
 .genre-wrapper {
-  background-color: white;
+  /* background-color: white; */
+  background-color: rgba(255, 255, 255, 1);
   display: flex;
   flex-direction: column;
   align-items: stretch;
   text-align: center;
   width: 100%; 
-  height: 52vh;
+  /* height: 52vh; */
+  height: fit-content;
   border-radius: 8px;
   font-size: 0.75rem;
-
+  padding-bottom: 2vh;
 }
 /* 
 .genreDropdown {
@@ -121,11 +125,14 @@ body {
 }
 
 .playlist-wrapper {
+  background-color: rgba(255, 255, 255, 1);
+  /* background-color: rgba(255, 255, 255, 0); very light tint */
+  /* backdrop-filter: blur(12px) saturate(180%); */
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 8px;
-  background-color: white;
+  /* background-color: white; */
   height: fit-content;
   padding-bottom: 8vh;
   font-size: 0.8rem;
@@ -273,4 +280,39 @@ body {
   max-width: 100%;
   border-radius: 12px;
   /* overflow: hidden; */
+}
+
+/* Background animation */
+@keyframes moodFade {
+  0% {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  }
+  50% {
+    background: linear-gradient(135deg, #c2e9fb, #d4fc79);
+  }
+  100% {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.mood-chill {
+  /* animation: moodFade 15s ease-in-out infinite; */
+  /* background-size: 200% 200%; */
+  background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #d4fc79);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.mood-depressed {
+  /* animation: moodFade 15s ease-in-out infinite; */
+  /* background-size: 200% 200%; */
+  background: linear-gradient(270deg, #003fa5, #ff0000, hsl(0, 0%, 0%));
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
 }

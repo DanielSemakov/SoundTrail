@@ -91,8 +91,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
 
 
   return (
-    
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.moodChill}`}>
       <header className={styles.header}>
         <h1>Welcome to SoundTrail</h1>
         <p>Discover songs by mood and genre</p>
@@ -100,7 +99,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
       <div className={styles.card}>
         <h2 className={styles['card-title']}>Your Mood Grid</h2>
         <div className={styles['chart-wrapper']}>
-                  <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={false}/>
+          <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={false}/>
         </div>
         <div className={styles.controls}>
           <label>Genre: </label>
