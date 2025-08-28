@@ -111,7 +111,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
             }}
             disabled={loading}
           >
-            {loading ? 'Generating...' : '🎵 Generate Song'}
+            {loading ? 'Generating...' : 'Generate Playlist'}
           </button>
           {/* <button
             className={styles['btn-reset-mood']}

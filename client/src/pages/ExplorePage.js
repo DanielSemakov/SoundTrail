@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
@@ -17,6 +17,30 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
   
   // Hook for keyboard arrow controls
   useMoodKeyControls(mood, setMood);
+
+  const [backgroundColorClass, setBackgroundColorClass] = useState(null);
+
+  useEffect(() => {
+    const valenceEnergySum = Math.round((mood.valence + mood.energy) * 10) / 10;
+    console.log("VALENCE ENERGY SUM: " + valenceEnergySum)
+
+    if (valenceEnergySum <= 0.3) {
+      setBackgroundColorClass(styles.backgroundBlue);
+    }
+    else if (valenceEnergySum <= 0.8) {
+      setBackgroundColorClass(styles.backgroundGreen);
+    }
+    else if (valenceEnergySum <= 1.2) {
+      setBackgroundColorClass(styles.backgroundYellow);
+    }
+    else if (valenceEnergySum <= 1.6) {
+      setBackgroundColorClass(styles.backgroundRed);
+    }
+    else {
+      setBackgroundColorClass(styles.backgroundPink);
+    }
+  }, [mood]);
+
 
   useEffect(() => {
     // GetRecommendations(mood, genre).then(new_track_spotify_id => {
@@ -70,7 +94,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         </button>
       </header>
 
-      <div className={`${styles['explore-body']} ${styles['mood-chill']}`}>
+      <div className={`${styles['explore-body']} ${backgroundColorClass}`}>
         <div className={styles['genre-wrapper']}>
           <h2>Genre</h2>
           <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreSelector}/>

@@ -11,6 +11,10 @@
   --card-shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+* {
+  box-sizing: border-box
+}
+
 /* Reset & globals */
 body {
   margin: 0;
@@ -24,10 +28,13 @@ body {
 .container {
   /* max-width: 800px; */
   width: 100%;
-  min-height: 100vh; 
+  /* min-height: 100vh;  */
   /* padding: 0 auto; */
   /* padding: 2rem; */
-  border: 2px solid red;
+  /* border: 2px transparent; */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-height: 100vh;
 }
 
 /* Header styles */
@@ -194,9 +201,9 @@ body {
 }
 
 .moodChill {
-  background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #d4fc79);
+  background: linear-gradient(270deg, #a1c4fd, #d4fc79, #f3fc79, #ffbc5f, #ff71c9);
   background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
+  animation: gradientShift 30s ease-in-out infinite;
 }
 
 @keyframes gradientShift {
