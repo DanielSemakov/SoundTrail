@@ -102,7 +102,7 @@ export default function MoodEnergyChart({ updateMood, mood, trailEnabled }) {
             position: "relative", // ensure relative positioning
             //Slight shift chart to the left so it aligns better in explore page
             //since the label on the right side is slightly longer than that on the left side
-            transform: 'translateX(-3%)'
+            // transform: 'translateX(-3%)'
           }}
           className={styles["chart-background"]}
         >

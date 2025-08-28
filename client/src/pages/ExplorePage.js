@@ -70,7 +70,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         </button>
       </header>
 
-      <div className={styles['explore-body']}>
+      <div className={`${styles['explore-body']} ${styles['mood-chill']}`}>
         <div className={styles['genre-wrapper']}>
           <h2>Genre</h2>
           <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreSelector}/>

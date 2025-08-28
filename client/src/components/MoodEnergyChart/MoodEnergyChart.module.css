@@ -1,6 +1,6 @@
 /* give the chart a fixed square container */
   .wrapper {
-    width: 72%;
+    width: 70%;
     aspect-ratio: 1 / 1;
     align-self: flex-start; 
     margin: 0 auto;
