@@ -283,18 +283,6 @@ body {
 }
 
 /* Background animation */
-@keyframes moodFade {
-  0% {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-  }
-  50% {
-    background: linear-gradient(135deg, #c2e9fb, #d4fc79);
-  }
-  100% {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-  }
-}
-
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -313,6 +301,36 @@ body {
   /* animation: moodFade 15s ease-in-out infinite; */
   /* background-size: 200% 200%; */
   background: linear-gradient(270deg, #003fa5, #ff0000, hsl(0, 0%, 0%));
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundBlue {
+  background: linear-gradient(270deg, #5c8be0, #7a9de6, #4a7bc8, #6b94e3);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundGreen {
+  background: linear-gradient(270deg, #6fd0a2, #8dd9b8, #5bbf91, #7ed4aa);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundYellow {
+  background: linear-gradient(270deg, #f2c94c, #f5d670, #efbc28, #f4d05a);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundRed {
+  background: linear-gradient(270deg, #f97c7c, #fb9999, #f75c5c, #fa8888);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundPink {
+  background: linear-gradient(270deg, #e056bd, #e874cd, #d63ba8, #e663c7);
   background-size: 600% 600%;
   animation: gradientShift 15s ease-in-out infinite;
 }
