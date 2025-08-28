@@ -2,7 +2,7 @@
 import React from 'react';
 import Select from 'react-dropdown-select';
 
-export default function GenreSelector({ genre, setGenre, className }) {
+export default function GenreSelector({ genre, setGenre, className, dropdownPosition = "bottom"}) {
   const genreOptions = [
     { value: 'all', label: 'All' },
     { value: 'edm', label: 'EDM' },
@@ -14,8 +14,7 @@ export default function GenreSelector({ genre, setGenre, className }) {
   ];
 
   return (
-    //style={{width: '80%', maxWidth: '300px'}}
-    <div >
+    <div className={className}>
       <Select
         options={genreOptions}
         values={[{ value: genre, label: genre.charAt(0).toUpperCase() + genre.slice(1) }]}
@@ -23,15 +22,15 @@ export default function GenreSelector({ genre, setGenre, className }) {
         multi={false}
         placeholder="Choose a genre"
         style={{
-          width: '80%',
+          width: '100%',
           maxWidth: '300px',
           margin: '0 auto',
           fontSize: '0.875rem',
           border: '1px solid black',
-          height: '2.2em',
+          height: '2.3em',
           boxSizing: 'border-box',
-          border: "2px solid purple"
         }}
+        dropdownPosition={dropdownPosition} 
         dropdownHeight="auto"
         itemRenderer={({ item, methods }) => {
           const isSelected = methods.isSelected(item);
@@ -40,7 +39,7 @@ export default function GenreSelector({ genre, setGenre, className }) {
             <div
               onClick={() => methods.addItem(item)}
               style={{
-                padding: '12px 14px',
+                padding: '12px 10%',
                 textAlign: 'left',
                 fontSize: '0.875rem',
                 cursor: 'pointer',

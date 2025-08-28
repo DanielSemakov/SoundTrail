@@ -107,10 +107,17 @@ body {
   font-size: 0.75rem;
 
 }
-
+/* 
 .genreDropdown {
   display: block;
   width: 100%;
+} */
+
+
+.genreSelector {
+  width: 80%; 
+  max-width: 300px;  
+  margin: 0 auto;
 }
 
 .playlist-wrapper {
