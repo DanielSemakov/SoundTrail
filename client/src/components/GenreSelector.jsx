@@ -1,41 +1,63 @@
 
-
 import React from 'react';
+import Select from 'react-dropdown-select';
 
 export default function GenreSelector({ genre, setGenre, className }) {
-  return (
-    <div>
-      {/* <label htmlFor="genre">Genre</label> */}
-      <select 
-        id="genre" 
-        value={genre} 
-        onChange={e => setGenre(e.target.value)}
-        style={{
-          // display: "block",
-          // alignItems: 'stretch' 
-          // width: '90%',
-          // display: 'block',
-          // boxSizing: 'border-box'   
+  const genreOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'edm', label: 'EDM' },
+    { value: 'latin', label: 'Latin' },
+    { value: 'pop', label: 'Pop' },
+    { value: 'r&b', label: 'R&B' },
+    { value: 'rap', label: 'Rap' },
+    { value: 'rock', label: 'Rock' },
+  ];
 
-          height: '2.2em',
-          // lineHeight: '1.2',
-          width: '90%',
-          display: 'block',
+  return (
+    //style={{width: '80%', maxWidth: '300px'}}
+    <div >
+      <Select
+        options={genreOptions}
+        values={[{ value: genre, label: genre.charAt(0).toUpperCase() + genre.slice(1) }]}
+        onChange={(values) => setGenre(values[0]?.value)}
+        multi={false}
+        placeholder="Choose a genre"
+        style={{
+          width: '80%',
+          maxWidth: '300px',
           margin: '0 auto',
-          boxSizing: 'border-box',
           fontSize: '0.875rem',
           border: '1px solid black',
-          backgroundColor: 'lightgray'
+          height: '2.2em',
+          boxSizing: 'border-box',
+          border: "2px solid purple"
         }}
-      >
-        <option style={{width: '90%'}} value="all">All</option>
-        <option value="edm">EDM</option>
-        <option value="latin">Latin</option>
-        <option value="pop">Pop</option>
-        <option value="r&b">R&B</option>
-        <option value="rap">Rap</option>
-        <option value="rock">Rock</option>
-      </select>
+        dropdownHeight="auto"
+        itemRenderer={({ item, methods }) => {
+          const isSelected = methods.isSelected(item);
+
+          return (
+            <div
+              onClick={() => methods.addItem(item)}
+              style={{
+                padding: '12px 14px',
+                textAlign: 'left',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                backgroundColor: isSelected ? '#d0d0d0' : 'transparent',
+              }}
+              onMouseEnter={(e) => {
+                if (!isSelected) e.currentTarget.style.backgroundColor = '#f0f0f0';
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
+              {item.label}
+            </div>
+          );
+        }}
+      ></Select>
     </div>
   );
 }
