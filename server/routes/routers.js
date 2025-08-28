@@ -100,4 +100,13 @@ app.post('/api/generate-playlist', async (req, res) => {
   }
 });
 
+//Ping this consistently to keep server up
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime() 
+  });
+});
+
 module.exports = { }
