@@ -104,7 +104,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
         </div>
         <div className={styles.controls}>
           <label>Genre: </label>
-          <GenreSelector genre={genre} setGenre={setGenre} />
+          <GenreSelector genre={genre} setGenre={setGenre} dropdownPosition="top"/>
           <button
             className={styles['btn-generate']}
             onClick={() => {

@@ -109,6 +109,7 @@ body {
   gap: 1.5rem;
   margin-top: 1rem;
   width: 100%;
+  border: 2px solid red;
 }
 
 /* Genre dropdown styling */

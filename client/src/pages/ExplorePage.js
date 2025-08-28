@@ -73,7 +73,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
       <div className={styles['explore-body']}>
         <div className={styles['genre-wrapper']}>
           <h2>Genre</h2>
-          <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreDropdown}/>
+          <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreSelector}/>
         </div>
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
