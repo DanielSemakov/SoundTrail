@@ -1,13 +1,15 @@
 // import FetchRecommendation from './controllers'
-
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const path = require('path');
 const controllers = require('../song-recommendations/fetch-recs.js');
+const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 const { json } = require('stream/consumers');
 const getRecommendedSongs = require('../song-recommendations/fetch-playlist.js');
 const playlist_generator = require("../spotify/playlist-generator.js");
+
 
 const app = express();
 
@@ -21,6 +23,7 @@ app.use(cors({
 }));
 
 app.use(express.json())
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 4000;
 
@@ -108,5 +111,29 @@ app.get('/health', (req, res) => {
     uptime: process.uptime() 
   });
 });
+
+
+app.get('/start-session', (req, res) => {
+  const existingSessionId = req.cookies.sessionId;
+
+  if (existingSessionId) {
+    return res.json({ sessionId: existingSessionId });
+  }
+  
+  //Prevent duplicate cookies if another request comes in simultaneously
+  if (res.headersSent) return;
+
+  const newSessionId = uuidv4();
+  res.cookie('sessionId', newSessionId, {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    sameSite: 'Strict'
+  });
+
+  res.json({ sessionId: newSessionId });
+});
+
+
 
 module.exports = { }

@@ -6,6 +6,16 @@ const BACKEND_URL = isProd
   : 'http://localhost:4000';
 
 
+async function startSession() {
+    try { 
+        const res = await fetch(`${BACKEND_URL}/start-session`, { method: 'GET', credentials: 'include' }); 
+        const data = await res.json(); 
+        console.log('Session started:', data.sessionId); 
+    } catch (err) { 
+        console.error('Session error:', err); 
+    } 
+}
+
 async function getPlaylistRec(mood, genre) {
     try{
         const { valence, energy } = mood;
@@ -46,8 +56,6 @@ async function getPlaylistRec(mood, genre) {
     } 
 }
 
-module.exports = {GetRecommendations};
-
 //NEW VERSION OF THE FUNCTION FOR THE spotify_songs.csv file
 async function GetRecommendations(mood, genre) {
     try{
@@ -84,4 +92,4 @@ async function GetRecommendations(mood, genre) {
     catch (error){console.log(error)}
 }
 
-module.exports = {getPlaylistRec};
+module.exports = {getPlaylistRec, startSession};

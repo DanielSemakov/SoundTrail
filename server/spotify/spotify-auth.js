@@ -9,10 +9,6 @@ class SpotifyAuth {
     this.clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
     this.refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
 
-    console.log('Client ID:', this.clientId);
-    console.log('Client Secret:', this.clientSecret);
-    console.log('Refresh Token:', this.refreshToken);
-    
     // In-memory token storage
     this.accessToken = null;
     this.tokenExpiresAt = null;
