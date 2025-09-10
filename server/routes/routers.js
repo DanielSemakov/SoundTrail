@@ -73,13 +73,6 @@ app.get('/song', async (req, res) => {
 
 //Main endpoint for generating playlist based on song parameters
 app.post('/api/generate-playlist', async (req, res) => {
-
-  /////////////////////////////////////////////////////////////
-  //NEW CODE!!!!!!!!!!!!!
-  /////////////////////////////////////////////////////////////
-
-  //Get session for the user. Proably convert this to one line:
-  //session = sessions.getSession()
   console.log('Raw cookie header:', req.headers.cookie);
 
   const sessionId = req.cookies?.sessionId;
@@ -92,6 +85,7 @@ app.post('/api/generate-playlist', async (req, res) => {
 
   if (!session) {
     // Find an unclaimed playlist slot
+    console.log("User is not yet part of a session. Adding user to session...")
     session = sessions.find(s => s.sessionId === null);
     if (!session) return res.status(403).send('No available playlists');
 
@@ -99,7 +93,24 @@ app.post('/api/generate-playlist', async (req, res) => {
     session.sessionId = sessionId;
   }
 
-  console.log("User has successfully been added to a session: " + session);
+  console.log("User has successfully been added to a session. ");
+  console.log("Playlist ID: ", session.playlistId, "\nSession ID: ", sessionId);
+
+  // Only allow any one user/session to modify a playlist if they have not already done so
+  // too recently
+  const now = Date.now();
+  const DEBOUNCE_INTERVAL = 30 * 1000; //30 seconds in ms
+
+  if (session.lastPlaylistUpdateTime && now - session.lastPlaylistUpdateTime < DEBOUNCE_INTERVAL) {
+    const waitTime = Math.ceil((DEBOUNCE_INTERVAL - (now - session.lastPlaylistUpdateTime)) / 1000);
+    return res.status(429).json({ 
+      error: `Please wait ${waitTime} more seconds before modifying the playlist again.` 
+    });
+  }
+
+  session.lastPlaylistUpdateTime = now;
+
+
 
   try {
     const { valence, energy, genre } = req.body;
@@ -110,7 +121,8 @@ app.post('/api/generate-playlist', async (req, res) => {
     playlistId = session.playlistId;
 
 
-    // await playlist_generator.modifyName(playlistId, valence, energy, genre);
+    const updateNameResult = await playlist_generator.updateName(playlistId, valence, energy, genre);
+    const newName = updateNameResult.newName;
     //Create this function so that it clears all current tracks in playlist and then adds new
     //ones, as playlist_generator.addSongsToPlaylist(playlist.id, trackIds); already does.
     await playlist_generator.replaceSongsInPlaylist(playlistId, trackIds);
@@ -122,8 +134,9 @@ app.post('/api/generate-playlist', async (req, res) => {
 
     const playlist = {
       id: playlistId,
-      name: "Temp Name",
+      name: newName,
       description: "description",
+      lastModified: session.lastPlaylistUpdateTime
     };
 
 

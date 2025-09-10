@@ -12,6 +12,7 @@ export default function TrackDisplay({ playlist }) {
   return (
     <iframe
         // title={track.title}
+        key={`${playlist.id}-${playlist.lastModified}`}
         title={playlist.name}
         src={embedUrl}
         // width="100%"
