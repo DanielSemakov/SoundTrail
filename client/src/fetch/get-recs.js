@@ -35,8 +35,9 @@ async function getPlaylistRec(mood, genre) {
         const response = await fetch(`${BACKEND_URL}/api/generate-playlist`, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
+            credentials: 'include', 
             body: JSON.stringify({ valence, energy, genre })
         });
 

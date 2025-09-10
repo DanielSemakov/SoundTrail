@@ -67,4 +67,31 @@ async function addSongsToPlaylist(playlistId, trackIds) {
   }
 }
 
-module.exports = { createPlaylist, addSongsToPlaylist };
+//Can only replace up to 100 songs
+async function replaceSongsInPlaylist(playlistId, trackIds) {
+  try {
+    if (!trackIds || trackIds.length === 0) {
+      throw new Error('No tracks provided to replace in playlist');
+    }
+
+    // Spotify allows max 100 tracks per replace request
+    const uris = trackIds.slice(0, 100); // truncate if over limit
+
+    const result = await spotifyAuth.makeSpotifyRequest('PUT',
+      `/playlists/${playlistId}/tracks`,
+      { uris }
+    );
+
+    return {
+      success: true,
+      tracksReplaced: uris.length,
+      snapshotId: result.snapshot_id
+    };
+  } catch (error) {
+    console.error('Error replacing songs in playlist:', error.message);
+    throw error;
+  }
+}
+
+
+module.exports = { createPlaylist, addSongsToPlaylist, replaceSongsInPlaylist };

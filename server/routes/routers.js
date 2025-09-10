@@ -9,6 +9,7 @@ const cors = require('cors');
 const { json } = require('stream/consumers');
 const getRecommendedSongs = require('../song-recommendations/fetch-playlist.js');
 const playlist_generator = require("../spotify/playlist-generator.js");
+const sessions = require("../data/sessions.js");
 
 
 const app = express();
@@ -72,35 +73,107 @@ app.get('/song', async (req, res) => {
 
 //Main endpoint for generating playlist based on song parameters
 app.post('/api/generate-playlist', async (req, res) => {
-  // const { valence, energy, genre } = req.body;
 
-  // const trackIds = await getRecommendedSongs(valence, energy, genre);
-  // console.log("Track IDs:\n\n" + trackIds)
-  // res.json({response: "response"} );
+  /////////////////////////////////////////////////////////////
+  //NEW CODE!!!!!!!!!!!!!
+  /////////////////////////////////////////////////////////////
+
+  //Get session for the user. Proably convert this to one line:
+  //session = sessions.getSession()
+  console.log('Raw cookie header:', req.headers.cookie);
+
+  const sessionId = req.cookies?.sessionId;
+  console.log("User session id identified: " + sessionId);
+
+  if (!sessionId) return res.status(401).send('Missing session ID');
+
+  // Check if session already exists
+  let session = sessions.find(s => s.sessionId === sessionId);
+
+  if (!session) {
+    // Find an unclaimed playlist slot
+    session = sessions.find(s => s.sessionId === null);
+    if (!session) return res.status(403).send('No available playlists');
+
+    // Claim it
+    session.sessionId = sessionId;
+  }
+
+  console.log("User has successfully been added to a session: " + session);
+
   try {
     const { valence, energy, genre } = req.body;
-    
-    if (valence === undefined || energy === undefined || !genre) {
-      return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
-    }
-    
-    // const name = playlistName || `${genre} Mix (V:${valence}, E:${energy})`;
-    // const description = playlistDescription || `Auto-generated ${genre} playlist`;
-    
+
     const trackIds = await getRecommendedSongs(valence, energy, genre);
-    console.log("Track IDs:\n\n" + trackIds)
+    console.log("Track IDs:\n\n" + trackIds);
 
-    const playlist = await playlist_generator.createPlaylist();
-    console.log("\n\nCreated playlist\n");
+    playlistId = session.playlistId;
 
-    await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
-    console.log("Added tracks to playlist.\n")
-    
+
+    // await playlist_generator.modifyName(playlistId, valence, energy, genre);
+    //Create this function so that it clears all current tracks in playlist and then adds new
+    //ones, as playlist_generator.addSongsToPlaylist(playlist.id, trackIds); already does.
+    await playlist_generator.replaceSongsInPlaylist(playlistId, trackIds);
+    console.log("Replaced tracks in playlist.\n")
+
+    //If I'm only returning the playlistId, rather than a dictionary with more playlist info
+    //(including the playlist id), as I originally did, then I would have to modify the frontend
+    //to reflect this. Maybe I should return more playlist info. Idk.
+
+    const playlist = {
+      id: playlistId,
+      name: "Temp Name",
+      description: "description",
+    };
+
+
+
+
     res.json({ success: true, playlist });
-    
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  //OLD CODE!!!!!!!!!!!!!!
+  ////////////////////////////////////////////////////////////////////////////////
+
+//   try {
+//     const { valence, energy, genre } = req.body;
+    
+//     if (valence === undefined || energy === undefined || !genre) {
+//       return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
+//     }
+    
+
+//     const trackIds = await getRecommendedSongs(valence, energy, genre);
+//     console.log("Track IDs:\n\n" + trackIds)
+
+//     const playlist = await playlist_generator.createPlaylist();
+//     console.log("\n\nCreated playlist\n");
+
+//     await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
+//     console.log("Added tracks to playlist.\n")
+    
+//     res.json({ success: true, playlist });
+    
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
 });
 
 //Ping this consistently to keep server up
@@ -135,5 +208,3 @@ app.get('/start-session', (req, res) => {
 });
 
 
-
-module.exports = { }
