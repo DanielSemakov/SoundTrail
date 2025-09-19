@@ -9,6 +9,14 @@ class SpotifyAuth {
     this.clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
     this.refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
 
+    console.log('Token exists:', !!this.refreshToken);
+    console.log('Token length:', this.refreshToken?.length);
+    console.log('First 4 chars:', this.refreshToken?.substring(0, 4));
+    console.log('Last 4 chars:', this.refreshToken?.substring(-4));
+    console.log('Contains spaces:', this.refreshToken?.includes(' '));
+    console.log('Contains newlines:', this.refreshToken?.includes('\n'));
+    console.log('Token type (first chars):', this.refreshToken?.substring(0, 10));
+
     // In-memory token storage
     this.accessToken = null;
     this.tokenExpiresAt = null;
