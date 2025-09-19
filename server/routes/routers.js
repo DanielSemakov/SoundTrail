@@ -76,35 +76,35 @@ app.post('/api/generate-playlist', async (req, res) => {
   console.log('Raw cookie header:', req.headers.cookie);
 
   const sessionId = req.cookies?.sessionId;
-  console.log("User session id identified: " + sessionId);
 
   if (!sessionId) return res.status(401).send('Missing session ID');
 
-  // Check if session already exists
+  //Check if session already exists
   let session = sessions.find(s => s.sessionId === sessionId);
 
   if (!session) {
-    // Find an unclaimed playlist slot
+    //Find an unclaimed playlist slot
     console.log("User is not yet part of a session. Adding user to session...")
     session = sessions.find(s => s.sessionId === null);
     if (!session) return res.status(403).send('No available playlists');
 
-    // Claim it
+    //Claim it
     session.sessionId = sessionId;
   }
 
   console.log("User has successfully been added to a session. ");
-  console.log("Playlist ID: ", session.playlistId, "\nSession ID: ", sessionId);
 
   // Only allow any one user/session to modify a playlist if they have not already done so
   // too recently
   const now = Date.now();
-  const DEBOUNCE_INTERVAL = 30 * 1000; //30 seconds in ms
+  const DEBOUNCE_INTERVAL = 15 * 1000; 
 
   if (session.lastPlaylistUpdateTime && now - session.lastPlaylistUpdateTime < DEBOUNCE_INTERVAL) {
     const waitTime = Math.ceil((DEBOUNCE_INTERVAL - (now - session.lastPlaylistUpdateTime)) / 1000);
     return res.status(429).json({ 
-      error: `Please wait ${waitTime} more seconds before modifying the playlist again.` 
+      success: false,
+      error: 'RATE_LIMIT_EXCEEDED',
+      message: `Please wait ${waitTime} more seconds before modifying the playlist again.` 
     });
   }
 
@@ -114,6 +114,7 @@ app.post('/api/generate-playlist', async (req, res) => {
 
   try {
     const { valence, energy, genre } = req.body;
+    console.log("Requested genre:", genre);
 
     const trackIds = await getRecommendedSongs(valence, energy, genre);
     console.log("Track IDs:\n\n" + trackIds);
@@ -203,7 +204,7 @@ app.get('/start-session', (req, res) => {
   const existingSessionId = req.cookies.sessionId;
 
   if (existingSessionId) {
-    return res.json({ sessionId: existingSessionId });
+    return res.json({ success: true });
   }
   
   //Prevent duplicate cookies if another request comes in simultaneously
@@ -217,7 +218,7 @@ app.get('/start-session', (req, res) => {
     sameSite: 'Strict'
   });
 
-  res.json({ sessionId: newSessionId });
+  res.json({ success: true });
 });
 
 

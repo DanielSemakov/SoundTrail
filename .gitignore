@@ -26,3 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 
 ./spotify/get_refresh_tokens.js
+
+spotify/get_refresh_token.js

@@ -150,7 +150,7 @@ async function updateName(playlistId, valence, energy, genre) {
 
     let genreTitleCase = "";
 
-    if (genre.toUpperCase === "ALL") {
+    if (genre.toUpperCase() === "ALL") {
       genreTitleCase = "Mix";
     } else if (genre.toUpperCase() === "R&B" || genre.toUpperCase() === "EDM") {
       genreTitleCase = genre.toUpperCase();

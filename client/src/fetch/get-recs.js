@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 // Change as needed for host
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -44,8 +46,15 @@ async function getPlaylistRec(mood, genre) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Failed to generate playlist');
+            //Status code 429 is part of HTTP Standard for "Too Many Requests"
+            if (response.status === 429) {
+                alert(data.message || 'Please wait before creating another playlist');
+                return;
+            } 
+
+            throw new Error(`Server error (${response.status})`);
         }
+
 
         console.log("Successfully received playlist from the frontend's getPlaylistRec() function:\n" +
             data.playlist
@@ -93,4 +102,4 @@ async function GetRecommendations(mood, genre) {
     catch (error){console.log(error)}
 }
 
-module.exports = {getPlaylistRec, startSession};
+export {getPlaylistRec, startSession};
