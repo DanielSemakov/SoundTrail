@@ -67,4 +67,119 @@ async function addSongsToPlaylist(playlistId, trackIds) {
   }
 }
 
-module.exports = { createPlaylist, addSongsToPlaylist };
+//Can only replace up to 100 songs
+// async function replaceSongsInPlaylist(playlistId, trackIds) {
+//   try {
+//     if (!trackIds || trackIds.length === 0) {
+//       throw new Error('No tracks provided to replace in playlist');
+//     }
+
+//     // Spotify allows max 100 tracks per replace request
+//     const uris = trackIds.slice(0, 100); // truncate if over limit
+
+//     const result = await spotifyAuth.makeSpotifyRequest('PUT',
+//       `/playlists/${playlistId}/tracks`,
+//       { uris }
+//     );
+
+//     return {
+//       success: true,
+//       tracksReplaced: uris.length,
+//       snapshotId: result.snapshot_id
+//     };
+//   } catch (error) {
+//     console.error('Error replacing songs in playlist:', error.message);
+//     throw error;
+//   }
+// }
+
+async function replaceSongsInPlaylist(playlistId, trackIds) {
+  try {
+    if (!trackIds || trackIds.length === 0) {
+      throw new Error('No tracks provided to replace in playlist');
+    }
+
+    // Format track IDs as Spotify URIs
+    const uris = trackIds.slice(0, 100);
+
+    const result = await spotifyAuth.makeSpotifyRequest(
+      'PUT',
+      `/playlists/${playlistId}/tracks`,
+      { uris } // Make sure this is sent as JSON with correct headers
+    );
+
+    if (!result || !result.snapshot_id) {
+      throw new Error('Spotify did not return a snapshot_id. Playlist may not have been updated.');
+    }
+
+    console.log('Playlist successfully replaced. Snapshot ID:', result.snapshot_id);
+
+    return {
+      success: true,
+      tracksReplaced: uris.length,
+      snapshotId: result.snapshot_id
+    };
+  } catch (error) {
+    console.error('Error replacing songs in playlist:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
+async function updateName(playlistId, valence, energy, genre) {
+  try {
+    let energyLabel = "";
+
+    if (energy < 0.5) {
+      energyLabel = "Calm"
+    } else if (energy === 0.5) {
+      energyLabel = "Balanced"
+    } else {
+      energyLabel = "Energetic"
+    }
+
+
+    let valenceLabel = "";
+
+    if (valence < 0.5) {
+      valenceLabel = "Sad"
+    } else if (valence === 0.5) {
+      valenceLabel = "Moderate"
+    } else {
+      valenceLabel = "Happy"
+    }
+
+    let genreTitleCase = "";
+
+    if (genre.toUpperCase() === "ALL") {
+      genreTitleCase = "Mix";
+    } else if (genre.toUpperCase() === "R&B" || genre.toUpperCase() === "EDM") {
+      genreTitleCase = genre.toUpperCase();
+    } else {
+      genreTitleCase = genre
+        .toLowerCase()
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+
+    const playlistName = `${energyLabel} ${valenceLabel} ${genreTitleCase}`;
+
+    const result = await spotifyAuth.makeSpotifyRequest(
+      'PUT',
+      `/playlists/${playlistId}`,
+      { name: playlistName }
+    );
+
+    return {
+      success: true,
+      newName: playlistName,
+    };
+  } catch (error) {
+    console.error('Error renaming playlist:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
+
+
+module.exports = { createPlaylist, addSongsToPlaylist, replaceSongsInPlaylist, updateName };

@@ -48,12 +48,16 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
     //   setTrack(new_track_spotify_id);
     // });
 
+    // getPlaylistRec(mood, genre).then(new_playlist => {
+    //   console.log("\nReceived playlist in explore page: " + new_playlist);
+    //   setPlaylist(new_playlist);
+    // });
     getPlaylistRec(mood, genre).then(new_playlist => {
-      console.log("\nReceived playlist in explore page: " + new_playlist);
-      setPlaylist(new_playlist);
+      if (new_playlist) {  // Only update if we got a valid playlist
+        console.log("\nReceived playlist in explore page: " + new_playlist);
+        setPlaylist(new_playlist);
+      }
     });
-
-
   }, [mood, genre, setPlaylist]);
 
   const adjustMood = (direction) => {

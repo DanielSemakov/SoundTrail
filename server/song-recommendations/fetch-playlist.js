@@ -47,10 +47,10 @@ async function getRecommendedSongs(valence, energy, genre) {
           return false;
       }
   
-      console.log(`Found song with valence diff ${Math.abs(valence - song.valence)}, expected
-      valence diff: ${valence_diff},  
-      requested valence=${valence}, song's actual valence=${song.valence},
-      `);
+      // console.log(`Found song with valence diff ${Math.abs(valence - song.valence)}, expected
+      // valence diff: ${valence_diff},  
+      // requested valence=${valence}, song's actual valence=${song.valence},
+      // `);
         
       return true;
     });
@@ -68,13 +68,13 @@ async function getRecommendedSongs(valence, energy, genre) {
   } while (recommended_songs.length < 10 && valence_diff <= 0.35);
 
   //Test
-  console.log("\n\n\n\n\n\n\n-------------------------------------\n");
-  console.log("Requested valence: " + valence + ", energy: " + energy + ", genre: " + genre + "\n");
-  console.log("Recommended songs in the backend: \n\n")
-  recommended_songs.forEach(song => {
-  console.log(`Spotify ID: ${song.track_id}, Valence: ${song.valence}, Energy: ${song.energy}, 
-    Genre: ${song.playlist_genre}\n`);
-  });
+  // console.log("\n\n\n\n\n\n\n-------------------------------------\n");
+  // console.log("Requested valence: " + valence + ", energy: " + energy + ", genre: " + genre + "\n");
+  // console.log("Recommended songs in the backend: \n\n")
+  // recommended_songs.forEach(song => {
+  // console.log(`Spotify ID: ${song.track_id}, Valence: ${song.valence}, Energy: ${song.energy}, 
+  //   Genre: ${song.playlist_genre}\n`);
+  // });
 
     /*Return an array of spotify track id's, which can be used to add songs to a spotify
     playlist.

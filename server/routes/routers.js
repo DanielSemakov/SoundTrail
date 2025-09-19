@@ -1,13 +1,16 @@
 // import FetchRecommendation from './controllers'
-
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const path = require('path');
 const controllers = require('../song-recommendations/fetch-recs.js');
+const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 const { json } = require('stream/consumers');
 const getRecommendedSongs = require('../song-recommendations/fetch-playlist.js');
 const playlist_generator = require("../spotify/playlist-generator.js");
+const sessions = require("../data/sessions.js");
+
 
 const app = express();
 
@@ -21,6 +24,7 @@ app.use(cors({
 }));
 
 app.use(express.json())
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 4000;
 
@@ -69,35 +73,121 @@ app.get('/song', async (req, res) => {
 
 //Main endpoint for generating playlist based on song parameters
 app.post('/api/generate-playlist', async (req, res) => {
-  // const { valence, energy, genre } = req.body;
+  console.log('Raw cookie header:', req.headers.cookie);
 
-  // const trackIds = await getRecommendedSongs(valence, energy, genre);
-  // console.log("Track IDs:\n\n" + trackIds)
-  // res.json({response: "response"} );
+  const sessionId = req.cookies?.sessionId;
+
+  if (!sessionId) return res.status(401).send('Missing session ID');
+
+  //Check if session already exists
+  let session = sessions.find(s => s.sessionId === sessionId);
+
+  if (!session) {
+    //Find an unclaimed playlist slot
+    console.log("User is not yet part of a session. Adding user to session...")
+    session = sessions.find(s => s.sessionId === null);
+    if (!session) return res.status(403).send('No available playlists');
+
+    //Claim it
+    session.sessionId = sessionId;
+  }
+
+  console.log("User has successfully been added to a session. ");
+
+  // Only allow any one user/session to modify a playlist if they have not already done so
+  // too recently
+  const now = Date.now();
+  const DEBOUNCE_INTERVAL = 15 * 1000; 
+
+  if (session.lastPlaylistUpdateTime && now - session.lastPlaylistUpdateTime < DEBOUNCE_INTERVAL) {
+    const waitTime = Math.ceil((DEBOUNCE_INTERVAL - (now - session.lastPlaylistUpdateTime)) / 1000);
+    return res.status(429).json({ 
+      success: false,
+      error: 'RATE_LIMIT_EXCEEDED',
+      message: `Please wait ${waitTime} more seconds before modifying the playlist again.` 
+    });
+  }
+
+  session.lastPlaylistUpdateTime = now;
+
+
+
   try {
     const { valence, energy, genre } = req.body;
-    
-    if (valence === undefined || energy === undefined || !genre) {
-      return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
-    }
-    
-    // const name = playlistName || `${genre} Mix (V:${valence}, E:${energy})`;
-    // const description = playlistDescription || `Auto-generated ${genre} playlist`;
-    
+    console.log("Requested genre:", genre);
+
     const trackIds = await getRecommendedSongs(valence, energy, genre);
-    console.log("Track IDs:\n\n" + trackIds)
+    console.log("Track IDs:\n\n" + trackIds);
 
-    const playlist = await playlist_generator.createPlaylist();
-    console.log("\n\nCreated playlist\n");
+    playlistId = session.playlistId;
 
-    await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
-    console.log("Added tracks to playlist.\n")
-    
+
+    const updateNameResult = await playlist_generator.updateName(playlistId, valence, energy, genre);
+    const newName = updateNameResult.newName;
+    //Create this function so that it clears all current tracks in playlist and then adds new
+    //ones, as playlist_generator.addSongsToPlaylist(playlist.id, trackIds); already does.
+    await playlist_generator.replaceSongsInPlaylist(playlistId, trackIds);
+    console.log("Replaced tracks in playlist.\n")
+
+    //If I'm only returning the playlistId, rather than a dictionary with more playlist info
+    //(including the playlist id), as I originally did, then I would have to modify the frontend
+    //to reflect this. Maybe I should return more playlist info. Idk.
+
+    const playlist = {
+      id: playlistId,
+      name: newName,
+      description: "description",
+      lastModified: session.lastPlaylistUpdateTime
+    };
+
+
+
+
     res.json({ success: true, playlist });
-    
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  //OLD CODE!!!!!!!!!!!!!!
+  ////////////////////////////////////////////////////////////////////////////////
+
+//   try {
+//     const { valence, energy, genre } = req.body;
+    
+//     if (valence === undefined || energy === undefined || !genre) {
+//       return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
+//     }
+    
+
+//     const trackIds = await getRecommendedSongs(valence, energy, genre);
+//     console.log("Track IDs:\n\n" + trackIds)
+
+//     const playlist = await playlist_generator.createPlaylist();
+//     console.log("\n\nCreated playlist\n");
+
+//     await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
+//     console.log("Added tracks to playlist.\n")
+    
+//     res.json({ success: true, playlist });
+    
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
 });
 
 //Ping this consistently to keep server up
@@ -109,4 +199,26 @@ app.get('/health', (req, res) => {
   });
 });
 
-module.exports = { }
+
+app.get('/start-session', (req, res) => {
+  const existingSessionId = req.cookies.sessionId;
+
+  if (existingSessionId) {
+    return res.json({ success: true });
+  }
+  
+  //Prevent duplicate cookies if another request comes in simultaneously
+  if (res.headersSent) return;
+
+  const newSessionId = uuidv4();
+  res.cookie('sessionId', newSessionId, {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    sameSite: 'Strict'
+  });
+
+  res.json({ success: true });
+});
+
+

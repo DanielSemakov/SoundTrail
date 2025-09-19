@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 // Change as needed for host
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -5,6 +7,16 @@ const BACKEND_URL = isProd
   ? process.env.REACT_APP_BACKEND_URL
   : 'http://localhost:4000';
 
+
+async function startSession() {
+    try { 
+        const res = await fetch(`${BACKEND_URL}/start-session`, { method: 'GET', credentials: 'include' }); 
+        const data = await res.json(); 
+        console.log('Session started:', data.sessionId); 
+    } catch (err) { 
+        console.error('Session error:', err); 
+    } 
+}
 
 async function getPlaylistRec(mood, genre) {
     try{
@@ -25,16 +37,24 @@ async function getPlaylistRec(mood, genre) {
         const response = await fetch(`${BACKEND_URL}/api/generate-playlist`, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
+            credentials: 'include', 
             body: JSON.stringify({ valence, energy, genre })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Failed to generate playlist');
+            //Status code 429 is part of HTTP Standard for "Too Many Requests"
+            if (response.status === 429) {
+                alert(data.message || 'Please wait before creating another playlist');
+                return;
+            } 
+
+            throw new Error(`Server error (${response.status})`);
         }
+
 
         console.log("Successfully received playlist from the frontend's getPlaylistRec() function:\n" +
             data.playlist
@@ -45,8 +65,6 @@ async function getPlaylistRec(mood, genre) {
         throw err;
     } 
 }
-
-module.exports = {GetRecommendations};
 
 //NEW VERSION OF THE FUNCTION FOR THE spotify_songs.csv file
 async function GetRecommendations(mood, genre) {
@@ -84,4 +102,4 @@ async function GetRecommendations(mood, genre) {
     catch (error){console.log(error)}
 }
 
-module.exports = {getPlaylistRec};
+export {getPlaylistRec, startSession};

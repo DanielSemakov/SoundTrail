@@ -1,5 +1,5 @@
 //require('dotenv').config();
-require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 
 const axios = require('axios');
 //Querystring is deprecated. Change this.
@@ -8,8 +8,8 @@ const qs = require('querystring');
 // Replace with your actual values
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirectUri = 'https://danielsemakov.github.io/SoundTrail/#/explore';
-const authorizationCode = ''; 
+const redirectUri = 'https://danielsemakov.github.io/SoundTrail/';
+const authorizationCode = 'AQDFH5buuHG_BuhxA4Bs57kWBGVHtAT46Uq0logMVX0QM9ohIEMPR_3pQHHV9WLcKQG73S6HYRE-nKeKyhTJTqnwzSK9-ULG09WZJTk4WoMzdakRJO4I8kHWmLCF6srcPFnlpZp2jP14Eei5u1C5wtg6vRSM1NQ0pvLRIT35nhcViNPCeOohA8r1WWxWmLaQIOGKm1SaLsvWKe0i0tYWAkqKj47cT4ZL0ewOqIzw7Q93-gLCNjZIVvRnlndwX-TQtCezTHdFMz_BHjVG3qA7beoIoA'; 
 
 console.log('Client ID:', process.env.SPOTIFY_CLIENT_ID);
 console.log('Client Secret exists:', !!process.env.SPOTIFY_CLIENT_SECRET);
