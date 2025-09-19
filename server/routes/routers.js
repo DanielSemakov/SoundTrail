@@ -12,6 +12,9 @@ const playlist_generator = require("../spotify/playlist-generator.js");
 const sessions = require("../data/sessions.js");
 
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+
 const app = express();
 
 // app.use(cors());
@@ -214,8 +217,8 @@ app.get('/start-session', (req, res) => {
   res.cookie('sessionId', newSessionId, {
     path: '/',
     httpOnly: true,
-    secure: false,
-    sameSite: 'Strict'
+    secure: isProduction, 
+    sameSite: 'None'
   });
 
   res.json({ success: true });
