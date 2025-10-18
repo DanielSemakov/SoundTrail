@@ -217,11 +217,33 @@ app.get('/start-session', (req, res) => {
   res.cookie('sessionId', newSessionId, {
     path: '/',
     httpOnly: true,
+    /** "secure" indicates whether the cookie has to be sent with HTTPS or not. 
+     * "sameSite" indicates whether the frontend and backend are on different domains. 
+     * sameSite: 'None' means different domain and sameSite: 'Lax' means the same domain.
+     * 
+     * When "sameSite" is None, "secure" must be true. I ensure both are true in production.
+     * However, in development, setting up HTTPS for localhost takes some effort, so it is 
+     * better to make "secure" = false and "sameSite" = 'Lax' for convenience.
+    */
     secure: isProduction, 
-    sameSite: 'None'
+    sameSite: isProduction ? 'None' : 'Lax'
   });
+
+  console.log("Successfully assigned new session ID: " + newSessionId);
 
   res.json({ success: true });
 });
 
 
+
+app.post('/api/heartbeat', (req, res) => {
+  const sessionId = req.cookies?.sessionId;
+  if (!sessionId) return res.status(401).send('Missing session ID');
+  
+  console.log("Heartbeat called for user with session ID: " + sessionId);
+  // const session = sessions.find(s => s.sessionId === sessionId);
+  // if (session) {
+  //   session.lastHeartbeat = Date.now();
+  // }
+  res.status(200).send('OK');
+});
