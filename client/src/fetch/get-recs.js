@@ -18,13 +18,13 @@ async function startSession() {
     } 
 }
 
-let hasHeartbeatBeenCalled = false;
+let hasHeartbeatStarted = false;
 
 async function startHeartbeat() {
     // Prevent multiple intervals
-    if (hasHeartbeatBeenCalled) return;
+    if (hasHeartbeatStarted) return;
     
-    hasHeartbeatBeenCalled = true;
+    hasHeartbeatStarted = true;
         
     setInterval(() => {
         fetch(`${BACKEND_URL}/api/heartbeat`, {
