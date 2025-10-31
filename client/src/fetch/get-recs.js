@@ -18,6 +18,22 @@ async function startSession() {
     } 
 }
 
+let hasHeartbeatBeenCalled = false;
+
+async function startHeartbeat() {
+    // Prevent multiple intervals
+    if (hasHeartbeatBeenCalled) return;
+    
+    hasHeartbeatBeenCalled = true;
+        
+    setInterval(() => {
+        fetch(`${BACKEND_URL}/api/heartbeat`, {
+        method: 'POST',
+        credentials: 'include'
+        });
+    }, 30000);
+}
+
 async function getPlaylistRec(mood, genre) {
     try{
         const { valence, energy } = mood;
@@ -55,51 +71,16 @@ async function getPlaylistRec(mood, genre) {
             throw new Error(`Server error (${response.status})`);
         }
 
-
         console.log("Successfully received playlist from the frontend's getPlaylistRec() function:\n" +
             data.playlist
         );
+
+        startHeartbeat();
 
         return data.playlist;
     } catch (err) {
         throw err;
     } 
-}
-
-//NEW VERSION OF THE FUNCTION FOR THE spotify_songs.csv file
-async function GetRecommendations(mood, genre) {
-    try{
-        if (mood.valence == null){
-            throw new Error("Error: No valence value inputted");
-        }
-
-        if (mood.energy == null){
-            throw new Error("Error: No energy value inputted");
-        }
-
-        if (!genre){
-            throw new Error("Error: No genre value inputted");
-        }
-
-        //Ensure genre is encoded in case it contains special characters
-        //E.g. the "&" in "r&b"
-        const requestURL = `${BACKEND_URL}/song?valence=${mood.valence}&energy=${mood.energy}
-        &genre=${encodeURIComponent(genre)}`;
- 
-        const response = await fetch(requestURL);
-
-        if (!response.ok){
-            throw new Error("Error: could not fetch song recommendation.");
-        }
-
-        const response_json = await response.json();
-        const result = await response_json.spotify_id;
-        console.log("Fetched spotify ID: " + result);
-
-        return result;
-    }
-
-    catch (error){console.log(error)}
 }
 
 export {getPlaylistRec, startSession};
