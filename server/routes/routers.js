@@ -10,14 +10,12 @@ const { json } = require('stream/consumers');
 const getRecommendedSongs = require('../song-recommendations/fetch-playlist.js');
 const playlist_generator = require("../spotify/playlist-generator.js");
 const sessions = require("../data/sessions.js");
+const cleanUpInactiveSessions = require("../data/sessions_cleanup.js");
 
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-
 const app = express();
-
-// app.use(cors());
 
 const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
 
@@ -31,9 +29,7 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 4000;
 
-// Serve React static files from the build folder
-// app.use(express.static(path.join(__dirname, '../client/build')));
-
+cleanUpInactiveSessions();
 
 // Define API routes here
 app.get('/api/song', (req, res) => {
@@ -53,10 +49,6 @@ app.get(`/test`, (req, res) => {
   console.log('works!');
 });
 
-// For any other request, serve React's index.html (enables client-side routing)
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/public', 'index.html'));
-// });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
@@ -151,46 +143,6 @@ app.post('/api/generate-playlist', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ////////////////////////////////////////////////////////////////////////////////
-  //OLD CODE!!!!!!!!!!!!!!
-  ////////////////////////////////////////////////////////////////////////////////
-
-//   try {
-//     const { valence, energy, genre } = req.body;
-    
-//     if (valence === undefined || energy === undefined || !genre) {
-//       return res.status(400).json({ error: 'Missing required parameters: valence, energy, genre' });
-//     }
-    
-
-//     const trackIds = await getRecommendedSongs(valence, energy, genre);
-//     console.log("Track IDs:\n\n" + trackIds)
-
-//     const playlist = await playlist_generator.createPlaylist();
-//     console.log("\n\nCreated playlist\n");
-
-//     await playlist_generator.addSongsToPlaylist(playlist.id, trackIds);
-//     console.log("Added tracks to playlist.\n")
-    
-//     res.json({ success: true, playlist });
-    
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
 });
 
 //Ping this consistently to keep server up
@@ -203,7 +155,7 @@ app.get('/health', (req, res) => {
 });
 
 
-app.get('/start-session', (req, res) => {
+app.get('/start-session', async (req, res) => {
   const existingSessionId = req.cookies.sessionId;
 
   if (existingSessionId) {
@@ -236,14 +188,18 @@ app.get('/start-session', (req, res) => {
 
 
 
-app.post('/api/heartbeat', (req, res) => {
+app.post('/api/heartbeat', async (req, res) => {
   const sessionId = req.cookies?.sessionId;
-  if (!sessionId) return res.status(401).send('Missing session ID');
+  if (!sessionId) return res.status(401).send("Missing session ID");
   
-  console.log("Heartbeat called for user with session ID: " + sessionId);
-  // const session = sessions.find(s => s.sessionId === sessionId);
-  // if (session) {
-  //   session.lastHeartbeat = Date.now();
-  // }
+  console.log("Heartbeat called for user with session ID: " + sessionId + "\nTime: " + Date.now());
+
+  const session = sessions.find(s => s.sessionId === sessionId);
+
+  if (!session) return res.status(500)
+    .send("Attempted to update the lastActivityTime before user has been assigned to a session");
+
+  session.lastActivityTime = Date.now();
+
   res.status(200).send('OK');
 });
