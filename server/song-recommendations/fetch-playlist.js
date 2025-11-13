@@ -87,7 +87,12 @@ async function getRecommendedSongs(valence, energy, genre) {
     It's recommended to prepend the id's with "spotify:track:" to work with Spotify API,
     though not technically necessary.
     */
-    return recommended_songs.map(song => `spotify:track:${song.track_id}`);
+    //return recommended_songs.map(song => `spotify:track:${song.track_id}`);
+    return recommended_songs.map(song => ({
+      track_id: `spotify:track:${song.track_id}`,
+      track_name: song.track_name,
+      track_artist: song.track_artist
+    }));
 }
 
 module.exports = getRecommendedSongs;
