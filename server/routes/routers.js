@@ -85,6 +85,7 @@ app.post('/api/generate-playlist', async (req, res) => {
 
     //Claim it
     session.sessionId = sessionId;
+    session.lastActivityTime = Date.now();
   }
 
   console.log("User has successfully been added to a session. ");
@@ -111,7 +112,9 @@ app.post('/api/generate-playlist', async (req, res) => {
     const { valence, energy, genre } = req.body;
     console.log("Requested genre:", genre);
 
-    const trackIds = await getRecommendedSongs(valence, energy, genre);
+    const recommended_songs = await getRecommendedSongs(valence, energy, genre);
+
+    const trackIds = recommended_songs.map(song => song.track_id);
     console.log("Track IDs:\n\n" + trackIds);
 
     playlistId = session.playlistId;
@@ -131,8 +134,9 @@ app.post('/api/generate-playlist', async (req, res) => {
     const playlist = {
       id: playlistId,
       name: newName,
+      songs: recommended_songs,
       description: "description",
-      lastModified: session.lastPlaylistUpdateTime
+      lastModified: session.lastPlaylistUpdateTime 
     };
 
 
@@ -200,6 +204,8 @@ app.post('/api/heartbeat', async (req, res) => {
     .send("Attempted to update the lastActivityTime before user has been assigned to a session");
 
   session.lastActivityTime = Date.now();
+  console.log("LastActivityTime successfully updated to " + session.lastActivityTime + 
+    " for user with session ID: " + sessionId);
 
   res.status(200).send('OK');
 });
