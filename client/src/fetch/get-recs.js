@@ -8,13 +8,29 @@ const BACKEND_URL = isProd
   : 'http://localhost:4000';
 
 
+
+
 async function startSession() {
     try { 
-        const res = await fetch(`${BACKEND_URL}/start-session`, { method: 'GET', credentials: 'include' }); 
-        const data = await res.json(); 
-        console.log('Session started:', data.sessionId); 
+        const sessionId = localStorage.getItem('sessionId');
+
+        if (sessionId) {
+            console.log('Using existing session ID');
+            return sessionId;
+        }
+
+        const res = await fetch(`${BACKEND_URL}/start-session`, {
+             method: 'GET' 
+        }); 
+
+        const data = await response.json();
+
+        localStorage.setItem('sessionId', data.sessionId);
+        console.log('Created new session ID');
+
+        return data.sessionId;
     } catch (err) { 
-        console.error('Session error:', err); 
+        console.error('Error starting session:', err); 
     } 
 }
 

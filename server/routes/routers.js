@@ -21,7 +21,8 @@ const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 app.use(cors({
   origin: allowedOrigin,
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json())
@@ -159,35 +160,49 @@ app.get('/health', (req, res) => {
 });
 
 
-app.get('/start-session', async (req, res) => {
-  const existingSessionId = req.cookies.sessionId;
+// app.get('/start-session', async (req, res) => {
+//   const existingSessionId = req.cookies.sessionId;
 
+//   if (existingSessionId) {
+//     return res.json({ success: true });
+//   }
+  
+//   //Prevent duplicate cookies if another request comes in simultaneously
+//   if (res.headersSent) return;
+
+//   const newSessionId = uuidv4();
+//   res.cookie('sessionId', newSessionId, {
+//     path: '/',
+//     httpOnly: true,
+//     /** "secure" indicates whether the cookie has to be sent with HTTPS or not. 
+//      * "sameSite" indicates whether the frontend and backend are on different domains. 
+//      * sameSite: 'None' means different domain and sameSite: 'Lax' means the same domain.
+//      * 
+//      * When "sameSite" is None, "secure" must be true. I ensure both are true in production.
+//      * However, in development, setting up HTTPS for localhost takes some effort, so it is 
+//      * better to make "secure" = false and "sameSite" = 'Lax' for convenience.
+//     */
+//     secure: isProduction, 
+//     sameSite: isProduction ? 'None' : 'Lax'
+//   });
+
+//   console.log("Successfully assigned new session ID: " + newSessionId);
+
+//   res.json({ success: true });
+// });
+
+app.get('/start-session', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const existingSessionId = authHeader?.replace('Bearer ', '');
+  
   if (existingSessionId) {
-    return res.json({ success: true });
+    return res.json({ success: true, sessionId: existingSessionId });
   }
   
-  //Prevent duplicate cookies if another request comes in simultaneously
-  if (res.headersSent) return;
-
   const newSessionId = uuidv4();
-  res.cookie('sessionId', newSessionId, {
-    path: '/',
-    httpOnly: true,
-    /** "secure" indicates whether the cookie has to be sent with HTTPS or not. 
-     * "sameSite" indicates whether the frontend and backend are on different domains. 
-     * sameSite: 'None' means different domain and sameSite: 'Lax' means the same domain.
-     * 
-     * When "sameSite" is None, "secure" must be true. I ensure both are true in production.
-     * However, in development, setting up HTTPS for localhost takes some effort, so it is 
-     * better to make "secure" = false and "sameSite" = 'Lax' for convenience.
-    */
-    secure: isProduction, 
-    sameSite: isProduction ? 'None' : 'Lax'
-  });
-
   console.log("Successfully assigned new session ID: " + newSessionId);
-
-  res.json({ success: true });
+  
+  res.json({ success: true, sessionId: newSessionId });
 });
 
 
