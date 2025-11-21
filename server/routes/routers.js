@@ -69,9 +69,9 @@ app.get('/song', async (req, res) => {
 
 //Main endpoint for generating playlist based on song parameters
 app.post('/api/generate-playlist', async (req, res) => {
-  console.log('Raw cookie header:', req.headers.cookie);
-
-  const sessionId = req.cookies?.sessionId;
+  // console.log('Raw cookie header:', req.headers.cookie);
+  const authHeader = req.headers.authorization;
+  const sessionId = authHeader?.replace('Bearer ', '');
 
   if (!sessionId) return res.status(401).send('Missing session ID');
 
@@ -208,7 +208,9 @@ app.get('/start-session', async (req, res) => {
 
 
 app.post('/api/heartbeat', async (req, res) => {
-  const sessionId = req.cookies?.sessionId;
+  const authHeader = req.headers.authorization;
+  const sessionId = authHeader?.replace('Bearer ', '');
+
   if (!sessionId) return res.status(401).send("Missing session ID");
   
   console.log("Heartbeat called for user with session ID: " + sessionId + "\nTime: " + Date.now());
