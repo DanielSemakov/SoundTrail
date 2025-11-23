@@ -6,15 +6,29 @@ const isProd = process.env.NODE_ENV === 'production';
 const BACKEND_URL = isProd
   ? process.env.REACT_APP_BACKEND_URL
   : 'http://localhost:4000';
-
+  
 
 async function startSession() {
     try { 
-        const res = await fetch(`${BACKEND_URL}/start-session`, { method: 'GET', credentials: 'include' }); 
-        const data = await res.json(); 
-        console.log('Session started:', data.sessionId); 
+        const sessionId = localStorage.getItem('sessionId');
+
+        if (sessionId) {
+            console.log('Using existing session ID');
+            return sessionId;
+        }
+
+        const res = await fetch(`${BACKEND_URL}/start-session`, {
+             method: 'GET' 
+        }); 
+
+        const data = await res.json();
+
+        localStorage.setItem('sessionId', data.sessionId);
+        console.log('Created new session ID');
+
+        return data.sessionId;
     } catch (err) { 
-        console.error('Session error:', err); 
+        console.error('Error starting session:', err); 
     } 
 }
 
@@ -27,9 +41,13 @@ async function startHeartbeat() {
     hasHeartbeatStarted = true;
         
     setInterval(() => {
+        const sessionId = localStorage.getItem('sessionId');
+
         fetch(`${BACKEND_URL}/api/heartbeat`, {
-        method: 'POST',
-        credentials: 'include'
+            method: 'POST',
+            headers: {  
+                'Authorization': `Bearer ${sessionId}`
+            }
         });
     }, 30000);
 }
@@ -50,12 +68,18 @@ async function getPlaylistRec(mood, genre) {
             throw new Error("Error: No genre value inputted");
         }
 
+        const sessionId = localStorage.getItem('sessionId');
+
+        if (!sessionId) {
+            throw new Error(`Failed to generate playlist because session ID doesn't exist.`);
+        }
+
         const response = await fetch(`${BACKEND_URL}/api/generate-playlist`, {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${sessionId}`,
                 'Content-Type': 'application/json'
             },
-            credentials: 'include', 
             body: JSON.stringify({ valence, energy, genre })
         });
 
