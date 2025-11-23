@@ -21,12 +21,10 @@ const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 app.use(cors({
   origin: allowedOrigin,
-  credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json())
-app.use(cookieParser());
 
 const PORT = process.env.PORT || 4000;
 
@@ -69,7 +67,6 @@ app.get('/song', async (req, res) => {
 
 //Main endpoint for generating playlist based on song parameters
 app.post('/api/generate-playlist', async (req, res) => {
-  // console.log('Raw cookie header:', req.headers.cookie);
   const authHeader = req.headers.authorization;
   const sessionId = authHeader?.replace('Bearer ', '');
 
@@ -107,8 +104,6 @@ app.post('/api/generate-playlist', async (req, res) => {
 
   session.lastPlaylistUpdateTime = now;
 
-
-
   try {
     const { valence, energy, genre } = req.body;
     console.log("Requested genre:", genre);
@@ -120,17 +115,11 @@ app.post('/api/generate-playlist', async (req, res) => {
 
     playlistId = session.playlistId;
 
-
     const updateNameResult = await playlist_generator.updateName(playlistId, valence, energy, genre);
     const newName = updateNameResult.newName;
-    //Create this function so that it clears all current tracks in playlist and then adds new
-    //ones, as playlist_generator.addSongsToPlaylist(playlist.id, trackIds); already does.
+
     await playlist_generator.replaceSongsInPlaylist(playlistId, trackIds);
     console.log("Replaced tracks in playlist.\n")
-
-    //If I'm only returning the playlistId, rather than a dictionary with more playlist info
-    //(including the playlist id), as I originally did, then I would have to modify the frontend
-    //to reflect this. Maybe I should return more playlist info. Idk.
 
     const playlist = {
       id: playlistId,
@@ -159,37 +148,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-
-// app.get('/start-session', async (req, res) => {
-//   const existingSessionId = req.cookies.sessionId;
-
-//   if (existingSessionId) {
-//     return res.json({ success: true });
-//   }
-  
-//   //Prevent duplicate cookies if another request comes in simultaneously
-//   if (res.headersSent) return;
-
-//   const newSessionId = uuidv4();
-//   res.cookie('sessionId', newSessionId, {
-//     path: '/',
-//     httpOnly: true,
-//     /** "secure" indicates whether the cookie has to be sent with HTTPS or not. 
-//      * "sameSite" indicates whether the frontend and backend are on different domains. 
-//      * sameSite: 'None' means different domain and sameSite: 'Lax' means the same domain.
-//      * 
-//      * When "sameSite" is None, "secure" must be true. I ensure both are true in production.
-//      * However, in development, setting up HTTPS for localhost takes some effort, so it is 
-//      * better to make "secure" = false and "sameSite" = 'Lax' for convenience.
-//     */
-//     secure: isProduction, 
-//     sameSite: isProduction ? 'None' : 'Lax'
-//   });
-
-//   console.log("Successfully assigned new session ID: " + newSessionId);
-
-//   res.json({ success: true });
-// });
 
 app.get('/start-session', async (req, res) => {
   const authHeader = req.headers.authorization;
