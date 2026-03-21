@@ -106,6 +106,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
             <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
+            <GeneratePlaylistButton></GeneratePlaylistButton>
         </div>
         <div className={styles['playlist-wrapper']}>
           <h2>Your Playlist</h2>
