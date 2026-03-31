@@ -1,5 +1,3 @@
-// spotify-auth.js
-// require('dotenv').config();
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const axios = require('axios');
 
@@ -58,48 +56,6 @@ class SpotifyAuth {
       throw new Error('Token refresh failed');
     }
   }
-
-
-  // Refresh the access token using refresh token
-  // async refreshAccessToken() {
-  //   try {
-  //     const response = await axios({
-  //       method: 'post',
-  //       url: 'https://accounts.spotify.com/api/token',
-  //       // data: new URLSearchParams({
-  //       //   grant_type: 'refresh_token',
-  //       //   refresh_token: this.refreshToken,
-  //       //   client_id: this.clientId,
-  //       //   client_secret: this.clientSecret
-  //       // }),
-  //       // headers: {
-  //       //   'Content-Type': 'application/x-www-form-urlencoded'
-  //       // }
-  //       data: new URLSearchParams({
-  //         grant_type: 'refresh_token',
-  //         refresh_token: this.refreshToken
-  //       }),
-  //       headers: {
-  //         'Content-Type': 'application/x-www-form-urlencoded',
-  //         Authorization: 'Basic ' + Buffer.from(`${this.clientId}:${this.clientSecret}`).toString('base64')
-  //       }
-  //     });
-
-  //     const { access_token, expires_in } = response.data;
-      
-  //     // Store the new token and expiration time
-  //     this.accessToken = access_token;
-  //     this.tokenExpiresAt = Date.now() + (expires_in * 1000); // Convert to milliseconds
-      
-  //     console.log('Access token refreshed successfully');
-  //     console.log('Token expires in:', expires_in, 'seconds');
-      
-  //     return this.accessToken;
-  //   } catch (error) {
-  //     console.error('Failed to refresh access token:', error.response?.data || error.message);
-  //     throw new Error('Token refresh failed');
-  //   }
-  // }
 
   // Make authenticated requests to Spotify API
   async makeSpotifyRequest(method, endpoint, data = null) {

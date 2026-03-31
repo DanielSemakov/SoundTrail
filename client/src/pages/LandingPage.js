@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import TrackDisplay from '../components/TrackDisplay';
 import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
 import GenreSelector from '../components/GenreSelector';
-import { GetRecommendations } from '../fetch/get-recs';
-import { getSeedSongsByGenre } from '../data/seedSongs';
 import styles from './LandingPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
