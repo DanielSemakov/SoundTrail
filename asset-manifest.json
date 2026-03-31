@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "https://danielsemakov.github.io/SoundTrail/static/css/main.37c70c90.css",
-    "main.js": "https://danielsemakov.github.io/SoundTrail/static/js/main.26298790.js",
+    "main.css": "https://danielsemakov.github.io/SoundTrail/static/css/main.6204d95f.css",
+    "main.js": "https://danielsemakov.github.io/SoundTrail/static/js/main.ddecaac1.js",
     "index.html": "https://danielsemakov.github.io/SoundTrail/index.html",
-    "main.37c70c90.css.map": "https://danielsemakov.github.io/SoundTrail/static/css/main.37c70c90.css.map",
-    "main.26298790.js.map": "https://danielsemakov.github.io/SoundTrail/static/js/main.26298790.js.map"
+    "main.6204d95f.css.map": "https://danielsemakov.github.io/SoundTrail/static/css/main.6204d95f.css.map",
+    "main.ddecaac1.js.map": "https://danielsemakov.github.io/SoundTrail/static/js/main.ddecaac1.js.map"
   },
   "entrypoints": [
-    "static/css/main.37c70c90.css",
-    "static/js/main.26298790.js"
+    "static/css/main.6204d95f.css",
+    "static/js/main.ddecaac1.js"
   ]
 }
