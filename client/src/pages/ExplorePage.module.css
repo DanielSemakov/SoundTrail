@@ -337,32 +337,22 @@ body {
 .playlist-button-wrapper {
   display: flex;
   justify-content: center;
-  border: 2px solid black;
 }
 
 .generate-playlist-btn {
-  margin: 0 auto;
-  /* padding: 14px 32px; */
-  /* font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 50px;
+  margin: 8vh auto 4vh;
+  padding: 12px 26px; 
+  font-size: 1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 15px;
   cursor: pointer;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; */ 
 }
 
 .generate-playlist-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
 .generate-playlist-btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
 }
