@@ -43,23 +43,23 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
   }, [mood]);
 
 
-  useEffect(() => {
-    // GetRecommendations(mood, genre).then(new_track_spotify_id => {
-    //   console.log("Spotify ID in explore page: " + new_track_spotify_id);
-    //   setTrack(new_track_spotify_id);
-    // });
+  // useEffect(() => {
+  //   // GetRecommendations(mood, genre).then(new_track_spotify_id => {
+  //   //   console.log("Spotify ID in explore page: " + new_track_spotify_id);
+  //   //   setTrack(new_track_spotify_id);
+  //   // });
 
-    // getPlaylistRec(mood, genre).then(new_playlist => {
-    //   console.log("\nReceived playlist in explore page: " + new_playlist);
-    //   setPlaylist(new_playlist);
-    // });
-    getPlaylistRec(mood, genre).then(new_playlist => {
-      if (new_playlist) {  // Only update if we got a valid playlist
-        console.log("\nReceived playlist in explore page: " + new_playlist);
-        setPlaylist(new_playlist);
-      }
-    });
-  }, [mood, genre, setPlaylist]);
+  //   // getPlaylistRec(mood, genre).then(new_playlist => {
+  //   //   console.log("\nReceived playlist in explore page: " + new_playlist);
+  //   //   setPlaylist(new_playlist);
+  //   // });
+  //   getPlaylistRec(mood, genre).then(new_playlist => {
+  //     if (new_playlist) {  // Only update if we got a valid playlist
+  //       console.log("\nReceived playlist in explore page: " + new_playlist);
+  //       setPlaylist(new_playlist);
+  //     }
+  //   });
+  // }, [mood, genre, setPlaylist]);
 
   const adjustMood = (direction) => {
     setMood((prev) => {
@@ -90,8 +90,13 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
     });
   };
 
-  function handleGeneratePlaylist() {
-    console.log('clicked!');
+  const handleGeneratePlaylist = () => {
+    getPlaylistRec(mood, genre).then(new_playlist => {
+      if (new_playlist) {  // Only update if we got a valid playlist
+        console.log("\nReceived playlist in explore page: " + new_playlist);
+        setPlaylist(new_playlist);
+      }
+    })
   }
 
 
