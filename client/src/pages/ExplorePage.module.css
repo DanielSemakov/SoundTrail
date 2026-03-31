@@ -225,7 +225,7 @@ body {
 }
 
 /* Background animation */
-@keyframes gradientShift {
+/* @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
@@ -269,6 +269,87 @@ body {
 
 .backgroundPink {
   background: linear-gradient(270deg, #e056bd, #e874cd, #d63ba8, #e663c7);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+} */
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.mood-chill {
+  background: linear-gradient(270deg, 
+    rgba(161, 196, 253, 0.4), 
+    rgba(194, 233, 251, 0.4), 
+    rgba(212, 252, 121, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.mood-depressed {
+  background: linear-gradient(270deg, 
+    rgba(0, 63, 165, 0.4), 
+    rgba(255, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundBlue {
+  background: linear-gradient(270deg, 
+    rgba(92, 139, 224, 0.4), 
+    rgba(122, 157, 230, 0.4), 
+    rgba(74, 123, 200, 0.4), 
+    rgba(107, 148, 227, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundGreen {
+  background: linear-gradient(270deg, 
+    rgba(111, 208, 162, 0.4), 
+    rgba(141, 217, 184, 0.4), 
+    rgba(91, 191, 145, 0.4), 
+    rgba(126, 212, 170, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundYellow {
+  background: linear-gradient(270deg, 
+    rgba(242, 201, 76, 0.4), 
+    rgba(245, 214, 112, 0.4), 
+    rgba(239, 188, 40, 0.4), 
+    rgba(244, 208, 90, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundRed {
+  background: linear-gradient(270deg, 
+    rgba(249, 124, 124, 0.4), 
+    rgba(251, 153, 153, 0.4), 
+    rgba(247, 92, 92, 0.4), 
+    rgba(250, 136, 136, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundPink {
+  background: linear-gradient(270deg, 
+    rgba(224, 86, 189, 0.4), 
+    rgba(197, 99, 174, 0.4), 
+    rgba(214, 59, 168, 0.4), 
+    rgba(172, 74, 149, 0.4)
+  );
   background-size: 600% 600%;
   animation: gradientShift 15s ease-in-out infinite;
 }
