@@ -1,3 +1,5 @@
 export default function GeneratePlaylistButton() {
-    <button.GeneratePlaylistButton
+    return (
+        <button type="button">Submit</button>
+    )
 }

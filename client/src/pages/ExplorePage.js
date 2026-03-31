@@ -6,6 +6,7 @@ import { getPlaylistRec } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import GenreSelector from '../components/GenreSelector';
 import styles from './ExplorePage.module.css';
+import GeneratePlaylistButton from '../components/GeneratePlaylistButton';
 
 
 let seeds = [];
@@ -89,6 +90,11 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
     });
   };
 
+  function handleGeneratePlaylist() {
+    console.log('clicked!');
+  }
+
+
   return (
     <div className={styles['explore-page']}>
       <header className={styles['explore-header']}>
@@ -106,7 +112,14 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
             <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
-            <GeneratePlaylistButton></GeneratePlaylistButton>
+            <div className={styles['playlist-button-wrapper']} >
+              <button 
+                type="button" 
+                className={styles['generate-playlist-btn']} 
+                onClick={handleGeneratePlaylist}>
+                Generate Playlist
+              </button>              
+            </div>
         </div>
         <div className={styles['playlist-wrapper']}>
           <h2>Your Playlist</h2>
