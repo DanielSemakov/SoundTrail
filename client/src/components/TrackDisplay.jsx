@@ -2,7 +2,6 @@
 import React from 'react';
 import styles from './TrackDisplay.module.css';
 import { GenerateEmbedURL } from '../fetch/get-url';
-import SongList from './SongList.jsx';
 
 export default function TrackDisplay({ playlist }) {
   const embedUrl = `https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator&t=${playlist.lastModified}`;

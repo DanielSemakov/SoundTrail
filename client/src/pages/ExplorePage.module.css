@@ -1,14 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-/* * {
-  box-sizing: border-box;
-} */
-
 * {
   font-family: 'Montserrat', sans-serif !important;
-  /* padding: 0;
-  margin: 0; */
-
 }
 
 :root {
@@ -27,9 +20,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: var(--bg-page);
   color: var(--text-primary);
-  /* overflow-x: hidden; */
-  /* width: 93.5vw; */
-  /* overflow-x: hidden; */
   max-width: 100%;
 } 
 
@@ -72,51 +62,34 @@ body {
   display: grid;
   grid-template-columns: 0.3fr 1fr 1fr;
   column-gap: 5vw; 
-  /* gap: 3rem; */
-  /* display: flex;
-  justify-content: space-between;
-  align-items: flex-start; */
   padding: 2rem;
-  /* gap: 8rem; */
   flex-wrap: nowrap;
   max-width: 100%;
-  /* max-width: 1200px; example: give it room */
   margin: 0 auto;
-  /* overflow: visible; */
   box-sizing: border-box; 
   min-height: 100vh;
 }
 
 .mood-chart-wrapper {
-  /* background-color: white; */
   background-color: rgba(255, 255, 255, 1);
   border-radius: 8px;
   display: block;
   align-items: center;
   height: fit-content; 
-  padding-bottom: 10vh;
 }
 
 .genre-wrapper {
-  /* background-color: white; */
   background-color: rgba(255, 255, 255, 1);
   display: flex;
   flex-direction: column;
   align-items: stretch;
   text-align: center;
   width: 100%; 
-  /* height: 52vh; */
   height: fit-content;
   border-radius: 8px;
   font-size: 0.75rem;
   padding-bottom: 2vh;
 }
-/* 
-.genreDropdown {
-  display: block;
-  width: 100%;
-} */
-
 
 .genreSelector {
   width: 80%; 
@@ -126,13 +99,10 @@ body {
 
 .playlist-wrapper {
   background-color: rgba(255, 255, 255, 1);
-  /* background-color: rgba(255, 255, 255, 0); very light tint */
-  /* backdrop-filter: blur(12px) saturate(180%); */
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 8px;
-  /* background-color: white; */
   height: fit-content;
   padding-bottom: 8vh;
   font-size: 0.8rem;
@@ -142,14 +112,8 @@ body {
 
 .chart-section-title {
   text-align: center;
-  /* Slightly shift title to the left so it aligns with shifted chart */
-  /* transform: translateX(-7%); */
-  /* margin: 0 auto; */
   margin-bottom: 3.5rem;
-  /*margin-top: 0; */
   font-size: 1.17rem;
-  /* transform: translateX(-2%); */
-
 }
 
 .track-section-title {
@@ -158,7 +122,6 @@ body {
   margin-top: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  /* transform: translateX(-1vw);  */
 }
 
 
@@ -178,8 +141,6 @@ body {
 .arrow-label {
   font-size: 0.9rem;
   color: var(--text-secondary);
-  /* margin-top: 0.5rem;
-  margin-bottom: 0.5rem; */
   margin: 0.5rem 0;
   text-align: center;
 }
@@ -195,11 +156,6 @@ body {
   padding-bottom: 0; 
 
 }
-
-/* .middle-arrow-row {
-  overflow: visible;
-  margin: 0 auto;
-} */
 
 .arrow-button {
   background: var(--accent);
@@ -252,20 +208,6 @@ body {
   color: var(--text-secondary);
   font-style: italic;
 }
-/* .mood-chart-wrapper.small-corner {
-  width: 280px;
-  height: 280px;
-  top: 1rem;
-  left: 1rem;
-} */
-/* .mood-chart-wrapper {
-  position: relative;
-  top: 6rem;
-  left: 3rem;
-  width: 400px;
-  height: 450px;
-} */
-
 
 .track-container {
   display: flex;
@@ -290,16 +232,12 @@ body {
 }
 
 .mood-chill {
-  /* animation: moodFade 15s ease-in-out infinite; */
-  /* background-size: 200% 200%; */
   background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #d4fc79);
   background-size: 600% 600%;
   animation: gradientShift 15s ease-in-out infinite;
 }
 
 .mood-depressed {
-  /* animation: moodFade 15s ease-in-out infinite; */
-  /* background-size: 200% 200%; */
   background: linear-gradient(270deg, #003fa5, #ff0000, hsl(0, 0%, 0%));
   background-size: 600% 600%;
   animation: gradientShift 15s ease-in-out infinite;
@@ -333,4 +271,27 @@ body {
   background: linear-gradient(270deg, #e056bd, #e874cd, #d63ba8, #e663c7);
   background-size: 600% 600%;
   animation: gradientShift 15s ease-in-out infinite;
+}
+
+.playlist-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.generate-playlist-btn {
+  margin: 8vh auto 4vh;
+  padding: 12px 26px; 
+  font-size: 1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.generate-playlist-btn:hover {
+  transform: translateY(-2px);
+}
+
+.generate-playlist-btn:active {
+  transform: translateY(0);
 }
