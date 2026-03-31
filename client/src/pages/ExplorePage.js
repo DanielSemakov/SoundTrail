@@ -6,8 +6,6 @@ import { getPlaylistRec } from '../fetch/get-recs';
 import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import GenreSelector from '../components/GenreSelector';
 import styles from './ExplorePage.module.css';
-import GeneratePlaylistButton from '../components/GeneratePlaylistButton';
-
 
 let seeds = [];
 let currentSeed;
@@ -41,25 +39,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
       setBackgroundColorClass(styles.backgroundPink);
     }
   }, [mood]);
-
-
-  // useEffect(() => {
-  //   // GetRecommendations(mood, genre).then(new_track_spotify_id => {
-  //   //   console.log("Spotify ID in explore page: " + new_track_spotify_id);
-  //   //   setTrack(new_track_spotify_id);
-  //   // });
-
-  //   // getPlaylistRec(mood, genre).then(new_playlist => {
-  //   //   console.log("\nReceived playlist in explore page: " + new_playlist);
-  //   //   setPlaylist(new_playlist);
-  //   // });
-  //   getPlaylistRec(mood, genre).then(new_playlist => {
-  //     if (new_playlist) {  // Only update if we got a valid playlist
-  //       console.log("\nReceived playlist in explore page: " + new_playlist);
-  //       setPlaylist(new_playlist);
-  //     }
-  //   });
-  // }, [mood, genre, setPlaylist]);
 
   const adjustMood = (direction) => {
     setMood((prev) => {
@@ -135,43 +114,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
             )
           }
         </div>
-
-
-        {/* <div className={styles['track-arrow-wrapper']}>
-          <h2 className={styles['track-section-title']}>Now Playing</h2>
-
-          <div className={styles['arrow-label']}>↑ More Energetic</div>
-          <div className={styles['arrow-row']}>
-            <button className={styles['arrow-button']} onClick={() => adjustMood('up')}>
-              ↑
-            </button>
-          </div>
-
-          <div className={`${styles['arrow-row']} ${styles.middle}`}>
-            <div className={styles['arrow-label']}>← Sad</div>
-            <button className={styles['arrow-button']} onClick={() => adjustMood('left')}>
-              ←
-            </button>
-
-            {playlist ? (
-              <TrackDisplay playlist={playlist} className={styles['track-display']}/>
-            ) : (
-              <div className={styles['placeholder']}>No playlist loaded</div>
-            )}
-
-            <button className={styles['arrow-button']} onClick={() => adjustMood('right')}>
-              →
-            </button>
-            <div className={styles['arrow-label']}>Happy →</div>
-          </div>
-
-          <div className={styles['arrow-row']}>
-            <button className={styles['arrow-button']} onClick={() => adjustMood('down')}>
-              ↓
-            </button>
-          </div>
-          <div className={styles['arrow-label']}>↓ More Calm</div>
-        </div> */}
       </div> 
     </div>
   );
