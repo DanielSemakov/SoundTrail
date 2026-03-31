@@ -192,12 +192,7 @@ body {
   gap: 1rem;
   margin-top: 1rem;
 }
-/* 
-.moodChill {
-  background: rgb(175, 202, 255);
-  background-size: 600% 600%;
-  animation: gradientShift 30s ease-in-out infinite; 
-}  */
+
 
 .moodChill {
   background: linear-gradient(270deg, 

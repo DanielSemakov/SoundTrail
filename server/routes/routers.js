@@ -11,6 +11,7 @@ const getRecommendedSongs = require('../song-recommendations/fetch-playlist.js')
 const playlist_generator = require("../spotify/playlist-generator.js");
 const sessions = require("../data/sessions.js");
 const cleanUpInactiveSessions = require("../data/sessions_cleanup.js");
+const spotifyAuth = require("../spotify/spotify-auth.js");
 
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -102,8 +103,6 @@ app.post('/api/generate-playlist', async (req, res) => {
     });
   }
 
-  session.lastPlaylistUpdateTime = now;
-
   try {
     const { valence, energy, genre } = req.body;
     console.log("Requested genre:", genre);
@@ -120,6 +119,8 @@ app.post('/api/generate-playlist', async (req, res) => {
 
     await playlist_generator.replaceSongsInPlaylist(playlistId, trackIds);
     console.log("Replaced tracks in playlist.\n")
+
+    session.lastPlaylistUpdateTime = now;
 
     const playlist = {
       id: playlistId,
@@ -183,4 +184,13 @@ app.post('/api/heartbeat', async (req, res) => {
     " for user with session ID: " + sessionId);
 
   res.status(200).send('OK');
+});
+
+app.get('/api/spotify/token', async (req, res) => {
+  const accessToken = await spotifyAuth.getValidAccessToken();
+  console.log("\n\n\n\n\n\n\n\n\n------------------------Access token: " + accessToken + "---------------\n\n\n\n\n");
+  console.log("\n\n\n\n\n\n\n\n\n------------------------Access token: " + accessToken + "---------------\n\n\n\n\n");
+  console.log("\n\n\n\n\n\n\n\n\n------------------------Access token: " + accessToken + "---------------\n\n\n\n\n");
+
+  res.json({ success: true, token: accessToken });
 });
