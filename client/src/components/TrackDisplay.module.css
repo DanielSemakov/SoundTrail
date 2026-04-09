@@ -1,12 +1,18 @@
 :root {
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f5f5f5;
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #6b6b6b;
-  --color-text-tertiary: #a0a0a0;
+  /* --color-background-primary: #009688;
+  --color-background-secondary: #1db8a6;
+  --color-background-tertiary: #00796b; */
+   --color-background-primary: #929292;
+  --color-background-secondary: #5f5f5f;
+  --color-background-tertiary: #797979;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #ececec;
+  --color-text-tertiary: #ececec;
   --color-border-tertiary: rgba(0, 0, 0, 0.15);
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
+  --accent: #009688;
+  --accent-dark:#00796b;
 }
 
 .loading {
@@ -30,6 +36,7 @@
   gap: 16px;
   padding: 1.25rem;
   border-bottom: 0.5px solid var(--color-border-tertiary);
+  background: var(--color-background-tertiary);
 }
 
 .coverPlaceholder {
@@ -50,8 +57,8 @@
 }
 
 .playlistName {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: bold;
   color: var(--color-text-primary);
   margin: 0 0 4px;
   white-space: nowrap;
@@ -60,7 +67,7 @@
 }
 
 .playlistSub {
-  font-size: 13px;
+  font-size: 1rem;
   color: var(--color-text-secondary);
   margin: 0;
 }
@@ -81,6 +88,7 @@
 
 .trackRow:hover {
   background: var(--color-background-secondary);
+  cursor: pointer;
 }
 
 .trackNum {

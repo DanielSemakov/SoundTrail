@@ -104,7 +104,7 @@ body {
   align-items: center;
   border-radius: 8px;
   height: fit-content;
-  padding-bottom: 8vh;
+  padding-bottom: 4vh;
   font-size: 0.8rem;
 }
 
@@ -326,4 +326,36 @@ body {
 
 .generate-playlist-btn:active {
   transform: translateY(0);
+}
+
+.open-spotify-btn {
+  margin: 4vh auto 0;
+  width: 12vw;
+  height: 8vh;
+  font-size: 1rem;
+  /* background: var(--accent); */
+  background: #00ae9d;
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+  /* padding: 12px 26px; 
+  font-size: 1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer; */
+}
+
+.open-spotify-btn:hover {
+  transform: translateY(-2px);
+}
+
+.open-spotify-btn:active {
+  transform: translateY(0);
+}
+
+.track-display-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
