@@ -3,6 +3,8 @@ import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
 import GenreSelector from '../components/GenreSelector';
 import styles from './LandingPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import { getPlaylistRec } from '../fetch/get-recs';
+
 
 
 export default function LandingPage({ mood, setMood, genre, setGenre, playlist, setPlaylist }) {
@@ -22,8 +24,8 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
         console.log("\nReceived playlist in explore page: " + new_playlist);
         setPlaylist(new_playlist);
       }
-  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA})
-
+    })
+  }
 
 
   return (
