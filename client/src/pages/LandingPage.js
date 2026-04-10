@@ -3,6 +3,8 @@ import MoodEnergyChart from '../components/MoodEnergyChart/MoodEnergyChart';
 import GenreSelector from '../components/GenreSelector';
 import styles from './LandingPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import { getPlaylistRec } from '../fetch/get-recs';
+
 
 
 export default function LandingPage({ mood, setMood, genre, setGenre, playlist, setPlaylist }) {
@@ -14,6 +16,17 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
 
 
   const navigate = useNavigate();
+
+  const handleGeneratePlaylist = () => {
+    getPlaylistRec(mood, genre).then(new_playlist => {
+
+      if (new_playlist) {  // Only update if we got a valid playlist
+        console.log("\nReceived playlist in explore page: " + new_playlist);
+        setPlaylist(new_playlist);
+      }
+    })
+  }
+
 
   return (
     <div className={`${styles.container} ${styles.moodChill}`}>
@@ -32,6 +45,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
           <button
             className={styles['btn-generate']}
             onClick={() => {
+              handleGeneratePlaylist();
               navigate('/explore');
             }}
             disabled={loading}

@@ -23,7 +23,6 @@ body {
   max-width: 100%;
 } 
 
-
 .explore-page {
   min-height: 100vh;
   background: var(--bg-page);
@@ -51,12 +50,16 @@ body {
 .nav-button {
   background: var(--accent);
   color: #fff;
-  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  padding: 0.7rem 1.2rem;     
+  border-radius: 0.5rem;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
 }
 
+.nav-button:hover {
+  background: var(--accent-dark);
+}
 
 .explore-body {
   display: grid;
@@ -104,7 +107,7 @@ body {
   align-items: center;
   border-radius: 8px;
   height: fit-content;
-  padding-bottom: 8vh;
+  padding-bottom: 4vh;
   font-size: 0.8rem;
 }
 
@@ -224,55 +227,6 @@ body {
   /* overflow: hidden; */
 }
 
-/* Background animation */
-/* @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.mood-chill {
-  background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #d4fc79);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-}
-
-.mood-depressed {
-  background: linear-gradient(270deg, #003fa5, #ff0000, hsl(0, 0%, 0%));
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-}
-
-.backgroundBlue {
-  background: linear-gradient(270deg, #5c8be0, #7a9de6, #4a7bc8, #6b94e3);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-}
-
-.backgroundGreen {
-  background: linear-gradient(270deg, #6fd0a2, #8dd9b8, #5bbf91, #7ed4aa);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-}
-
-.backgroundYellow {
-  background: linear-gradient(270deg, #f2c94c, #f5d670, #efbc28, #f4d05a);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-}
-
-.backgroundRed {
-  background: linear-gradient(270deg, #f97c7c, #fb9999, #f75c5c, #fa8888);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-}
-
-.backgroundPink {
-  background: linear-gradient(270deg, #e056bd, #e874cd, #d63ba8, #e663c7);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease-in-out infinite;
-} */
-
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -361,18 +315,61 @@ body {
 
 .generate-playlist-btn {
   margin: 8vh auto 4vh;
-  padding: 12px 26px; 
+  /* padding: 12px 26px;  */
   font-size: 1rem;
+  padding: 0.7rem 1.2rem;     
+  border-radius: 0.5rem;
   background: var(--accent);
   color: #fff;
-  border-radius: 15px;
   cursor: pointer;
+  border: none;
 }
 
 .generate-playlist-btn:hover {
   transform: translateY(-2px);
+  background: var(--accent-dark);
 }
 
 .generate-playlist-btn:active {
   transform: translateY(0);
+}
+
+.open-spotify-btn {
+  padding: 0.7rem 1.2rem;     
+  border-radius: 0.5rem;
+
+
+  margin: 4vh auto 0;
+  /* width: 12vw;
+  height: 8vh; */
+  font-size: 1rem;
+  /* background: var(--accent); */
+  background: #009688;
+  color: #fff;
+  /* border-radius: 15px; */
+  cursor: pointer;
+  /* padding: 12px 26px; 
+  font-size: 1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer; */
+  border: none;
+
+}
+
+.open-spotify-btn:hover {
+  transform: translateY(-2px);
+  background: var(--accent-dark);
+
+}
+
+.open-spotify-btn:active {
+  transform: translateY(0);
+}
+
+.track-display-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }

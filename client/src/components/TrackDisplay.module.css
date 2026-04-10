@@ -1,36 +1,132 @@
-.responsive-iframe {
-  width: 90%;
-  height: 70vh;
+:root {
+  /* --color-background-primary: #009688;
+  --color-background-secondary: #1db8a6;
+  --color-background-tertiary: #00796b; */
+   --color-background-primary: #929292;
+  --color-background-secondary: #5f5f5f;
+  --color-background-tertiary: #797979;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #ececec;
+  --color-text-tertiary: #ececec;
+  --color-border-tertiary: rgba(0, 0, 0, 0.15);
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --accent: #009688;
+  --accent-dark:#00796b;
 }
 
-.track-meta {
-  padding: 0.5rem 1rem;
-  background: var(--bg-page);
-  color: var(--text-primary);
-  border-bottom: 1px solid #eee;
-  font-size: 0.9rem;
+.loading {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  padding: 1rem;
 }
 
-.loading,
-.error {
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  width: 33vw;
+  margin: 0rem;
+}
+
+.header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 160px;
-  color: var(--text-secondary);
+  gap: 16px;
+  padding: 1.25rem;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  background: var(--color-background-tertiary);
 }
 
-.spinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid #ccc;
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+.coverPlaceholder {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--border-radius-md);
+  background: var(--color-background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.playlistName {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-text-primary);
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlistSub {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.trackList {
+  padding: 0.5rem 0;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.trackRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 1.25rem;
+  transition: background 0.15s ease;
+}
+
+.trackRow:hover {
+  background: var(--color-background-secondary);
+  cursor: pointer;
+}
+
+.trackNum {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  width: 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.trackArtPlaceholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: var(--color-background-secondary);
+  flex-shrink: 0;
+}
+
+.trackInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.trackName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackArtist {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

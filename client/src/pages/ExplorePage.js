@@ -71,6 +71,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
 
   const handleGeneratePlaylist = () => {
     getPlaylistRec(mood, genre).then(new_playlist => {
+
       if (new_playlist) {  // Only update if we got a valid playlist
         console.log("\nReceived playlist in explore page: " + new_playlist);
         setPlaylist(new_playlist);
@@ -78,6 +79,13 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
     })
   }
 
+  const handleOpenSpotify = () => {
+    console.log("Open Spotify button pressed!");
+    const playlistUrl = `https://open.spotify.com/playlist/${playlist.id}`; 
+
+    // Open the URL in a new tab
+    window.open(playlistUrl, '_blank');
+  }
 
   return (
     <div className={styles['explore-page']}>
@@ -107,8 +115,17 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         </div>
         <div className={styles['playlist-wrapper']}>
           <h2>Your Playlist</h2>
+          {/* {playlist ? ( */}
           {playlist ? (
-              <TrackDisplay playlist={playlist} className={styles['track-display']}/>
+              <div className={styles['track-display-wrapper']}>
+                <TrackDisplay playlist={playlist} className={styles['track-display']}/>
+                <button 
+                  type="button" 
+                  className={styles['open-spotify-btn']} 
+                  onClick={handleOpenSpotify}>
+                  Open in Spotify
+              </button>  
+              </div>
             ) : (
               <div className={styles['placeholder']}>No playlist loaded</div>
             )
