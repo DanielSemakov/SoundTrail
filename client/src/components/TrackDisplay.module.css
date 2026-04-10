@@ -74,7 +74,7 @@
 
 .trackList {
   padding: 0.5rem 0;
-  max-height: 320px;
+  max-height: 55vh;
   overflow-y: auto;
 }
 
