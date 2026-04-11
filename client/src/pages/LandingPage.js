@@ -37,7 +37,7 @@ export default function LandingPage({ mood, setMood, genre, setGenre, playlist, 
       <div className={styles.card}>
         <h2 className={styles['card-title']}>Your Mood Grid</h2>
         <div className={styles['chart-wrapper']}>
-          <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={false}/>
+          <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
         </div>
         <div className={styles.controls}>
           <label>Genre: </label>
