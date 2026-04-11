@@ -73,6 +73,12 @@ body {
   min-height: 100vh;
 }
 
+.chart-size-wrapper {
+  width: 26vw;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
 .mood-chart-wrapper {
   background-color: rgba(255, 255, 255, 1);
   border-radius: 8px;
