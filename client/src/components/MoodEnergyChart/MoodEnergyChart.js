@@ -30,7 +30,6 @@ export default function MoodEnergyChart({ updateMood, mood }) {
 
   const chartRef = useRef(null);
 
-  
 
   const getCoordsFromEvent = (e) => {
     const chart = chartRef.current;
@@ -73,23 +72,7 @@ export default function MoodEnergyChart({ updateMood, mood }) {
         className={`${styles["chart-background"]} ${backgroundColorClass || ''}`}        
         style={{ width: "100%", height: "100%", position: "relative", cursor: "pointer", borderRadius: 0 }}
       >
-
-
-        
-        {/* <div className={styles["quadrant-top-left"]} />
-        <div className={styles["quadrant-top-right"]} />
-        <div className={styles["quadrant-bottom-left"]} />
-        <div className={styles["quadrant-bottom-right"]} /> */}
-        {/* Crosshair lines */}
-        {/* <div style={{
-          position: "absolute", left: "50%", top: 0, bottom: 0,
-          width: "2px", background: "black", transform: "translateX(-50%)"
-        }} />
-        <div style={{
-          position: "absolute", top: "50%", left: 0, right: 0,
-          height: "2px", background: "black", transform: "translateY(-50%)"
-        }} /> */}
-
+  
         {/* Current mood dot */}
         {mood.valence != null && mood.energy != null && (
           <div style={{
