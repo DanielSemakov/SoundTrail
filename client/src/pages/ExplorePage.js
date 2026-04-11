@@ -96,7 +96,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         </button>
       </header>
 
-      <div className={`${styles['explore-body']} ${backgroundColorClass}`}>
+      <div className={`${styles['explore-body']}`}>
         <div className={styles['genre-wrapper']}>
           <h2>Genre</h2>
           <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreSelector}/>
@@ -104,7 +104,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
             <div className={styles['chart-size-wrapper']}>
-              <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
+              <MoodEnergyChart updateMood={setMood} mood={mood}/>
             </div>
             <div className={styles['playlist-button-wrapper']} >
               <button 

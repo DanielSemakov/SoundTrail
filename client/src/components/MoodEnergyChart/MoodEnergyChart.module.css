@@ -6,6 +6,7 @@
     margin: 0 auto; */
     width: 100%;
     height: 100%;
+    border: 2px solid black;
   }
   
   /* optional info text styling if you use it */
@@ -21,29 +22,78 @@
   }
   
   .chart-background {
-    /*background: linear-gradient
-    to top right,
+    /* background: linear-gradient(to top right,
     #adc8ff 0%,
     #a0c4ff 25%,
     #fdffb6 50%,
     #ffe4a8 75%,
     #ffc8dd 100%
-  );
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden; */
+    ); */
+    /* border: 1px solid #ccc; */
+    border-radius: 8px;
+    overflow: hidden;
 
-  background: linear-gradient(
+    background: white;
+    /* background-image: url('../../images/music-note-icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%; */
+
+  /*ORIGINAL CHART CSS*/
+  /* background: linear-gradient(
     to top right,
-    #5c8be0 0%,       
-    #6fd0a2 25%,     
-    #f2c94c 50%,      
-    #f97c7c 75%,      
-    #e056bd 100%     
-  );
+    rgba(92, 139, 224) 0%,       
+    rgba(111, 208, 162) 25%,     
+    rgba(242, 201, 76) 50%,      
+    rgba(249, 124, 124) 75%,      
+    rgba(224, 86, 189) 100%     
+  ); */
+
+  /* background: linear-gradient(
+    to top right,
+    rgba(92, 139, 224, 0.4) 0%,       
+    rgba(111, 208, 162, 0.4) 25%,     
+    rgba(242, 201, 76, 0.4) 50%,      
+    rgba(249, 124, 124, 0.4) 75%,      
+    rgba(224, 86, 189, 0.4) 100%     
+  ); */
+
+  /* background: #ededed; */
+
+
+
+
+
+
+  /* background:
+    radial-gradient(circle at top right,    rgba(255, 220, 0,   1) 0%, transparent 50%),
+    radial-gradient(circle at top left,     rgba(220, 50,  50,  1) 0%, transparent 50%),
+    radial-gradient(circle at bottom left,  rgba(50,  100, 220, 1) 0%, transparent 50%),
+    radial-gradient(circle at bottom right, rgba(50,  180, 80,  1) 0%, transparent 50%),
+    conic-gradient(from 90deg at 50% 50%,
+      rgba(255, 220, 0,   1) 0deg   90deg,
+      rgba(220, 50,  50,  1) 90deg  180deg,
+      rgba(50,  100, 220, 1) 180deg 270deg,
+      rgba(50,  180, 80,  1) 270deg 360deg
+    ); */
+
+   /* background: */
+    /* radial-gradient(#fff, #6969694a) */
+    /* radial-gradient(circle at top right,    rgb(255, 234, 71) 0%, rgba(251, 255, 21, 0) 50%), */
+    /* radial-gradient(circle at top left,     rgba(220, 50,  50,  1) 0%, rgba(220, 50,  50,  0) 50%),
+    radial-gradient(circle at bottom left,  rgba(50,  100, 220, 1) 0%, rgba(50,  100, 220, 0) 50%),
+    radial-gradient(circle at bottom right, rgba(50,  180, 80,  1) 0%, rgba(50,  180, 80,  0) 50%), */
+    /* radial-gradient(circle at center, rgb(194, 194, 194) 0%, rgba(78, 78, 78, 0) 70%),
+    conic-gradient(from 90deg at 50% 50%,
+      rgba(50,  180, 80,  1) 0deg 90deg,
+      rgba(220, 50,  50,  1) 90deg  180deg,
+      rgba(50,  100, 220, 1) 180deg 270deg,
+      rgba(255, 220, 0,   1) 270deg   360deg 
+    ); */
+  /* background-color: white; */
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);  */
   overflow: visible; 
 
 
@@ -57,4 +107,150 @@
 .chart-background svg:focus,
 .chart-background div:focus {
   outline: none;
+}
+
+.quadrant-top-left,
+.quadrant-top-right,
+.quadrant-bottom-left,
+.quadrant-bottom-right {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  pointer-events: none;
+}
+/* 
+.quadrant-top-left {
+  top: 0; left: 0;
+  background: radial-gradient(circle at top left, rgba(220, 50, 50, 1) 80%, rgba(220, 50, 50, 0) 100%);
+}
+
+.quadrant-top-right {
+  top: 0; right: 0;
+  background: radial-gradient(circle at top right, rgba(255, 220, 0, 1) 0%, rgba(255, 220, 0, 0) 100%);
+}
+
+.quadrant-bottom-left {
+  bottom: 0; left: 0;
+  background: radial-gradient(circle at bottom left, rgba(50, 100, 220, 1) 0%, rgba(50, 100, 220, 0) 100%);
+}
+
+.quadrant-bottom-right {
+  bottom: 0; right: 0;
+  background: radial-gradient(circle at bottom right, rgba(50, 180, 80, 1) 0%, rgba(50, 180, 80, 0) 100%);
+} */
+/* 
+.chart-background {
+  background: white;
+} */
+/* 
+.quadrant-top-left {
+  top: 0; left: 0;
+  background: radial-gradient(circle at bottom right, rgba(255, 180, 180, 1) 0%, rgba(220, 50, 50, 1) 100%);
+}
+
+.quadrant-top-right {
+  top: 0; right: 0;
+  background: radial-gradient(circle at bottom left, rgba(255, 240, 180, 1) 0%, rgba(255, 200, 0, 1) 100%);
+}
+
+.quadrant-bottom-left {
+  bottom: 0; left: 0;
+  background: radial-gradient(circle at top right, rgba(180, 200, 255, 1) 0%, rgba(50, 100, 220, 1) 100%);
+}
+
+.quadrant-bottom-right {
+  bottom: 0; right: 0;
+  background: radial-gradient(circle at top left, rgba(180, 255, 200, 1) 0%, rgba(50, 180, 80, 1) 100%);
+}
+
+.chart-background {
+  background: white;
+} */
+
+/* .quadrant-top-left {
+  top: 0; left: 0;
+  background: rgba(220, 50, 50, 0.12);
+}
+
+.quadrant-top-right {
+  top: 0; right: 0;
+  background: rgba(255, 200, 0, 0.12);
+}
+
+.quadrant-bottom-left {
+  bottom: 0; left: 0;
+  background: rgba(50, 100, 220, 0.12);
+}
+
+.quadrant-bottom-right {
+  bottom: 0; right: 0;
+  background: rgba(50, 180, 80, 0.12);
+}
+
+.chart-background {
+  background: white;
+} */
+
+.backgroundBlue {
+  background: linear-gradient(270deg, 
+    rgba(92, 139, 224, 0.4), 
+    rgba(122, 157, 230, 0.4), 
+    rgba(74, 123, 200, 0.4), 
+    rgba(107, 148, 227, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundGreen {
+  background: linear-gradient(270deg, 
+    rgba(111, 208, 162, 0.4), 
+    rgba(141, 217, 184, 0.4), 
+    rgba(91, 191, 145, 0.4), 
+    rgba(126, 212, 170, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundYellow {
+  /* background: linear-gradient(270deg, 
+    rgba(242, 201, 76, 0.7), 
+    rgba(245, 214, 112, 0.7), 
+    rgba(239, 188, 40, 0.7), 
+    rgba(244, 208, 90, 0.7)
+  ); */
+  background: rgb(255, 255, 100);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundRed {
+  background: rgb(242, 145, 145);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.backgroundPink {
+  background: linear-gradient(270deg, 
+    rgba(224, 86, 189, 0.4), 
+    rgba(197, 99, 174, 0.4), 
+    rgba(214, 59, 168, 0.4), 
+    rgba(172, 74, 149, 0.4)
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+/* .backgroundRainbowGradient {
+  /* background:
+    radial-gradient(circle at top right,    rgba(255, 200, 0,   0.3) 0%, transparent 60%),
+    radial-gradient(circle at bottom right, rgba(50,  180, 80,  0.3) 0%, transparent 60%),
+    radial-gradient(circle at bottom left,  rgba(50,  100, 220, 0.3) 0%, transparent 60%),
+    radial-gradient(circle at top left,     rgba(220, 50,  50,  0.3) 0%, transparent 60%),
+    white; 
+} */
+
+.backgroundWhite {
+  background: white;
 }
