@@ -17,29 +17,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
   // Hook for keyboard arrow controls
   useMoodKeyControls(mood, setMood);
 
-  const [backgroundColorClass, setBackgroundColorClass] = useState(null);
-
-  useEffect(() => {
-    const valenceEnergySum = Math.round((mood.valence + mood.energy) * 10) / 10;
-    console.log("VALENCE ENERGY SUM: " + valenceEnergySum)
-
-    if (valenceEnergySum <= 0.3) {
-      setBackgroundColorClass(styles.backgroundBlue);
-    }
-    else if (valenceEnergySum <= 0.8) {
-      setBackgroundColorClass(styles.backgroundGreen);
-    }
-    else if (valenceEnergySum <= 1.2) {
-      setBackgroundColorClass(styles.backgroundYellow);
-    }
-    else if (valenceEnergySum <= 1.6) {
-      setBackgroundColorClass(styles.backgroundRed);
-    }
-    else {
-      setBackgroundColorClass(styles.backgroundPink);
-    }
-  }, [mood]);
-
   const adjustMood = (direction) => {
     setMood((prev) => {
       let { valence, energy } = prev;
@@ -96,7 +73,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         </button>
       </header>
 
-      <div className={`${styles['explore-body']} ${backgroundColorClass}`}>
+      <div className={`${styles['explore-body']}`}>
         <div className={styles['genre-wrapper']}>
           <h2>Genre</h2>
           <GenreSelector genre={genre} setGenre={setGenre} className={styles.genreSelector}/>
@@ -104,7 +81,7 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         <div className={styles['mood-chart-wrapper']}>
             <h2 className={styles['chart-section-title']}>Mood Grid</h2> 
             <div className={styles['chart-size-wrapper']}>
-              <MoodEnergyChart updateMood={setMood} mood={mood} trailEnabled={true}/>
+              <MoodEnergyChart updateMood={setMood} mood={mood}/>
             </div>
             <div className={styles['playlist-button-wrapper']} >
               <button 
