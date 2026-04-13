@@ -14,7 +14,6 @@
   --card-shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -33,7 +32,6 @@ body {
   box-sizing: border-box;
 
 }
-
 
 .explore-header {
   background: #fff;
@@ -118,8 +116,6 @@ body {
   font-size: 0.8rem;
 }
 
-
-
 .chart-section-title {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -133,8 +129,6 @@ body {
   font-size: 1.25rem;
   font-weight: 600;
 }
-
-
 
 .track-arrow-wrapper {
   display: flex;
@@ -194,10 +188,6 @@ body {
   transform: translateX(-10vw);
 }
 
-
-
-
-
 .track-container {
   width: 320px;
   height: auto;
@@ -212,7 +202,6 @@ body {
   height: 0.1vw;
 }
 
-
 .placeholder {
   color: var(--text-secondary);
   font-style: italic;
@@ -225,12 +214,10 @@ body {
   width: 100%;
 }
 
-
 /* prevent overflow from track embed */
 .track-container iframe {
   max-width: 100%;
   border-radius: 12px;
-  /* overflow: hidden; */
 }
 
 .playlist-button-wrapper {
@@ -240,7 +227,6 @@ body {
 
 .generate-playlist-btn {
   margin: 8vh auto 4vh;
-  /* padding: 12px 26px;  */
   font-size: 1rem;
   padding: 0.7rem 1.2rem;     
   border-radius: 0.5rem;
@@ -262,25 +248,11 @@ body {
 .open-spotify-btn {
   padding: 0.7rem 1.2rem;     
   border-radius: 0.5rem;
-
-
   margin: 4vh auto 0;
-  /* width: 12vw;
-  height: 8vh; */
   font-size: 1rem;
-  /* background: var(--accent); */
   background: #009688;
   color: #fff;
-  /* border-radius: 15px; */
   cursor: pointer;
-  /* padding: 12px 26px; 
-  font-size: 1rem;
-  padding: 0.7rem 1.2rem;     
-  border-radius: 0.5rem;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 15px;
-  cursor: pointer; */
   border: none;
 
 }

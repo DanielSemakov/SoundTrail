@@ -7,38 +7,12 @@ import useMoodKeyControls from '../hooks/useMoodKeyControls';
 import GenreSelector from '../components/GenreSelector';
 import styles from './ExplorePage.module.css';
 
-let seeds = [];
-let currentSeed;
-const MAX_SEEDS_LENGTH = 6;
 export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, setPlaylist }) {
   const navigate = useNavigate();
   let features = {loudness: 0, mode: 1};
   
   // Hook for keyboard arrow controls
   useMoodKeyControls(mood, setMood);
-
-  // const [backgroundColorClass, setBackgroundColorClass] = useState(null);
-
-  // useEffect(() => {
-  //   const valenceEnergySum = Math.round((mood.valence + mood.energy) * 10) / 10;
-  //   console.log("VALENCE ENERGY SUM: " + valenceEnergySum)
-
-  //   if (valenceEnergySum <= 0.3) {
-  //     setBackgroundColorClass(styles.backgroundBlue);
-  //   }
-  //   else if (valenceEnergySum <= 0.8) {
-  //     setBackgroundColorClass(styles.backgroundGreen);
-  //   }
-  //   else if (valenceEnergySum <= 1.2) {
-  //     setBackgroundColorClass(styles.backgroundYellow);
-  //   }
-  //   else if (valenceEnergySum <= 1.6) {
-  //     setBackgroundColorClass(styles.backgroundRed);
-  //   }
-  //   else {
-  //     setBackgroundColorClass(styles.backgroundPink);
-  //   }
-  // }, [mood]);
 
   const adjustMood = (direction) => {
     setMood((prev) => {
@@ -117,7 +91,6 @@ export default function ExplorePage({ mood, setMood, genre, setGenre, playlist, 
         </div>
         <div className={styles['playlist-wrapper']}>
           <h2>Your Playlist</h2>
-          {/* {playlist ? ( */}
           {playlist ? (
               <div className={styles['track-display-wrapper']}>
                 <TrackDisplay playlist={playlist} className={styles['track-display']}/>
