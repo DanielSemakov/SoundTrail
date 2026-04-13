@@ -55,15 +55,6 @@
   background: rgb(242, 145, 145);
 }
 
-/* .backgroundRainbowGradient {
-  /* background:
-    radial-gradient(circle at top right,    rgba(255, 200, 0,   0.3) 0%, transparent 60%),
-    radial-gradient(circle at bottom right, rgba(50,  180, 80,  0.3) 0%, transparent 60%),
-    radial-gradient(circle at bottom left,  rgba(50,  100, 220, 0.3) 0%, transparent 60%),
-    radial-gradient(circle at top left,     rgba(220, 50,  50,  0.3) 0%, transparent 60%),
-    white; 
-} */
-
 .backgroundWhite {
   background: white;
 }
