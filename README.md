@@ -4,8 +4,8 @@ SoundTrail is a full-stack web application that generates personalized Spotify p
 
 ## Website Link
  
-[🔗 danielsemakov.github.io/SoundTrail](#)
- 
+[danielsemakov.github.io/SoundTrail](https://danielsemakov.github.io/SoundTrail) 
+
 ## Demo
 ![SoundTrail Demo](./assets/SoundTrailDemo.gif)
  
@@ -24,6 +24,7 @@ SoundTrail is a full-stack web application that generates personalized Spotify p
 | Backend | JavaScript, Node.js, Express |
 | APIs | Spotify Web API |
 | Testing | React Testing Library  |
+| Deployment | GitHub Pages (frontend), Render (backend) |
 | Project Management | Taiga |
  
 ## Team
